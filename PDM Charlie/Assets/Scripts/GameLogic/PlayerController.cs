@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    public GameObject UI = null;
-    public List<PlayerController> players;
     // Start is called before the first frame update
     void Start()
     {
