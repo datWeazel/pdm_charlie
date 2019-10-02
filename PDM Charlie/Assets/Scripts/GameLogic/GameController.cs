@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -15,6 +16,27 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+    }
+
+    public bool DoesPlayerExist(int ControllerId){
+        return (players.FirstOrDefault(p => p.ControllerId == ControllerId) != null);
+    }
+
+    public void AddPlayer(int ControllerId){
+        PlayerController player = players.FirstOrDefault(p => p.ControllerId == ControllerId);
+        if(player != null) return;
+
+        player = new PlayerController(){
+            ControllerId = ControllerId
+        };
+
+        players.Add(player);
+    }
+
+    public void RemovePlayer(int ControllerId){
+        PlayerController player = players.FirstOrDefault(p => p.ControllerId == ControllerId);
+        if(player == null) return;
+
+        players.Remove(player);
     }
 }
