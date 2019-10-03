@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterSelectionController : MonoBehaviour
 {
-    public GameObject GameLogic = null;
+    public GameObject GameController = null;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,7 @@ public class CharacterSelectionController : MonoBehaviour
         for(int i = 1; i <= 4; i++){
             if (Input.GetButtonUp("Joy_Start_" + i))
             {
-                GameController GameCtrl = GameLogic.GetComponent<GameController>();
+                GameController GameCtrl = GameController.GetComponent<GameController>();
                 if(!GameCtrl.DoesPlayerExist(i))
                 {
                     GameCtrl.AddPlayer(i);
