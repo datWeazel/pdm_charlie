@@ -41,6 +41,9 @@ public class GameController : MonoBehaviour
             players.Remove(player);
         }
 
+        CameraLogic camLogic = Camera.main.GetComponent<CameraLogic>();
+        if (camLogic != null) camLogic.RemovePlayerFromCam(player.CharacterController.transform);
+
         if (this.rules.team_size == 1)
         {
             if (players.Count == 1)
