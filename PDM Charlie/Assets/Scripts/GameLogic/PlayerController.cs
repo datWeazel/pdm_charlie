@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
@@ -16,9 +18,12 @@ public class PlayerController : MonoBehaviour
     public string Character = "";
     public GameCharacterController CharacterController = null;
 
+    private Vector2 moveVector = new Vector2();
+
     // Start is called before the first frame update
     void Start()
     {
+        InputUser.PerformPairingWithDevice(Gamepad.current);
         DontDestroyOnLoad(this);
         GameController = GameObject.Find("GameController");
         GameControllerScript = GameController.GetComponent<GameController>();
@@ -28,20 +33,25 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var gamepad = Gamepad.current;
-
         if (GameControllerScript.GetGameState() == "character_select")
         {
             if (!Selector.activeSelf) Selector.SetActive(true);
 
-            Selector.transform.position += new Vector3((gamepad.leftStick.x.ReadValue() * SelectorSpeed), (gamepad.leftStick.y.ReadValue() * SelectorSpeed), 0);
+            if (moveVector != new Vector2())
+            {
+                Selector.transform.position += new Vector3((moveVector.x * SelectorSpeed), (moveVector.y * SelectorSpeed), 0);
+            }
         }
         else
         {
             if (Selector.activeSelf) Selector.SetActive(false);
+
             if (GameControllerScript.GetGameState() == "match_active")
             {
-                this.CharacterController?.Move(new Vector2(gamepad.leftStick.x.ReadValue(), gamepad.leftStick.y.ReadValue()));
+                if (moveVector != new Vector2())
+                {
+                    this.CharacterController?.Move(new Vector2(moveVector.x, moveVector.y));
+                }
             }
         }
     }
@@ -58,33 +68,68 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        //Vector2 analogVector = value.Get<Vector2>();
-        //Debug.Log($"Player move! ({analogVector.ToString()})");
+        Vector2 analogVector = value.Get<Vector2>();
+        Debug.Log($"Player move! ({analogVector.ToString()})");
+        moveVector = analogVector;
+    }
+
+    public void OnPoint(InputValue value)
+    {
+        Vector2 analogVector = value.Get<Vector2>();
+        Selector.transform.position = analogVector;
+    }
+
+    public void OnClick()
+    {
+        Debug.Log("OnClick");
+        if (GameControllerScript.GetGameState() == "character_select")
+        {
+            Select();
+        }
     }
 
     public void OnJump(InputValue value)
     {
         if(GameControllerScript.GetGameState() == "character_select")
         {
-            PointerEventData cursor = new PointerEventData(EventSystem.current);
-            cursor.position = Selector.transform.position;
-            List<RaycastResult> objectsHit = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(cursor, objectsHit);
-
-            foreach(RaycastResult rr in objectsHit)
-            {
-                Transform NameTag = rr.gameObject.transform.Find("NameTag");
-                if (NameTag != null)
-                {
-                    Character = NameTag.GetComponent<TextMeshProUGUI>().text;
-                    GameObject.Find("CharacterSelect").GetComponent<CharacterSelectionController>().UpdateSelectedCharacter(this.transform.GetComponent<PlayerInput>(), Character);
-                    Debug.Log($"Player selected character {NameTag.GetComponent<TextMeshProUGUI>().text} ");
-                }
-            }
+            Select();
         }
         else if (GameControllerScript.GetGameState() == "match_active")
         {
             this.CharacterController?.Jump();
+        }
+    }
+
+    public void Select()
+    {
+        PointerEventData cursor = new PointerEventData(EventSystem.current);
+        cursor.position = Selector.transform.position;
+        List<RaycastResult> objectsHit = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(cursor, objectsHit);
+
+        foreach (RaycastResult rr in objectsHit)
+        {
+            Transform NameTag = rr.gameObject.transform.Find("NameTag");
+            if (NameTag != null)
+            {
+                Character = NameTag.GetComponent<TextMeshProUGUI>().text;
+                GameObject.Find("CharacterSelect").GetComponent<CharacterSelectionController>().UpdateSelectedCharacter(this.transform.GetComponent<PlayerInput>(), Character);
+                Debug.Log($"Player selected character {NameTag.GetComponent<TextMeshProUGUI>().text} ");
+
+                return;
+            }
+
+            if(rr.gameObject.name == "btn_back")
+            {
+                rr.gameObject.GetComponent<Button>().onClick.Invoke();
+                return;
+            }
+
+            if (rr.gameObject.name == "btn_start")
+            {
+                rr.gameObject.GetComponent<Button>().onClick.Invoke();
+                return;
+            }
         }
     }
 
