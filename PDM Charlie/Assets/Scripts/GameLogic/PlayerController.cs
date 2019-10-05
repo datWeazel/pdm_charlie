@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
     public float SelectorSpeed = 1.0f;
     private GameObject GameController = null;
     private GameController GameControllerScript = null;
-    private string Character = "";
+    public string Character = "";
+    public GameCharacterController CharacterController = null;
 
     // Start is called before the first frame update
     void Start()
@@ -33,12 +34,26 @@ public class PlayerController : MonoBehaviour
         {
             if (!Selector.activeSelf) Selector.SetActive(true);
 
-            Selector.transform.position += new Vector3(gamepad.leftStick.x.ReadValue(), gamepad.leftStick.y.ReadValue(), 0);
+            Selector.transform.position += new Vector3((gamepad.leftStick.x.ReadValue() * SelectorSpeed), (gamepad.leftStick.y.ReadValue() * SelectorSpeed), 0);
         }
         else
         {
             if (Selector.activeSelf) Selector.SetActive(false);
+            if (GameControllerScript.GetGameState() == "match_active")
+            {
+                this.CharacterController?.Move(new Vector2(gamepad.leftStick.x.ReadValue(), gamepad.leftStick.y.ReadValue()));
+            }
         }
+    }
+
+    public GameObject CreateCharacter(GameObject characterPrefab, Vector3 position)
+    {
+        Debug.Log($"Creating character {characterPrefab.name} at position {position}");
+        GameObject character = Instantiate(characterPrefab, this.transform);
+        character.transform.position = position;
+        this.CharacterController = character.GetComponent<GameCharacterController>();
+
+        return character;
     }
 
     public void OnMove(InputValue value)
@@ -49,15 +64,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        Debug.Log("Player jump!");
         if(GameControllerScript.GetGameState() == "character_select")
         {
             PointerEventData cursor = new PointerEventData(EventSystem.current);
             cursor.position = Selector.transform.position;
             List<RaycastResult> objectsHit = new List<RaycastResult>();
             EventSystem.current.RaycastAll(cursor, objectsHit);
-            int count = objectsHit.Count;
-            int x = 0;
 
             foreach(RaycastResult rr in objectsHit)
             {
@@ -69,28 +81,35 @@ public class PlayerController : MonoBehaviour
                     Debug.Log($"Player selected character {NameTag.GetComponent<TextMeshProUGUI>().text} ");
                 }
             }
-
+        }
+        else if (GameControllerScript.GetGameState() == "match_active")
+        {
+            this.CharacterController?.Jump();
         }
     }
 
     public void OnLightAttack(InputValue value)
     {
-        Debug.Log("Player lightAttack!");
+        if (GameControllerScript.GetGameState() == "match_active")
+        {
+            this.CharacterController?.Attack(false);
+        }
     }
 
     public void OnHeavyAttack(InputValue value)
     {
-        Debug.Log("Player heavyAttack!");
+        if (GameControllerScript.GetGameState() == "match_active")
+        {
+            this.CharacterController?.Attack(true);
+        }
     }
 
     public void OnStart(InputValue value)
     {
-        Debug.Log("Player start!");
     }
 
     public void OnSelect(InputValue value)
     {
-        Debug.Log("Player select!");
     }
 
     bool rectOverlaps(RectTransform rectTrans1, RectTransform rectTrans2)

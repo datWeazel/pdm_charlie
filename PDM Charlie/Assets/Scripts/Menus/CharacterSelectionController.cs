@@ -16,7 +16,8 @@ public class CharacterSelectionController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        MatchRules rules = new MatchRules();
+        GameController.GetComponent<GameController>().UpdateMatchRules(rules, "MayanStage");
     }
 
     // Update is called once per frame
@@ -34,6 +35,7 @@ public class CharacterSelectionController : MonoBehaviour
                 ContainerToPlayer.Add(player, emptyContainer);
                 player.GetComponentInParent<PlayerController>().Id = Convert.ToInt32(emptyContainer.name.Replace("PlayerContainer_", ""));
                 emptyContainer.transform.Find("join_help").GetComponent<TextMeshProUGUI>().text = $"P{player.GetComponentInParent<PlayerController>().Id} Select character";
+                GameController.GetComponent<GameController>().AddPlayer(player.GetComponentInParent<PlayerController>());
                 Debug.Log("Player joined!");
             }
         }
@@ -67,6 +69,7 @@ public class CharacterSelectionController : MonoBehaviour
             ContainerToPlayer.TryGetValue(player, out container);
             container.transform.Find("join_help").GetComponent<TextMeshProUGUI>().text = "Press Start!";
             ContainerToPlayer.Remove(player);
+            GameController.GetComponent<GameController>().RemovePlayer(player.GetComponentInParent<PlayerController>());
             Debug.Log("Player left!");
         }
     }
