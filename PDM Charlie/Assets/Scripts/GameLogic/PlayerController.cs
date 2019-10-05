@@ -11,10 +11,14 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     public int Id = -1;
+    public int Stocks = 1;
+    public Vector3 Spawnpoint = new Vector3();
+
     public GameObject Selector = null;
     public float SelectorSpeed = 1.0f;
     private GameObject GameController = null;
     private GameController GameControllerScript = null;
+
     public string Character = "";
     public GameCharacterController CharacterController = null;
 
@@ -56,12 +60,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void HitDeathZone()
+    {
+        this.Stocks--;
+
+        if(this.Stocks == 0)
+        {
+            GameControllerScript.RemovePlayer(this);
+            GameObject.Destroy(this.gameObject);
+            return;
+        }
+
+        this.CharacterController.SetPosition(Spawnpoint);
+    }
+
     public GameObject CreateCharacter(GameObject characterPrefab, Vector3 position)
     {
         Debug.Log($"Creating character {characterPrefab.name} at position {position}");
         GameObject character = Instantiate(characterPrefab, this.transform);
         character.transform.position = position;
         this.CharacterController = character.GetComponent<GameCharacterController>();
+        this.Spawnpoint = position;
 
         return character;
     }

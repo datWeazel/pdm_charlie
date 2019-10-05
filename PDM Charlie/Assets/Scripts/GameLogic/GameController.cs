@@ -40,6 +40,14 @@ public class GameController : MonoBehaviour
         {
             players.Remove(player);
         }
+
+        if (this.rules.team_size == 1)
+        {
+            if (players.Count == 1)
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+        }
     }
 
     public void UpdateMatchRules(MatchRules rules, string stage)
@@ -58,6 +66,7 @@ public class GameController : MonoBehaviour
             if(character != null)
             {
                 GameObject c = player.CreateCharacter(character, new Vector3(-7.37f, 1.8f, -0.12f));
+                player.Stocks = this.rules.stocks;
             }
         }
         StartCoroutine(StartMatch(3));

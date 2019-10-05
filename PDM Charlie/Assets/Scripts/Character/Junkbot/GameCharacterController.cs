@@ -68,7 +68,13 @@ public class GameCharacterController : MonoBehaviour
         this.movementVector = movementVector;
     }
 
-    public bool IsGrounded(){
-       return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
-     }
+    public bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        this.transform.position = position;
+    }
 }

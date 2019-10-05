@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CharacterSelect
   - Character
+  - DeathZone
   layers:
   - Default
   - TransparentFX
