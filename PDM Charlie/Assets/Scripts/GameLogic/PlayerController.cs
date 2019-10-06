@@ -138,15 +138,10 @@ public class PlayerController : MonoBehaviour
                 return;
             }
 
-            if(rr.gameObject.name == "btn_back")
+            Button btn = rr.gameObject.GetComponent<Button>();
+            if(btn != null)
             {
-                rr.gameObject.GetComponent<Button>().onClick.Invoke();
-                return;
-            }
-
-            if (rr.gameObject.name == "btn_start")
-            {
-                rr.gameObject.GetComponent<Button>().onClick.Invoke();
+                btn.onClick.Invoke();
                 return;
             }
         }
