@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
         DontDestroyOnLoad(this);
         GameController = GameObject.Find("GameController");
         GameControllerScript = GameController.GetComponent<GameController>();
-        Selector.GetComponentInChildren<TextMeshProUGUI>().text = "Player " + Id;
+        Selector.GetComponentInChildren<TextMeshProUGUI>().text = $"P {this.Id}";
     }
 
     // Update is called once per frame
@@ -87,9 +87,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        Vector2 analogVector = value.Get<Vector2>();
-        Debug.Log($"Player move! ({analogVector.ToString()})");
-        moveVector = analogVector;
+        moveVector = value.Get<Vector2>();
     }
 
     public void OnPoint(InputValue value)
@@ -128,19 +126,29 @@ public class PlayerController : MonoBehaviour
 
         foreach (RaycastResult rr in objectsHit)
         {
-            Transform NameTag = rr.gameObject.transform.Find("NameTag");
-            if (NameTag != null)
+            Transform CharacterNameTag = rr.gameObject.transform.Find("CharacterNameTag");
+            if (CharacterNameTag != null)
             {
-                Character = NameTag.GetComponent<TextMeshProUGUI>().text;
+                Character = CharacterNameTag.GetComponent<TextMeshProUGUI>().text;
                 GameObject.Find("CharacterSelect").GetComponent<CharacterSelectionController>().UpdateSelectedCharacter(this.transform.GetComponent<PlayerInput>(), Character);
-                Debug.Log($"Player selected character {NameTag.GetComponent<TextMeshProUGUI>().text} ");
+                Debug.Log($"Player selected character {CharacterNameTag.GetComponent<TextMeshProUGUI>().text} ");
 
+                return;
+            }
+
+            Transform StageNameTag = rr.gameObject.transform.Find("CharacterNameTag");
+            if(StageNameTag != null)
+            {
+                GameControllerScript.stageName = StageNameTag.GetComponent<TextMeshProUGUI>().text;
+                GameObject.Find("SelectedStage").GetComponent<TextMeshProUGUI>().text = $"{GameControllerScript.stageName}";
                 return;
             }
 
             Button btn = rr.gameObject.GetComponent<Button>();
             if(btn != null)
             {
+                if (rr.gameObject.name == "btn_stage_select" && (GameControllerScript.players.Count < 2 || !GameControllerScript.DoesEveryPlayerHaveCharacter())) return;
+                if (rr.gameObject.name == "btn_match_start" && GameControllerScript.stageName == "") return;
                 btn.onClick.Invoke();
                 return;
             }

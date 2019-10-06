@@ -63,23 +63,26 @@ public class GameController : MonoBehaviour
     public void RaiseStockCount()
     {
         this.rules.stocks++;
+        if (this.rules.stocks > 999) this.rules.stocks = 999;
         GameObject.Find("StocksCount").GetComponent<TextMeshProUGUI>().text = $"{this.rules.stocks}";
     }
 
     public void LowerStockCount()
     {
         this.rules.stocks--;
+        if (this.rules.stocks < 1) this.rules.stocks = 1;
         GameObject.Find("StocksCount").GetComponent<TextMeshProUGUI>().text = $"{this.rules.stocks}";
     }
 
     public void UpdateMatchRules(MatchRules rules)
     {
         this.rules = rules;
-        GameObject.Find("StocksCount").GetComponent<TextMeshProUGUI>().text = $"{this.rules.stocks}";
     }
 
     public void PrepareMatch()
     {
+        if (this.stageName == "") return;
+
         GameState = "match_prepare";
         SceneManager.LoadScene(this.stageName);
         foreach(PlayerController player in players)
@@ -109,5 +112,15 @@ public class GameController : MonoBehaviour
     public string GetGameState()
     {
         return this.GameState;
+    }
+
+    public bool DoesEveryPlayerHaveCharacter()
+    {
+        foreach (PlayerController player in players)
+        {
+            if (player.Character == "") return false;
+        }
+
+        return true;
     }
 }
