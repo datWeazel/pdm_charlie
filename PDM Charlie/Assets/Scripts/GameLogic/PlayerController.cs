@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameControllerScript.GetGameState() == "character_select")
+        if (GameControllerScript.GetGameState() == "character_select" || GameControllerScript.GetGameState() == "stage_select" || GameControllerScript.GetGameState() == "match_end")
         {
             if (!Selector.activeSelf) Selector.SetActive(true);
 
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
     public void OnClick()
     {
         Debug.Log("OnClick");
-        if (GameControllerScript.GetGameState() == "character_select")
+        if (GameControllerScript.GetGameState() == "character_select" || GameControllerScript.GetGameState() == "stage_select" || GameControllerScript.GetGameState() == "match_end")
         {
             Select();
         }
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        if(GameControllerScript.GetGameState() == "character_select")
+        if(GameControllerScript.GetGameState() == "character_select" || GameControllerScript.GetGameState() == "stage_select" || GameControllerScript.GetGameState() == "match_end")
         {
             Select();
         }
@@ -149,6 +149,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnLightAttack(InputValue value)
     {
+        Debug.Log("LightAttack");
         if (GameControllerScript.GetGameState() == "match_active")
         {
             this.CharacterController?.Attack(false);

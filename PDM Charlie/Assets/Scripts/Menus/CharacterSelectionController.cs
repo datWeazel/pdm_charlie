@@ -17,7 +17,7 @@ public class CharacterSelectionController : MonoBehaviour
     void Start()
     {
         MatchRules rules = new MatchRules();
-        GameController.GetComponent<GameController>().UpdateMatchRules(rules, "MayanStage");
+        GameController.GetComponent<GameController>().UpdateMatchRules(rules);
     }
 
     // Update is called once per frame

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -53,10 +54,28 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void UpdateMatchRules(MatchRules rules, string stage)
+    public void UpdateSelectedStage(string stage)
+    {
+        this.stageName = stage;
+        GameObject.Find("SelectedStage").GetComponent<TextMeshProUGUI>().text = $"{this.stageName}";
+    }
+
+    public void RaiseStockCount()
+    {
+        this.rules.stocks++;
+        GameObject.Find("StocksCount").GetComponent<TextMeshProUGUI>().text = $"{this.rules.stocks}";
+    }
+
+    public void LowerStockCount()
+    {
+        this.rules.stocks--;
+        GameObject.Find("StocksCount").GetComponent<TextMeshProUGUI>().text = $"{this.rules.stocks}";
+    }
+
+    public void UpdateMatchRules(MatchRules rules)
     {
         this.rules = rules;
-        this.stageName = stage;
+        GameObject.Find("StocksCount").GetComponent<TextMeshProUGUI>().text = $"{this.rules.stocks}";
     }
 
     public void PrepareMatch()
