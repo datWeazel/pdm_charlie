@@ -100,7 +100,7 @@ public class GameController : MonoBehaviour
             GameObject character = characterPrefabs.FirstOrDefault(p => p.name == player.Character);
             if (character != null)
             {
-                GameObject c = player.CreateCharacter(character, new Vector3(-7.37f, 1.8f, -0.12f));
+                GameObject c = player.CreateCharacter(character, GetPlayerStageSpawn(player.Id));
                 player.Stocks = this.rules.stocks;
                 player.MatchHUD = GetPlayerMatchInfoController(player.Id);
                 player.MatchHUD.ActivateParent();
@@ -136,6 +136,21 @@ public class GameController : MonoBehaviour
         }
 
         return null;
+    }
+
+    public Vector3 GetPlayerStageSpawn(int id)
+    {
+        GameObject[] spawns = GameObject.FindGameObjectsWithTag("StageSpawn");
+        foreach (GameObject spawn in spawns)
+        {
+            if (spawn.name == $"Spawn_{id}")
+            {
+                //return matchHUD.GetComponent<PlayerMatchInfoController>();
+                return spawn.transform.position;
+            }
+        }
+
+        return new Vector3();
     }
 
     public bool DoesEveryPlayerHaveCharacter()
