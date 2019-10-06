@@ -85,15 +85,8 @@ public class GameController : MonoBehaviour
 
         GameState = "match_prepare";
         SceneManager.LoadScene(this.stageName);
-        foreach(PlayerController player in players)
-        {
-            GameObject character = characterPrefabs.FirstOrDefault(p => p.name == player.Character);
-            if(character != null)
-            {
-                GameObject c = player.CreateCharacter(character, new Vector3(-7.37f, 1.8f, -0.12f));
-                player.Stocks = this.rules.stocks;
-            }
-        }
+
+        
         StartCoroutine(StartMatch(3));
     }
 
@@ -101,6 +94,21 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitSeconds);
         GameState = "match_active";
+
+        foreach (PlayerController player in players)
+        {
+            GameObject character = characterPrefabs.FirstOrDefault(p => p.name == player.Character);
+            if (character != null)
+            {
+                GameObject c = player.CreateCharacter(character, new Vector3(-7.37f, 1.8f, -0.12f));
+                player.Stocks = this.rules.stocks;
+                player.MatchHUD = GetPlayerMatchInfoController(player.Id);
+                player.MatchHUD.ActivateParent();
+                player.MatchHUD.UpdatePlayerName($"P{player.Id}");
+                player.MatchHUD.UpdatePlayerStockCount(player.Stocks);
+            }
+        }
+
         Debug.Log("Match started!");
     }
 
@@ -112,6 +120,22 @@ public class GameController : MonoBehaviour
     public string GetGameState()
     {
         return this.GameState;
+    }
+
+    public PlayerMatchInfoController GetPlayerMatchInfoController(int id)
+    {
+        GameObject[] matchHUDs = GameObject.FindGameObjectsWithTag("PlayerMatchHUD");
+        Debug.Log($"matchHUDs Count: {matchHUDs.Length}");
+        foreach(GameObject matchHUD in matchHUDs)
+        {
+            if (matchHUD.name == $"PlayerMatchHUD_{id}")
+            {
+                //return matchHUD.GetComponent<PlayerMatchInfoController>();
+                return matchHUD.GetComponentInChildren<PlayerMatchInfoController>(true);
+            }
+        }
+
+        return null;
     }
 
     public bool DoesEveryPlayerHaveCharacter()

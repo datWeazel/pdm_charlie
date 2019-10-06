@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 {
     public int Id = -1;
     public int Stocks = 1;
+    public int Percentage = 0;
     public Vector3 Spawnpoint = new Vector3();
 
     public GameObject Selector = null;
@@ -22,12 +23,13 @@ public class PlayerController : MonoBehaviour
     public string Character = "";
     public GameCharacterController CharacterController = null;
 
+    public PlayerMatchInfoController MatchHUD = null;
+
     private Vector2 moveVector = new Vector2();
 
     // Start is called before the first frame update
     void Start()
     {
-        InputUser.PerformPairingWithDevice(Gamepad.current);
         DontDestroyOnLoad(this);
         GameController = GameObject.Find("GameController");
         GameControllerScript = GameController.GetComponent<GameController>();
@@ -50,6 +52,12 @@ public class PlayerController : MonoBehaviour
         {
             if (Selector.activeSelf) Selector.SetActive(false);
 
+            if(this.MatchHUD != null)
+            {
+                this.MatchHUD.UpdatePlayerPercentage(this.Percentage);
+            }
+
+
             if (GameControllerScript.GetGameState() == "match_active")
             {
                 if (moveVector != new Vector2())
@@ -63,6 +71,8 @@ public class PlayerController : MonoBehaviour
     public void HitDeathZone()
     {
         this.Stocks--;
+
+        MatchHUD?.UpdatePlayerStockCount(this.Stocks);
 
         if(this.Stocks == 0)
         {
@@ -136,7 +146,7 @@ public class PlayerController : MonoBehaviour
                 return;
             }
 
-            Transform StageNameTag = rr.gameObject.transform.Find("CharacterNameTag");
+            Transform StageNameTag = rr.gameObject.transform.Find("StageNameTag");
             if(StageNameTag != null)
             {
                 GameControllerScript.stageName = StageNameTag.GetComponent<TextMeshProUGUI>().text;
