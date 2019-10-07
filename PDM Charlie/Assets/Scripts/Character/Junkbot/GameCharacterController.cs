@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class GameCharacterController : MonoBehaviour
 {
-    public float speed = 0.1f;
+    public float speed = 2.0f;
+    public float aerialSpeed = 1.0f;
     public float jumpHeight = 10.0f;
+    public float jumpForce = 1.0f;
+    public float downForce = 0.1f;
     private Animator animator;
 
     private bool moving = false;
@@ -22,13 +25,29 @@ public class GameCharacterController : MonoBehaviour
         distToGround = GetComponent<BoxCollider>().bounds.extents.y;
     }
 
+    private void FixedUpdate()
+    {
+        GetComponent<Rigidbody>().AddForce(-Vector3.up * downForce);
+    }
+
     // Update is called once per frame
     void Update()
     {
+        Rigidbody r = GetComponent<Rigidbody>();
         if (moving)
         {
-            Vector3 newVelocity = new Vector3(movementVector.x*speed, GetComponent<Rigidbody>().velocity.y, 0);
-            GetComponent<Rigidbody>().velocity = newVelocity;
+            if (movementVector.x < 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else if(movementVector.x > 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            float move_speed = speed;
+            if (!IsGrounded()) move_speed = aerialSpeed;
+            Vector3 newVelocity = new Vector3(movementVector.x * move_speed, r.velocity.y, 0);
+            r.velocity = newVelocity;
         }
 
         animator.SetBool("moving", moving);
@@ -53,8 +72,16 @@ public class GameCharacterController : MonoBehaviour
     {
         if (IsGrounded())
         {
-            Vector3 newVelocity = new Vector3(0, jumpHeight, 0);
-            this.transform.GetComponent<Rigidbody>().velocity = newVelocity;
+            if (!this.moving)
+            {
+                Vector3 newVelocity = new Vector3(0, jumpHeight, 0);
+                this.transform.GetComponent<Rigidbody>().velocity = newVelocity;
+            }
+            else
+            {
+                Rigidbody r = GetComponent<Rigidbody>();
+                r.AddForce(new Vector3(jumpForce * movementVector.x, jumpHeight, 0));
+            }
             jumping = true;
         }
     }
@@ -74,5 +101,6 @@ public class GameCharacterController : MonoBehaviour
     public void SetPosition(Vector3 position)
     {
         this.transform.position = position;
+        GetComponent<Rigidbody>().velocity = new Vector3();
     }
 }

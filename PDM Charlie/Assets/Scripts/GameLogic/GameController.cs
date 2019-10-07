@@ -49,9 +49,29 @@ public class GameController : MonoBehaviour
         {
             if (players.Count == 1)
             {
-                SceneManager.LoadScene("MainMenu");
+                EndMatch(players);
             }
         }
+    }
+
+    public void EndMatch(List<PlayerController> winners)
+    {
+        string endScreenText = "";
+        foreach(PlayerController p in winners)
+        {
+            endScreenText += $"P{p.Id} ";
+        }
+
+        endScreenText += "WINS!";
+        MatchHUDController matchHUDController = GameObject.Find("MATCH_HUD").GetComponent<MatchHUDController>();
+        matchHUDController.UpdateEndScreenText(endScreenText);
+        matchHUDController.SetEndScreenVisible(true);
+        this.GameState = "match_end";
+    }
+
+    public void LoadScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
     }
 
     public void UpdateSelectedStage(string stage)
@@ -106,6 +126,7 @@ public class GameController : MonoBehaviour
                 player.MatchHUD.ActivateParent();
                 player.MatchHUD.UpdatePlayerName($"P{player.Id}");
                 player.MatchHUD.UpdatePlayerStockCount(player.Stocks);
+                Camera.main.GetComponent<CameraLogic>()?.AddPlayerToCam(c.transform);
             }
         }
 

@@ -184,6 +184,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnStart(InputValue value)
     {
+        if(GameControllerScript.GameState == "match_end")
+        {
+            GameControllerScript.LoadScene("MainMenu");
+        }
     }
 
     public void OnSelect(InputValue value)
