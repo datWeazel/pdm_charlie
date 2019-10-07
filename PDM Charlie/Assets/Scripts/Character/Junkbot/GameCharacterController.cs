@@ -7,7 +7,6 @@ public class GameCharacterController : MonoBehaviour
     public float speed = 0.1f;
     public float jumpHeight = 10.0f;
     private Animator animator;
-    private Rigidbody rigidbody;
 
     private bool moving = false;
     private bool jumping = false;
@@ -20,7 +19,6 @@ public class GameCharacterController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        rigidbody = GetComponent<Rigidbody>();
         distToGround = GetComponent<BoxCollider>().bounds.extents.y;
     }
 
@@ -29,8 +27,8 @@ public class GameCharacterController : MonoBehaviour
     {
         if (moving)
         {
-            Vector3 newVelocity = new Vector3(movementVector.x*speed, rigidbody.velocity.y, 0);
-            rigidbody.velocity = newVelocity;
+            Vector3 newVelocity = new Vector3(movementVector.x*speed, GetComponent<Rigidbody>().velocity.y, 0);
+            GetComponent<Rigidbody>().velocity = newVelocity;
         }
 
         animator.SetBool("moving", moving);

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -53,25 +54,39 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void UpdateMatchRules(MatchRules rules, string stage)
+    public void UpdateSelectedStage(string stage)
+    {
+        this.stageName = stage;
+        GameObject.Find("SelectedStage").GetComponent<TextMeshProUGUI>().text = $"{this.stageName}";
+    }
+
+    public void RaiseStockCount()
+    {
+        this.rules.stocks++;
+        if (this.rules.stocks > 999) this.rules.stocks = 999;
+        GameObject.Find("StocksCount").GetComponent<TextMeshProUGUI>().text = $"{this.rules.stocks}";
+    }
+
+    public void LowerStockCount()
+    {
+        this.rules.stocks--;
+        if (this.rules.stocks < 1) this.rules.stocks = 1;
+        GameObject.Find("StocksCount").GetComponent<TextMeshProUGUI>().text = $"{this.rules.stocks}";
+    }
+
+    public void UpdateMatchRules(MatchRules rules)
     {
         this.rules = rules;
-        this.stageName = stage;
     }
 
     public void PrepareMatch()
     {
+        if (this.stageName == "") return;
+
         GameState = "match_prepare";
         SceneManager.LoadScene(this.stageName);
-        foreach(PlayerController player in players)
-        {
-            GameObject character = characterPrefabs.FirstOrDefault(p => p.name == player.Character);
-            if(character != null)
-            {
-                GameObject c = player.CreateCharacter(character, new Vector3(-7.37f, 1.8f, -0.12f));
-                player.Stocks = this.rules.stocks;
-            }
-        }
+
+        
         StartCoroutine(StartMatch(3));
     }
 
@@ -79,6 +94,21 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitSeconds);
         GameState = "match_active";
+
+        foreach (PlayerController player in players)
+        {
+            GameObject character = characterPrefabs.FirstOrDefault(p => p.name == player.Character);
+            if (character != null)
+            {
+                GameObject c = player.CreateCharacter(character, GetPlayerStageSpawn(player.Id));
+                player.Stocks = this.rules.stocks;
+                player.MatchHUD = GetPlayerMatchInfoController(player.Id);
+                player.MatchHUD.ActivateParent();
+                player.MatchHUD.UpdatePlayerName($"P{player.Id}");
+                player.MatchHUD.UpdatePlayerStockCount(player.Stocks);
+            }
+        }
+
         Debug.Log("Match started!");
     }
 
@@ -90,5 +120,46 @@ public class GameController : MonoBehaviour
     public string GetGameState()
     {
         return this.GameState;
+    }
+
+    public PlayerMatchInfoController GetPlayerMatchInfoController(int id)
+    {
+        GameObject[] matchHUDs = GameObject.FindGameObjectsWithTag("PlayerMatchHUD");
+        Debug.Log($"matchHUDs Count: {matchHUDs.Length}");
+        foreach(GameObject matchHUD in matchHUDs)
+        {
+            if (matchHUD.name == $"PlayerMatchHUD_{id}")
+            {
+                //return matchHUD.GetComponent<PlayerMatchInfoController>();
+                return matchHUD.GetComponentInChildren<PlayerMatchInfoController>(true);
+            }
+        }
+
+        return null;
+    }
+
+    public Vector3 GetPlayerStageSpawn(int id)
+    {
+        GameObject[] spawns = GameObject.FindGameObjectsWithTag("StageSpawn");
+        foreach (GameObject spawn in spawns)
+        {
+            if (spawn.name == $"Spawn_{id}")
+            {
+                //return matchHUD.GetComponent<PlayerMatchInfoController>();
+                return spawn.transform.position;
+            }
+        }
+
+        return new Vector3();
+    }
+
+    public bool DoesEveryPlayerHaveCharacter()
+    {
+        foreach (PlayerController player in players)
+        {
+            if (player.Character == "") return false;
+        }
+
+        return true;
     }
 }
