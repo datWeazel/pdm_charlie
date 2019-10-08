@@ -54,6 +54,7 @@ public class AttackHitboxController : MonoBehaviour
                 Vector3 direction = collision.transform.position - this.character.transform.position;
                 Debug.Log($"Hit! (direction: {direction.ToString()}");
                 player.CharacterController.AddForce((direction*strength));
+                player.CharacterController.SetHitStun(0.35f);
             }
         }
     }

@@ -2674,7 +2674,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &884635675
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4377,7 +4377,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bruce
+  m_text: Demo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 89067e33a39fd6bd9aea723fd385c1b6, type: 2}
   m_sharedMaterial: {fileID: 8305955370188314793, guid: 89067e33a39fd6bd9aea723fd385c1b6,
@@ -4447,7 +4447,7 @@ MonoBehaviour:
   m_margin: {x: 45.16, y: 15.2, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1168329699}
-    characterCount: 5
+    characterCount: 4
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -6896,7 +6896,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1975574491
 Transform:
   m_ObjectHideFlags: 0

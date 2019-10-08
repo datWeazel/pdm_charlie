@@ -15,6 +15,8 @@ public class CameraLogic : MonoBehaviour {
     [SerializeField] public float distanceH_param_b = 5f;
     [SerializeField] public float distanceW_param_a = 0.25f;
     [SerializeField] public float distanceW_param_b = 5f;
+    public float distanceConst = 4.5f;
+    public float distanceConstZ = 0.0f;
 
     void Awake()
 	{
@@ -50,8 +52,8 @@ public class CameraLogic : MonoBehaviour {
 		}
 		if (distance > -10f) distance = -10f;
 		desiredPos /= players.Count;
-		desiredPos.z = distance;
-		desiredPos.y += 4.5f;
+		desiredPos.z = distance + distanceConstZ;
+		desiredPos.y += distanceConst;
 	}
 
 	void LateUpdate()

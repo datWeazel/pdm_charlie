@@ -16,6 +16,7 @@ public class GameCharacterController : MonoBehaviour
     private bool jumping = false;
     private bool attacking = false;
     private Vector2 movementVector;
+    private float hitStun = 0.0f;
 
     private float distToGround;
     public bool isGrounded;
@@ -36,7 +37,7 @@ public class GameCharacterController : MonoBehaviour
     void Update()
     {
         Rigidbody r = GetComponent<Rigidbody>();
-        if (moving)
+        if (moving && this.hitStun == 0)
         {
             if (movementVector.x < 0)
             {
@@ -56,6 +57,12 @@ public class GameCharacterController : MonoBehaviour
         animator.SetBool("jumping", jumping);
         animator.SetBool("attacking", attacking);
 
+        if (this.hitStun > 0) 
+        {
+            this.hitStun -= Time.deltaTime;
+
+            if (this.hitStun < 0) this.hitStun = 0;
+        }
 
         if (this.isGrounded)
         {
@@ -68,7 +75,8 @@ public class GameCharacterController : MonoBehaviour
 
     public void Attack(bool heavy)
     {
-        Debug.Log("2");
+        if (this.hitStun > 0) return;
+            Debug.Log("2");
         if (!heavy)
         {
             Debug.Log("3");
@@ -84,6 +92,7 @@ public class GameCharacterController : MonoBehaviour
 
     public void Jump()
     {
+        if (this.hitStun > 0) return;
         if (this.isGrounded)
         {
             if (!this.moving)
@@ -102,6 +111,7 @@ public class GameCharacterController : MonoBehaviour
 
     public void Move(Vector2 movementVector)
     {
+        if (this.hitStun > 0) return;
         if (movementVector == new Vector2()) return;
         moving = true;
         this.movementVector = movementVector;
@@ -110,6 +120,11 @@ public class GameCharacterController : MonoBehaviour
     public void AddForce(Vector3 direction, ForceMode forceMode = ForceMode.Force)
     {
         GetComponent<Rigidbody>().AddForce(direction, forceMode);
+    }
+
+    public void SetHitStun(float duration) 
+    {
+        this.hitStun = duration;
     }
 
     private void OnCollisionEnter(Collision collision)
