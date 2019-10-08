@@ -167,9 +167,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnLightAttack(InputValue value)
     {
-        Debug.Log("LightAttack");
         if (GameControllerScript.GetGameState() == "match_active")
         {
+            Debug.Log("1");
             this.CharacterController?.Attack(false);
         }
     }

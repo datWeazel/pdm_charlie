@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameCharacterController : MonoBehaviour
 {
+    public GameObject LightAttackHitBox;
     public float speed = 2.0f;
     public float aerialSpeed = 1.0f;
     public float jumpHeight = 10.0f;
@@ -17,6 +18,7 @@ public class GameCharacterController : MonoBehaviour
     private Vector2 movementVector;
 
     private float distToGround;
+    public bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +29,7 @@ public class GameCharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GetComponent<Rigidbody>().AddForce(-Vector3.up * downForce);
+        if(!this.isGrounded) GetComponent<Rigidbody>().AddForce(-Vector3.up * downForce);
     }
 
     // Update is called once per frame
@@ -45,7 +47,7 @@ public class GameCharacterController : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, 180, 0);
             }
             float move_speed = speed;
-            if (!IsGrounded()) move_speed = aerialSpeed;
+            if (!this.isGrounded) move_speed = aerialSpeed;
             Vector3 newVelocity = new Vector3(movementVector.x * move_speed, r.velocity.y, 0);
             r.velocity = newVelocity;
         }
@@ -54,7 +56,8 @@ public class GameCharacterController : MonoBehaviour
         animator.SetBool("jumping", jumping);
         animator.SetBool("attacking", attacking);
 
-        if (IsGrounded())
+
+        if (this.isGrounded)
         {
             jumping = false;
         }
@@ -65,12 +68,23 @@ public class GameCharacterController : MonoBehaviour
 
     public void Attack(bool heavy)
     {
-        attacking = true;
+        Debug.Log("2");
+        if (!heavy)
+        {
+            Debug.Log("3");
+            LightAttackHitBox.SetActive(true);
+            ;
+            if (!LightAttackHitBox.GetComponentInChildren<AttackHitboxController>().isExpanding)
+            {
+                LightAttackHitBox.GetComponentInChildren<AttackHitboxController>().StartHitbox();
+                Debug.Log("LightAttack");
+            }
+        }
     }
 
     public void Jump()
     {
-        if (IsGrounded())
+        if (this.isGrounded)
         {
             if (!this.moving)
             {
@@ -93,11 +107,33 @@ public class GameCharacterController : MonoBehaviour
         this.movementVector = movementVector;
     }
 
-    public bool IsGrounded()
+    public void AddForce(Vector3 direction, ForceMode forceMode = ForceMode.Force)
     {
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+        GetComponent<Rigidbody>().AddForce(direction, forceMode);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Floor") 
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.tag == "Floor")
+        {
+            isGrounded = false;
+        }
+    }
+
+    /*public bool IsGrounded()
+    {
+        //return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+        return (GetComponent<Rigidbody>().velocity.y == 0.0f && !lastYMovementPositive);
+    }
+    */
     public void SetPosition(Vector3 position)
     {
         this.transform.position = position;

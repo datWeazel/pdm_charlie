@@ -2598,6 +2598,71 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7891827700052439600, guid: 47d19f572dd20144c94862902c448151,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891827700075669075, guid: 47d19f572dd20144c94862902c448151,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891827700165450770, guid: 47d19f572dd20144c94862902c448151,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891827700539555850, guid: 47d19f572dd20144c94862902c448151,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891827700738749594, guid: 47d19f572dd20144c94862902c448151,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891827700851923333, guid: 47d19f572dd20144c94862902c448151,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891827700971469777, guid: 47d19f572dd20144c94862902c448151,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891827700992948005, guid: 47d19f572dd20144c94862902c448151,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891827701308779014, guid: 47d19f572dd20144c94862902c448151,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891827701344320385, guid: 47d19f572dd20144c94862902c448151,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891827701794164723, guid: 47d19f572dd20144c94862902c448151,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891827701831911989, guid: 47d19f572dd20144c94862902c448151,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891827701963961120, guid: 47d19f572dd20144c94862902c448151,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
     - target: {fileID: 7914757344902506628, guid: 47d19f572dd20144c94862902c448151,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

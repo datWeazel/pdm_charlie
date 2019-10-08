@@ -9,6 +9,7 @@ TagManager:
   - DeathZone
   - PlayerMatchHUD
   - StageSpawn
+  - Floor
   layers:
   - Default
   - TransparentFX
