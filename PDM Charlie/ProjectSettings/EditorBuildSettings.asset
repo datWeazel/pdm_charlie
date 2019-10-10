@@ -12,8 +12,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Stages/Mayan Temple.unity
     guid: deb1a918bc6224c4980e12dab63cf61f
   - enabled: 1
-    path: Assets/Scenes/Stages/Demo.unity
+    path: Assets/Scenes/Stages/Island.unity
     guid: 00fd0d912c92d3040a0b055323c0fc45
+  - enabled: 1
+    path: Assets/Scenes/Stages/Freight Ship.unity
+    guid: f3dd1a1aad8a3734aa763b7f5d3ebad2
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: b3808ad06486e9342bc8a50741e251dc,
       type: 2}

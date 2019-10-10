@@ -1,0 +1,31 @@
+# OBJ Material Export by Luxion KeyShot
+
+newmtl Scarlet Fever_745538
+Kd 0 0 0
+
+newmtl Turned Steel
+Kd 0 0 0
+Ks 0.619608 0.592157 0.572549
+
+newmtl Hard white shiny
+Kd 1 1 1
+Ks 0.992157 0.992157 0.992157
+
+newmtl Hard rough plastic - bright amb
+Kd 0.980392 0.894118 0.447059
+Ks 0.992157 0.992157 0.992157
+
+newmtl Nickel hammered
+Kd 0 0 0
+Ks 0.917647 0.898039 0.721569
+
+newmtl Hard rough plastic - light waln
+Kd 0.65098 0.435294 0.243137
+Ks 0.992157 0.992157 0.992157
+
+newmtl Paint - gloss black
+Kd 0.027451 0.027451 0.027451
+Ks 0 0 0
+
+newmtl Soft green rough
+Kd 0.0162431 0.127446 0.00624728
