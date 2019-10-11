@@ -15,12 +15,12 @@ public class AttackHitboxController : MonoBehaviour
 
     public bool isExpanding = false;
 
-    private SphereCollider collider;
+    private SphereCollider sphereCollider;
     private List<PlayerController> hitPlayers = new List<PlayerController>();
 
     private void Start()
     {
-        collider = GetComponent<SphereCollider>();
+        sphereCollider = GetComponent<SphereCollider>();
     }
 
 
@@ -30,8 +30,8 @@ public class AttackHitboxController : MonoBehaviour
         if (this.isExpanding)
         {
             // If collider is set to expand, raise the collider radius until it hit's the maximum radius
-            this.collider.radius += this.expansionSpeed * Time.deltaTime;
-            if(this.collider.radius >= this.endRadius)
+            this.sphereCollider.radius += this.expansionSpeed * Time.deltaTime;
+            if(this.sphereCollider.radius >= this.endRadius)
             {
                 EndAttackHitbox();
             }
@@ -51,7 +51,7 @@ public class AttackHitboxController : MonoBehaviour
     /// </summary>
     public void EndAttackHitbox()
     {
-        this.collider.radius = this.startRadius;
+        this.sphereCollider.radius = this.startRadius;
         this.hitPlayers.Clear();
         this.isExpanding = false;
         this.parent.SetActive(false);
