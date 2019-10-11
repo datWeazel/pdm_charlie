@@ -10,18 +10,18 @@ public class CameraLogic : MonoBehaviour {
 	private Vector3 desiredPos;
 	public List<Transform> players;
 	public float camSpeed = 2.5f;
-	private Camera cam;
-    [SerializeField] public float distanceH_param_a = 0.25f;
-    [SerializeField] public float distanceH_param_b = 5f;
-    [SerializeField] public float distanceW_param_a = 0.25f;
-    [SerializeField] public float distanceW_param_b = 5f;
     public float distanceConst = 4.5f;
     public float distanceConstZ = 0.0f;
 
+    private Camera cam;
+    private float distanceH_param_a = 0.25f;
+    private float distanceH_param_b = 5f;
+    private float distanceW_param_a = 0.25f;
+    private float distanceW_param_b = 5f;
+
     void Awake()
 	{
-		//transform = GetComponent<Transform>();
-		cam = GetComponent<Camera>();            
+		this.cam = GetComponent<Camera>();            
 	}
 
 	private void Start()
@@ -34,41 +34,41 @@ public class CameraLogic : MonoBehaviour {
 
 	void Update()
 	{
-		if (players.Count <= 1)//early out if no players have been found
-			return;
-		desiredPos = Vector3.zero;
-		float distance = 0f;
-		var hSort = players.OrderByDescending(p => p.position.y);
-		var wSort = players.OrderByDescending(p => p.position.x);
+		if (players.Count <= 1) return;
+
+		var hSort = this.players.OrderByDescending(p => p.position.y);
+		var wSort = this.players.OrderByDescending(p => p.position.x);
 		var mHeight = hSort.First().position.y - hSort.Last().position.y;
 		var mWidth = wSort.First().position.x - wSort.Last().position.x;
-		var distanceH = -(mHeight + distanceH_param_b) * distanceH_param_a / Mathf.Tan(cam.fieldOfView * distanceH_param_a * Mathf.Deg2Rad);
-		var distanceW = -(mWidth / cam.aspect + distanceW_param_b) * distanceW_param_a / Mathf.Tan(cam.fieldOfView * distanceW_param_a * Mathf.Deg2Rad);
-		distance = distanceH < distanceW ? distanceH : distanceW;
+		var distanceH = -(mHeight + distanceH_param_b) * distanceH_param_a / Mathf.Tan(this.cam.fieldOfView * distanceH_param_a * Mathf.Deg2Rad);
+		var distanceW = -(mWidth / this.cam.aspect + distanceW_param_b) * distanceW_param_a / Mathf.Tan(this.cam.fieldOfView * distanceW_param_a * Mathf.Deg2Rad);
+        float distance = (distanceH < distanceW) ? distanceH : distanceW;
 
-		for (int i = 0; i < players.Count; i++)
-		{
-			desiredPos += players[i].position;
-		}
+        this.desiredPos = Vector3.zero;
+        foreach (Transform player in this.players)
+        {
+            desiredPos += player.position;
+        }
+
 		if (distance > -10f) distance = -10f;
-		desiredPos /= players.Count;
-		desiredPos.z = distance + distanceConstZ;
-		desiredPos.y += distanceConst;
+        this.desiredPos /= this.players.Count;
+        this.desiredPos.z = distance + this.distanceConstZ;
+        this.desiredPos.y += this.distanceConst;
 	}
 
 	void LateUpdate()
 	{
-		if (players.Count <= 1) {
+		if (this.players.Count <= 1) {
 			return;
 		}
-		transform.position = Vector3.MoveTowards(transform.position, desiredPos, camSpeed);
+        this.transform.position = Vector3.MoveTowards(transform.position, this.desiredPos, this.camSpeed);
 	}
 
 	public void AddPlayerToCam(Transform p){
-		players.Add (p);
+        this.players.Add (p);
 	}
 
 	public void RemovePlayerFromCam(Transform p){
-		players.Remove (p);
+        this.players.Remove (p);
 	}
 }

@@ -4,58 +4,59 @@ using UnityEngine;
 
 public class GameCharacterController : MonoBehaviour
 {
-    public GameObject LightAttackHitBox;
-    public float speed = 2.0f;
+    public GameObject lightAttackHitBox;
+    public float groundSpeed = 2.0f;
     public float aerialSpeed = 1.0f;
     public float jumpHeight = 10.0f;
     public float jumpForce = 1.0f;
     public float downForce = 0.1f;
-    private Animator animator;
 
-    private bool moving = false;
-    private bool jumping = false;
-    private bool attacking = false;
+    private Animator animator;
+    private Rigidbody currentRigidbody;
+
+    private bool isMoving = false;
+    private bool isJumping = false;
+    private bool isAttacking = false;
     private Vector2 movementVector;
     private float hitStun = 0.0f;
 
-    private float distToGround;
     public bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
-        distToGround = GetComponent<BoxCollider>().bounds.extents.y;
+        this.animator = GetComponent<Animator>();
+        this.currentRigidbody = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
-        if(!this.isGrounded) GetComponent<Rigidbody>().AddForce(-Vector3.up * downForce);
+        // Add a constant down force to the character if he is not grounded
+        if(!this.isGrounded) this.currentRigidbody.AddForce(-Vector3.up * this.downForce);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Rigidbody r = GetComponent<Rigidbody>();
-        if (moving && this.hitStun == 0)
+        if (this.isMoving && this.hitStun == 0)
         {
-            if (movementVector.x < 0)
+            // Rotate the character in movement direction
+            if (this.movementVector.x < 0)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
-            else if(movementVector.x > 0)
+            else if(this.movementVector.x > 0)
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
             }
-            float move_speed = speed;
-            if (!this.isGrounded) move_speed = aerialSpeed;
-            Vector3 newVelocity = new Vector3(movementVector.x * move_speed, r.velocity.y, 0);
-            r.velocity = newVelocity;
+
+            float moveSpeed = (this.isGrounded) ? this.groundSpeed : this.aerialSpeed;
+            this.currentRigidbody.velocity = new Vector3(this.movementVector.x * moveSpeed, this.currentRigidbody.velocity.y, 0);
         }
 
-        animator.SetBool("moving", moving);
-        animator.SetBool("jumping", jumping);
-        animator.SetBool("attacking", attacking);
+        // Set animator variables
+        animator.SetBool("moving", this.isMoving);
+        animator.SetBool("jumping", this.isJumping);
+        animator.SetBool("attacking", this.isAttacking);
 
         if (this.hitStun > 0) 
         {
@@ -64,28 +65,22 @@ public class GameCharacterController : MonoBehaviour
             if (this.hitStun < 0) this.hitStun = 0;
         }
 
-        if (this.isGrounded)
-        {
-            jumping = false;
-        }
-
-        moving = false;
-        attacking = false;
+        this.isJumping = !this.isGrounded;
+        this.isMoving = false;
+        this.isAttacking = false;
     }
 
+    #region Movement Functions
     public void Attack(bool heavy)
     {
         if (this.hitStun > 0) return;
-            Debug.Log("2");
         if (!heavy)
         {
-            Debug.Log("3");
-            LightAttackHitBox.SetActive(true);
-            ;
-            if (!LightAttackHitBox.GetComponentInChildren<AttackHitboxController>().isExpanding)
+            this.lightAttackHitBox.SetActive(true);
+            
+            if (!this.lightAttackHitBox.GetComponentInChildren<AttackHitboxController>().isExpanding)
             {
-                LightAttackHitBox.GetComponentInChildren<AttackHitboxController>().StartHitbox();
-                Debug.Log("LightAttack");
+                this.lightAttackHitBox.GetComponentInChildren<AttackHitboxController>().StartAttackHitbox();
             }
         }
     }
@@ -95,17 +90,15 @@ public class GameCharacterController : MonoBehaviour
         if (this.hitStun > 0) return;
         if (this.isGrounded)
         {
-            if (!this.moving)
+            if (!this.isMoving)
             {
-                Vector3 newVelocity = new Vector3(0, jumpHeight, 0);
-                this.transform.GetComponent<Rigidbody>().velocity = newVelocity;
+                this.currentRigidbody.velocity = new Vector3(0, this.jumpHeight, 0);
             }
             else
             {
-                Rigidbody r = GetComponent<Rigidbody>();
-                r.AddForce(new Vector3(jumpForce * movementVector.x, jumpHeight, 0));
+                this.currentRigidbody.AddForce(new Vector3(this.jumpForce * this.movementVector.x, this.jumpHeight, 0));
             }
-            jumping = true;
+            this.isJumping = true;
         }
     }
 
@@ -113,13 +106,15 @@ public class GameCharacterController : MonoBehaviour
     {
         if (this.hitStun > 0) return;
         if (movementVector == new Vector2()) return;
-        moving = true;
+        this.isMoving = true;
         this.movementVector = movementVector;
     }
+    #endregion
 
+    #region Random Functions
     public void AddForce(Vector3 direction, ForceMode forceMode = ForceMode.Force)
     {
-        GetComponent<Rigidbody>().AddForce(direction, forceMode);
+        this.currentRigidbody.AddForce(direction, forceMode);
     }
 
     public void SetHitStun(float duration) 
@@ -127,11 +122,19 @@ public class GameCharacterController : MonoBehaviour
         this.hitStun = duration;
     }
 
+    public void SetPosition(Vector3 position)
+    {
+        this.transform.position = position;
+        this.currentRigidbody.velocity = new Vector3();
+    }
+    #endregion
+
+    #region Callbacks
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Floor") 
         {
-            isGrounded = true;
+            this.isGrounded = true;
         }
     }
 
@@ -139,19 +142,8 @@ public class GameCharacterController : MonoBehaviour
     {
         if (collision.transform.tag == "Floor")
         {
-            isGrounded = false;
+            this.isGrounded = false;
         }
     }
-
-    /*public bool IsGrounded()
-    {
-        //return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
-        return (GetComponent<Rigidbody>().velocity.y == 0.0f && !lastYMovementPositive);
-    }
-    */
-    public void SetPosition(Vector3 position)
-    {
-        this.transform.position = position;
-        GetComponent<Rigidbody>().velocity = new Vector3();
-    }
+    #endregion
 }

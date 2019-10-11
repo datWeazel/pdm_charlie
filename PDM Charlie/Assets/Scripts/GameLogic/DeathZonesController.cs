@@ -4,23 +4,11 @@ using UnityEngine;
 
 public class DeathZonesController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnTriggerEnter(Collider entity)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Character")
+        if (entity.tag == "Character")
         {
-            other.GetComponentInParent<PlayerController>().HitDeathZone();
+            entity.GetComponentInParent<PlayerController>()?.HitDeathZone();
         }
     }
 }
