@@ -37,7 +37,10 @@ public class GameCharacterController : MonoBehaviour
 
     void Update()
     {
-        if (this.isGrounded && this.gameObject.layer != 0) this.gameObject.layer = 0;
+        if (this.currentRigidbody.velocity.y <= 0 && this.gameObject.layer != 0)
+        {
+            this.gameObject.layer = 0;
+        }
 
         if (this.isMoving && this.hitStun == 0)
         {
