@@ -1776,9 +1776,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbb5effb40a8da4b9e0ca04fedea0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenu: {fileID: 457730104}
-  CharacterSelect: {fileID: 846885689}
-  StageSelect: {fileID: 0}
+  mainMenu: {fileID: 0}
+  characterSelect: {fileID: 0}
+  stageSelect: {fileID: 0}
 --- !u!1 &583078873
 GameObject:
   m_ObjectHideFlags: 0
@@ -2541,9 +2541,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd23bf0c65bb8b2d8d0c30ed88d8d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameController: {fileID: 2109418963}
-  Playerlist: {fileID: 279862898}
-  PlayerContainer:
+  gameController: {fileID: 2109418963}
+  playerlist: {fileID: 279862898}
+  playerContainer:
   - {fileID: 738625903}
   - {fileID: 1207033773}
   - {fileID: 2001120155}
@@ -6866,8 +6866,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1836899333}
-  - component: {fileID: 1836899335}
-  - component: {fileID: 1836899334}
   m_Layer: 5
   m_Name: StageSelect
   m_TagString: Untagged
@@ -6894,96 +6892,6 @@ Transform:
   m_Father: {fileID: 912129537}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1836899334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836899332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NotificationBehavior: 0
-  m_MaxPlayerCount: 4
-  m_AllowJoining: 1
-  m_JoinBehavior: 1
-  m_PlayerJoinedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1836899335}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_PlayerLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_JoinAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Action
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 657afd24-8ee6-46dd-8f3b-38f5ce2cae18
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: 1f03bda4-ed74-4cc8-a0e3-d4e6b3e10b88
-        m_Path: <Gamepad>/start
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Action
-        m_Flags: 0
-      - m_Name: 
-        m_Id: afdc2982-b9a8-44d8-912a-3f7e8c219825
-        m_Path: <Keyboard>/enter
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Action
-        m_Flags: 0
-    m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 2092057965300747987, guid: c0dd0dc1db88cb8419555ed560d61887,
-    type: 3}
-  m_SplitScreen: 0
-  m_MaintainAspectRatioInSplitScreen: 0
-  m_FixedNumberOfSplitScreens: -1
-  m_SplitScreenRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!114 &1836899335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836899332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fd23bf0c65bb8b2d8d0c30ed88d8d99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameController: {fileID: 2109418963}
-  Playerlist: {fileID: 0}
-  PlayerContainer:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &1919375719
 GameObject:
   m_ObjectHideFlags: 0
@@ -7829,7 +7737,7 @@ MonoBehaviour:
   players: []
   characterPrefabs:
   - {fileID: 3290087435262608986, guid: a249e78d53d71c1449ad8a1fc63e9b5f, type: 3}
-  GameState: 
+  gameState: 
   stageName: 
 --- !u!1 &2143921301
 GameObject:

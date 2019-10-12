@@ -2556,8 +2556,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a69be6210097d4694cf80fca532fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LightAttackHitBox: {fileID: 4293987957809166414}
-  speed: 4.5
+  lightAttackHitBox: {fileID: 4293987957809166414}
+  groundSpeed: 2
   aerialSpeed: 2.5
   jumpHeight: 15
   jumpForce: 1
@@ -2702,6 +2702,7 @@ MonoBehaviour:
   endRadius: 6
   expansionSpeed: 4
   strength: 1250
+  hitStunDuration: 0.35
   parent: {fileID: 4293987957809166414}
   character: {fileID: 3290087435262608986}
   isExpanding: 0
@@ -7660,7 +7661,12 @@ PrefabInstance:
     - target: {fileID: 198856239026640498, guid: 9bba9cf244c53c5439505dfc96fdd11c,
         type: 3}
       propertyPath: looping
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198856239026640498, guid: 9bba9cf244c53c5439505dfc96fdd11c,
+        type: 3}
+      propertyPath: prewarm
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}

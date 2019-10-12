@@ -32,11 +32,13 @@ public class GameCharacterController : MonoBehaviour
     private void FixedUpdate()
     {
         // Add a constant down force to the character if he is not grounded
-        if(!this.isGrounded) this.currentRigidbody.AddForce(-Vector3.up * this.downForce);
+        if (!this.isGrounded) this.currentRigidbody.AddForce(-Vector3.up * this.downForce);
     }
 
     void Update()
     {
+        if (this.isGrounded && this.gameObject.layer != 0) this.gameObject.layer = 0;
+
         if (this.isMoving && this.hitStun == 0)
         {
             // Rotate the character in movement direction
@@ -99,6 +101,7 @@ public class GameCharacterController : MonoBehaviour
                 this.currentRigidbody.AddForce(new Vector3(this.jumpForce * this.movementVector.x, this.jumpHeight, 0));
             }
             this.isJumping = true;
+            this.gameObject.layer = 8; // Set layer to "PassThroughPlatforms"
         }
     }
 
@@ -134,6 +137,11 @@ public class GameCharacterController : MonoBehaviour
     {
         if (collision.transform.tag == "Floor") 
         {
+            Debug.Log($"Points colliding: {collision.contactCount}");
+            foreach(ContactPoint c in collision.contacts)
+            {
+                Debug.Log($"Point: {c.normal}");
+            }
             this.isGrounded = true;
         }
     }
