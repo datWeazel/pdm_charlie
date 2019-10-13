@@ -19,10 +19,10 @@ TagManager:
   - UI
   - 
   - 
+  - PassThroughPlatforms
   - No_Collide
   - No_Collide2
-  - No_Inner_Collide
-  - 
+  - No_Internal_Collide
   - 
   - 
   - 
