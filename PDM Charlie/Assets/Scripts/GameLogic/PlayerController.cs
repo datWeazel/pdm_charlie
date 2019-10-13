@@ -11,19 +11,19 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     public int Id = -1;
-    public int Stocks = 1;
-    public int Percentage = 0;
-    public Vector3 Spawnpoint = new Vector3();
+    public int stocks = 1;
+    public int percentage = 0;
+    public Vector3 spawnpoint = new Vector3();
 
-    public GameObject Selector = null;
-    public float SelectorSpeed = 1.0f;
-    private GameObject GameController = null;
-    private GameController GameControllerScript = null;
+    public GameObject selector = null;
+    public float selectorSpeed = 1.0f;
+    private GameObject gameController = null;
+    private GameController gameControllerScript = null;
 
-    public string Character = "";
-    public GameCharacterController CharacterController = null;
+    public string character = "";
+    public GameCharacterController characterController = null;
 
-    public PlayerMatchInfoController MatchHUD = null;
+    public PlayerMatchInfoController matchHUD = null;
 
     private Vector2 moveVector = new Vector2();
 
@@ -31,38 +31,40 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this);
-        GameController = GameObject.Find("GameController");
-        GameControllerScript = GameController.GetComponent<GameController>();
-        Selector.GetComponentInChildren<TextMeshProUGUI>().text = $"P {this.Id}";
+
+        this.gameController = GameObject.Find("GameController");
+        this.gameControllerScript = gameController.GetComponent<GameController>();
+
+        this.selector.GetComponentInChildren<TextMeshProUGUI>().text = $"P {this.Id}";
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameControllerScript.GetGameState() == "character_select" || GameControllerScript.GetGameState() == "stage_select" || GameControllerScript.GetGameState() == "match_end")
+        if (this.gameControllerScript.GetGameState() == "character_select" || this.gameControllerScript.GetGameState() == "stage_select" || this.gameControllerScript.GetGameState() == "match_end")
         {
-            if (!Selector.activeSelf) Selector.SetActive(true);
+            if (!this.selector.activeSelf) this.selector.SetActive(true);
 
-            if (moveVector != new Vector2())
+            if (this.moveVector != new Vector2())
             {
-                Selector.transform.position += new Vector3((moveVector.x * SelectorSpeed), (moveVector.y * SelectorSpeed), 0);
+                this.selector.transform.position += new Vector3((this.moveVector.x * this.selectorSpeed), (this.moveVector.y * this.selectorSpeed), 0);
             }
         }
         else
         {
-            if (Selector.activeSelf) Selector.SetActive(false);
+            if (this.selector.activeSelf) this.selector.SetActive(false);
 
-            if(this.MatchHUD != null)
+            if(this.matchHUD != null)
             {
-                this.MatchHUD.UpdatePlayerPercentage(this.Percentage);
+                this.matchHUD.UpdatePlayerPercentage(this.percentage);
             }
 
 
-            if (GameControllerScript.GetGameState() == "match_active")
+            if (this.gameControllerScript.GetGameState() == "match_active")
             {
-                if (moveVector != new Vector2())
+                if (this.moveVector != new Vector2())
                 {
-                    this.CharacterController?.Move(new Vector2(moveVector.x, moveVector.y));
+                    this.characterController?.Move(new Vector2(this.moveVector.x, this.moveVector.y));
                 }
             }
         }
@@ -70,46 +72,45 @@ public class PlayerController : MonoBehaviour
 
     public void HitDeathZone()
     {
-        this.Stocks--;
+        this.stocks--;
 
-        MatchHUD?.UpdatePlayerStockCount(this.Stocks);
+        this.matchHUD?.UpdatePlayerStockCount(this.stocks);
 
-        if(this.Stocks == 0)
+        if(this.stocks == 0)
         {
-            GameControllerScript.RemovePlayer(this);
+            this.gameControllerScript.RemovePlayer(this);
             GameObject.Destroy(this.gameObject);
             return;
         }
 
-        this.CharacterController.SetPosition(Spawnpoint);
+        this.characterController.SetPosition(this.spawnpoint);
     }
 
     public GameObject CreateCharacter(GameObject characterPrefab, Vector3 position)
     {
-        Debug.Log($"Creating character {characterPrefab.name} at position {position}");
         GameObject character = Instantiate(characterPrefab, this.transform);
         character.transform.position = position;
-        this.CharacterController = character.GetComponent<GameCharacterController>();
-        this.Spawnpoint = position;
+
+        this.characterController = character.GetComponent<GameCharacterController>();
+        this.spawnpoint = position;
 
         return character;
     }
 
     public void OnMove(InputValue value)
     {
-        moveVector = value.Get<Vector2>();
+        this.moveVector = value.Get<Vector2>();
     }
 
     public void OnPoint(InputValue value)
     {
-        Vector2 analogVector = value.Get<Vector2>();
-        Selector.transform.position = analogVector;
+        this.selector.transform.position = value.Get<Vector2>();
     }
 
     public void OnClick()
     {
         Debug.Log("OnClick");
-        if (GameControllerScript.GetGameState() == "character_select" || GameControllerScript.GetGameState() == "stage_select" || GameControllerScript.GetGameState() == "match_end")
+        if (this.gameControllerScript.GetGameState() == "character_select" || this.gameControllerScript.GetGameState() == "stage_select" || this.gameControllerScript.GetGameState() == "match_end")
         {
             Select();
         }
@@ -117,20 +118,21 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        if(GameControllerScript.GetGameState() == "character_select" || GameControllerScript.GetGameState() == "stage_select" || GameControllerScript.GetGameState() == "match_end")
+        if(this.gameControllerScript.GetGameState() == "character_select" || this.gameControllerScript.GetGameState() == "stage_select" || this.gameControllerScript.GetGameState() == "match_end")
         {
             Select();
         }
-        else if (GameControllerScript.GetGameState() == "match_active")
+        else if (this.gameControllerScript.GetGameState() == "match_active")
         {
-            this.CharacterController?.Jump();
+            this.characterController?.Jump();
         }
     }
 
     public void Select()
     {
         PointerEventData cursor = new PointerEventData(EventSystem.current);
-        cursor.position = Selector.transform.position;
+        cursor.position = this.selector.transform.position;
+
         List<RaycastResult> objectsHit = new List<RaycastResult>();
         EventSystem.current.RaycastAll(cursor, objectsHit);
 
@@ -139,8 +141,8 @@ public class PlayerController : MonoBehaviour
             Transform CharacterNameTag = rr.gameObject.transform.Find("CharacterNameTag");
             if (CharacterNameTag != null)
             {
-                Character = CharacterNameTag.GetComponent<TextMeshProUGUI>().text;
-                GameObject.Find("CharacterSelect").GetComponent<CharacterSelectionController>().UpdateSelectedCharacter(this.transform.GetComponent<PlayerInput>(), Character);
+                this.character = CharacterNameTag.GetComponent<TextMeshProUGUI>().text;
+                GameObject.Find("CharacterSelect").GetComponent<CharacterSelectionController>().UpdateSelectedCharacter(this.transform.GetComponent<PlayerInput>(), this.character);
                 Debug.Log($"Player selected character {CharacterNameTag.GetComponent<TextMeshProUGUI>().text} ");
 
                 return;
@@ -149,16 +151,16 @@ public class PlayerController : MonoBehaviour
             Transform StageNameTag = rr.gameObject.transform.Find("StageNameTag");
             if(StageNameTag != null)
             {
-                GameControllerScript.stageName = StageNameTag.GetComponent<TextMeshProUGUI>().text;
-                GameObject.Find("SelectedStage").GetComponent<TextMeshProUGUI>().text = $"{GameControllerScript.stageName}";
+                this.gameControllerScript.stageName = StageNameTag.GetComponent<TextMeshProUGUI>().text;
+                GameObject.Find("SelectedStage").GetComponent<TextMeshProUGUI>().text = $"{this.gameControllerScript.stageName}";
                 return;
             }
 
             Button btn = rr.gameObject.GetComponent<Button>();
             if(btn != null)
             {
-                if (rr.gameObject.name == "btn_stage_select" && (GameControllerScript.players.Count < 2 || !GameControllerScript.DoesEveryPlayerHaveCharacter())) return;
-                if (rr.gameObject.name == "btn_match_start" && GameControllerScript.stageName == "") return;
+                if (rr.gameObject.name == "btn_stage_select" && (this.gameControllerScript.players.Count < 2 || !this.gameControllerScript.DoesEveryPlayerHaveCharacter())) return;
+                if (rr.gameObject.name == "btn_match_start" && this.gameControllerScript.stageName == "") return;
                 btn.onClick.Invoke();
                 return;
             }
@@ -167,38 +169,25 @@ public class PlayerController : MonoBehaviour
 
     public void OnLightAttack(InputValue value)
     {
-        if (GameControllerScript.GetGameState() == "match_active")
+        if (this.gameControllerScript.GetGameState() == "match_active")
         {
-            Debug.Log("1");
-            this.CharacterController?.Attack(false);
+            this.characterController?.Attack(false);
         }
     }
 
     public void OnHeavyAttack(InputValue value)
     {
-        if (GameControllerScript.GetGameState() == "match_active")
+        if (this.gameControllerScript.GetGameState() == "match_active")
         {
-            this.CharacterController?.Attack(true);
+            this.characterController?.Attack(true);
         }
     }
 
     public void OnStart(InputValue value)
     {
-        if(GameControllerScript.GameState == "match_end")
+        if(this.gameControllerScript.gameState == "match_end")
         {
-            GameControllerScript.LoadScene("MainMenu");
+            this.gameControllerScript.LoadScene("MainMenu");
         }
-    }
-
-    public void OnSelect(InputValue value)
-    {
-    }
-
-    bool rectOverlaps(RectTransform rectTrans1, RectTransform rectTrans2)
-    {
-        Rect rect1 = new Rect(rectTrans1.localPosition.x, rectTrans1.localPosition.y, rectTrans1.rect.width, rectTrans1.rect.height);
-        Rect rect2 = new Rect(rectTrans2.localPosition.x, rectTrans2.localPosition.y, rectTrans2.rect.width, rectTrans2.rect.height);
-
-        return rect1.Overlaps(rect2);
     }
 }

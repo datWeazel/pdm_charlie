@@ -239,9 +239,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ec7c25976a63b24086ddbf3e28524c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerName: {fileID: 2879504303355373538}
-  PlayerPercentage: {fileID: 890223832850464099}
-  PlayerStocks: {fileID: 2625959922118152}
+  playerName: {fileID: 2879504303355373538}
+  playerPercentage: {fileID: 890223832850464099}
+  playerStocks: {fileID: 2625959922118152}
 --- !u!1 &890223832683584208
 GameObject:
   m_ObjectHideFlags: 0

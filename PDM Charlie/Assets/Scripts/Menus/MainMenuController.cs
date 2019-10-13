@@ -4,21 +4,10 @@ using UnityEngine;
 
 public class MainMenuController : MonoBehaviour
 {
-    public GameObject MainMenu = null;
-    public GameObject CharacterSelect = null;
-    public GameObject StageSelect = null;
+    public GameObject mainMenu = null;
+    public GameObject characterSelect = null;
+    public GameObject stageSelect = null;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void ShowMenu(GameObject menu){
             menu?.SetActive(true);

@@ -8,53 +8,68 @@ public class AttackHitboxController : MonoBehaviour
     public float endRadius = 6.0f;
     public float expansionSpeed = 1.0f;
     public float strength = 150.0f;
+    public float hitStunDuration = 0.35f;
 
     public GameObject parent;
     public GameObject character;
 
     public bool isExpanding = false;
+
+    private SphereCollider sphereCollider;
     private List<PlayerController> hitPlayers = new List<PlayerController>();
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        
+        sphereCollider = GetComponent<SphereCollider>();
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        if (isExpanding)
+        if (this.isExpanding)
         {
-            GetComponent<SphereCollider>().radius += expansionSpeed * Time.deltaTime;
-            if(GetComponent<SphereCollider>().radius >= endRadius)
+            // If collider is set to expand, raise the collider radius until it hit's the maximum radius
+            this.sphereCollider.radius += this.expansionSpeed * Time.deltaTime;
+            if(this.sphereCollider.radius >= this.endRadius)
             {
-                GetComponent<SphereCollider>().radius = startRadius;
-                hitPlayers.Clear();
-                isExpanding = false;
-                parent.SetActive(false);
+                EndAttackHitbox();
             }
         }
     }
 
-    public void StartHitbox()
+    /// <summary>
+    /// Starts the expansion of the attack hitbox
+    /// </summary>
+    public void StartAttackHitbox()
     {
-        isExpanding = true;
+        this.isExpanding = true;
     }
 
-    private void OnTriggerEnter(Collider collision)
+    /// <summary>
+    /// Ends the attack hitbox, clears hit players and deactivates the attack effect gameObject
+    /// </summary>
+    public void EndAttackHitbox()
     {
-        if(collision.transform.tag == "Character" && collision.gameObject != this.character)
-        {
-            PlayerController player = collision.transform.GetComponentInParent<PlayerController>();
-            if (!hitPlayers.Contains(player))
-            {
-                Debug.Log($"Hit!");
-                hitPlayers.Add(player);
+        this.sphereCollider.radius = this.startRadius;
+        this.hitPlayers.Clear();
+        this.isExpanding = false;
+        this.parent.SetActive(false);
+    }
 
-                Vector3 direction = collision.transform.position - this.character.transform.position;
-                Debug.Log($"Hit! (direction: {direction.ToString()}");
-                player.CharacterController.AddForce((direction*strength));
-                player.CharacterController.SetHitStun(0.35f);
+    private void OnTriggerEnter(Collider entity)
+    {
+        // Check if entity that entered the hitbox collider is a Character and is not the player that attacked
+        if(entity.transform.tag == "Character" && entity.gameObject != this.character)
+        {
+            PlayerController player = entity.transform.GetComponentInParent<PlayerController>();
+            if (!this.hitPlayers.Contains(player))
+            {
+                this.hitPlayers.Add(player);
+
+                Vector3 direction = entity.transform.position - this.character.transform.position;
+                player.characterController.AddForce((direction * this.strength));
+                player.characterController.SetHitStun(this.hitStunDuration);
             }
         }
     }

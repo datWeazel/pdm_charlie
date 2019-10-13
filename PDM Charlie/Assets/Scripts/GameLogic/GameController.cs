@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     public GameObject UI = null;
     public List<PlayerController> players;
     public List<GameObject> characterPrefabs;
-    public string GameState = "";
+    public string gameState = "";
 
     public MatchRules rules = null;
     public string stageName = "";
@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this);
-        GameState = "main_menu";
+        gameState = "main_menu";
     }
 
     // Update is called once per frame
@@ -43,9 +43,9 @@ public class GameController : MonoBehaviour
         }
 
         CameraLogic camLogic = Camera.main.GetComponent<CameraLogic>();
-        if (camLogic != null) camLogic.RemovePlayerFromCam(player.CharacterController.transform);
+        if (camLogic != null) camLogic.RemovePlayerFromCam(player.characterController.transform);
 
-        if (this.rules.team_size == 1)
+        if (this.rules.teamSize == 1)
         {
             if (players.Count == 1)
             {
@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour
         MatchHUDController matchHUDController = GameObject.Find("MATCH_HUD").GetComponent<MatchHUDController>();
         matchHUDController.UpdateEndScreenText(endScreenText);
         matchHUDController.SetEndScreenVisible(true);
-        this.GameState = "match_end";
+        this.gameState = "match_end";
     }
 
     public void LoadScene(string scene)
@@ -103,7 +103,7 @@ public class GameController : MonoBehaviour
     {
         if (this.stageName == "") return;
 
-        GameState = "match_prepare";
+        gameState = "match_prepare";
         SceneManager.LoadScene(this.stageName);
 
         
@@ -113,19 +113,19 @@ public class GameController : MonoBehaviour
     IEnumerator StartMatch(int waitSeconds)
     {
         yield return new WaitForSeconds(waitSeconds);
-        GameState = "match_active";
+        gameState = "match_active";
 
         foreach (PlayerController player in players)
         {
-            GameObject character = characterPrefabs.FirstOrDefault(p => p.name == player.Character);
+            GameObject character = characterPrefabs.FirstOrDefault(p => p.name == player.character);
             if (character != null)
             {
                 GameObject c = player.CreateCharacter(character, GetPlayerStageSpawn(player.Id));
-                player.Stocks = this.rules.stocks;
-                player.MatchHUD = GetPlayerMatchInfoController(player.Id);
-                player.MatchHUD.ActivateParent();
-                player.MatchHUD.UpdatePlayerName($"P{player.Id}");
-                player.MatchHUD.UpdatePlayerStockCount(player.Stocks);
+                player.stocks = this.rules.stocks;
+                player.matchHUD = GetPlayerMatchInfoController(player.Id);
+                player.matchHUD.ActivateParent();
+                player.matchHUD.UpdatePlayerName($"P{player.Id}");
+                player.matchHUD.UpdatePlayerStockCount(player.stocks);
                 Camera.main.GetComponent<CameraLogic>()?.AddPlayerToCam(c.transform);
             }
         }
@@ -135,12 +135,12 @@ public class GameController : MonoBehaviour
 
     public void SetGameState(string state)
     {
-        GameState = state;
+        gameState = state;
     }
 
     public string GetGameState()
     {
-        return this.GameState;
+        return this.gameState;
     }
 
     public PlayerMatchInfoController GetPlayerMatchInfoController(int id)
@@ -178,7 +178,7 @@ public class GameController : MonoBehaviour
     {
         foreach (PlayerController player in players)
         {
-            if (player.Character == "") return false;
+            if (player.character == "") return false;
         }
 
         return true;

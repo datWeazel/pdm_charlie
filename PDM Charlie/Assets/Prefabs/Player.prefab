@@ -46,12 +46,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Id: -1
-  Stocks: 1
-  Spawnpoint: {x: 0, y: 0, z: 0}
-  Selector: {fileID: 6030745132904710754}
-  SelectorSpeed: 3
-  Character: 
-  CharacterController: {fileID: 0}
+  stocks: 1
+  percentage: 0
+  spawnpoint: {x: 0, y: 0, z: 0}
+  selector: {fileID: 6030745132904710754}
+  selectorSpeed: 3
+  character: 
+  characterController: {fileID: 0}
+  matchHUD: {fileID: 0}
 --- !u!114 &2196793353848064697
 MonoBehaviour:
   m_ObjectHideFlags: 0

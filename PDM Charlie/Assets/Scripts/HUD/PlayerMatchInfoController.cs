@@ -5,23 +5,23 @@ using UnityEngine;
 
 public class PlayerMatchInfoController : MonoBehaviour
 {
-    public TextMeshProUGUI PlayerName;
-    public TextMeshProUGUI PlayerPercentage;
-    public TextMeshProUGUI PlayerStocks;
+    public TextMeshProUGUI playerName;
+    public TextMeshProUGUI playerPercentage;
+    public TextMeshProUGUI playerStocks;
 
     public void UpdatePlayerName(string newName)
     {
-        PlayerName.text = newName;   
+        this.playerName.text = newName;   
     }
 
     public void UpdatePlayerPercentage(int newPercentage)
     {
-        PlayerPercentage.text = $"{newPercentage}%";
+        this.playerPercentage.text = $"{newPercentage}%";
     }
 
     public void UpdatePlayerStockCount(int newStockCount)
     {
-        PlayerStocks.text = $"{newStockCount}";
+        this.playerStocks.text = $"{newStockCount}";
     }
 
     public void ActivateParent()

@@ -5,27 +5,17 @@ using UnityEngine;
 
 public class MatchHUDController : MonoBehaviour
 {
-    public GameObject MatchTimer;
-    public GameObject EndScreen;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject matchTimer;
+    public GameObject endScreen;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void UpdateEndScreenText(string text)
     {
-        EndScreen.transform.Find("EndScreenText").GetComponent<TextMeshProUGUI>().text = text;
+        this.endScreen.transform.Find("EndScreenText").GetComponent<TextMeshProUGUI>().text = text;
     }
 
     public void SetEndScreenVisible(bool visible)
     {
-        EndScreen.SetActive(visible);
+        this.endScreen.SetActive(visible);
     }
 }
