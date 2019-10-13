@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stages/Freight Ship.unity
     guid: f3dd1a1aad8a3734aa763b7f5d3ebad2
+  - enabled: 1
+    path: Assets/Scenes/Stages/Train.unity
+    guid: d0485ef674fd2b24798e0c4649ef47a3
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: b3808ad06486e9342bc8a50741e251dc,
       type: 2}
