@@ -4236,6 +4236,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Floor
       objectReference: {fileID: 0}
+    - target: {fileID: 1733025864891252, guid: 47879eb34ffebc04098b7a42599f5a1a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4324775340843092, guid: 47879eb34ffebc04098b7a42599f5a1a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.988688
@@ -17656,7 +17660,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013009559070, guid: 4634910a8580fb149a1d17bf36f23b4a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19.37
+      value: 19.963
       objectReference: {fileID: 0}
     - target: {fileID: 4000013009559070, guid: 4634910a8580fb149a1d17bf36f23b4a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -17693,6 +17697,10 @@ PrefabInstance:
     - target: {fileID: 4000013009559070, guid: 4634910a8580fb149a1d17bf36f23b4a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013009559070, guid: 4634910a8580fb149a1d17bf36f23b4a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6102
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4634910a8580fb149a1d17bf36f23b4a, type: 3}
@@ -22172,8 +22180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c6a6df342b52d24092cf6bbb590c535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveHeight: 1.5
-  waveFrequency: 0.5
+  waveHeight: 0.27
+  waveFrequency: 0.3
   waveLength: 0.5
   waveOriginPosition: {x: 0, y: 0, z: 0}
 --- !u!23 &2113563284
@@ -22221,7 +22229,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2113563282}
-  m_Mesh: {fileID: 4300000, guid: ebfb4988eb16add4784122504f75fe2f, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 1cd09a5ca4ff1194fbd3088cc59e2b0c, type: 2}
 --- !u!4 &2113563286
 Transform:
   m_ObjectHideFlags: 0
@@ -22230,8 +22238,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2113563282}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.13, z: 260}
-  m_LocalScale: {x: 1, y: 0.2366539, z: 1}
+  m_LocalPosition: {x: 0, y: 0.85, z: 260}
+  m_LocalScale: {x: 14.078555, y: 3.3317447, z: 14.078555}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
