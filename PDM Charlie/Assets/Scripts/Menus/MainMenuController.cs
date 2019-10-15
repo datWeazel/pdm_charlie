@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -21,5 +22,15 @@ public class MainMenuController : MonoBehaviour
     {
         Debug.Log("QuitGame (User action)");
         Application.Quit();
+    }
+
+    public void OnPlayerJoined(PlayerInput player)
+    {
+        characterSelect.GetComponent<CharacterSelectionController>().OnPlayerJoined(player);
+    }
+
+    public void OnPlayerLeft(PlayerInput player)
+    {
+        characterSelect.GetComponent<CharacterSelectionController>().OnPlayerLeft(player);
     }
 }

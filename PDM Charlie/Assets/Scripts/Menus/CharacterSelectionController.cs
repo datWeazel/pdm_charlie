@@ -36,7 +36,7 @@ public class CharacterSelectionController : MonoBehaviour
                 player.GetComponentInParent<PlayerController>().Id = Convert.ToInt32(emptyContainer.name.Replace("PlayerContainer_", ""));
                 emptyContainer.transform.Find("join_help").GetComponent<TextMeshProUGUI>().text = $"P{player.GetComponentInParent<PlayerController>().Id} Select character";
 
-                this.gameController.GetComponent<GameController>().AddPlayer(player.GetComponentInParent<PlayerController>());
+                this.gameController.GetComponent<GameController>().AddPlayer(player);
                 Debug.Log("Player joined!");
             }
         }
@@ -70,7 +70,7 @@ public class CharacterSelectionController : MonoBehaviour
             this.containerToPlayer.TryGetValue(player, out container);
             container.transform.Find("join_help").GetComponent<TextMeshProUGUI>().text = "Press Start!";
             this.containerToPlayer.Remove(player);
-            this.gameController.GetComponent<GameController>().RemovePlayer(player.GetComponentInParent<PlayerController>());
+            this.gameController.GetComponent<GameController>().RemovePlayer(player);
             Debug.Log("Player left!");
         }
     }
