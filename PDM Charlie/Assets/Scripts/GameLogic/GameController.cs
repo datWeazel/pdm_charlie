@@ -22,7 +22,8 @@ public class GameController : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         DontDestroyOnLoad(this);
-        gameState = "main_menu";
+        gameState = "main_menu"; 
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
