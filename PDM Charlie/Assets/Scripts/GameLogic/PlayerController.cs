@@ -41,7 +41,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.gameControllerScript.GetGameState() == "character_select" || this.gameControllerScript.GetGameState() == "stage_select" || this.gameControllerScript.GetGameState() == "match_end")
+        string gameState = this.gameControllerScript.GetGameState();
+        Debug.Log($"State: {gameState} || Id: {this.Id}");
+
+        if (gameState == "character_select" || gameState == "stage_select" || gameState == "match_end" || (gameState == "main_menu" && this.Id == 1))
         {
             if (!this.selector.activeSelf) this.selector.SetActive(true);
 
@@ -60,7 +63,7 @@ public class PlayerController : MonoBehaviour
             }
 
 
-            if (this.gameControllerScript.GetGameState() == "match_active")
+            if (gameState == "match_active")
             {
                 if (this.moveVector != new Vector2())
                 {
@@ -78,8 +81,8 @@ public class PlayerController : MonoBehaviour
 
         if(this.stocks == 0)
         {
-            this.gameControllerScript.RemovePlayer(this);
-            GameObject.Destroy(this.gameObject);
+            this.gameControllerScript.RemovePlayer(this.GetComponent<PlayerInput>());
+            GameObject.Destroy(this.characterController.gameObject);
             return;
         }
 
@@ -109,8 +112,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnClick()
     {
-        Debug.Log("OnClick");
-        if (this.gameControllerScript.GetGameState() == "character_select" || this.gameControllerScript.GetGameState() == "stage_select" || this.gameControllerScript.GetGameState() == "match_end")
+        string gameState = this.gameControllerScript.GetGameState();
+        if (gameState == "main_menu" || gameState == "character_select" || gameState == "stage_select")
         {
             Select();
         }
@@ -118,7 +121,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        if(this.gameControllerScript.GetGameState() == "character_select" || this.gameControllerScript.GetGameState() == "stage_select" || this.gameControllerScript.GetGameState() == "match_end")
+        string gameState = this.gameControllerScript.GetGameState();
+        Debug.Log($"OnJump - gameState: {gameState}");
+        if (gameState == "main_menu" || gameState == "character_select" || gameState == "stage_select")
         {
             Select();
         }
@@ -188,6 +193,15 @@ public class PlayerController : MonoBehaviour
         if(this.gameControllerScript.gameState == "match_end")
         {
             this.gameControllerScript.LoadScene("MainMenu");
+        }
+    }
+
+    public void OnSelect()
+    {
+        string gameState = this.gameControllerScript.gameState;
+        if(gameState == "main_menu" || gameState == "character_select")
+        {
+            GameObject.Destroy(this.gameObject);
         }
     }
 }

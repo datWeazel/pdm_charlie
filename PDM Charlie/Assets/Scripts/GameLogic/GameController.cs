@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
     public GameObject UI = null;
-    public List<PlayerController> players;
+    public List<PlayerInput> players;
     public List<GameObject> characterPrefabs;
+    public PlayerInputManager playerInputManager;
     public string gameState = "";
 
     public MatchRules rules = null;
@@ -18,8 +20,10 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         DontDestroyOnLoad(this);
-        gameState = "main_menu";
+        gameState = "main_menu"; 
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -27,39 +31,43 @@ public class GameController : MonoBehaviour
     {
     }
 
-    public void AddPlayer(PlayerController player)
+    public void AddPlayer(PlayerInput player)
     {
+        Debug.Log("Joined!");
         if (!players.Contains(player))
         {
             players.Add(player);
         }
     }
 
-    public void RemovePlayer(PlayerController player)
+    public void RemovePlayer(PlayerInput player)
     {
         if (players.Contains(player))
         {
             players.Remove(player);
         }
 
-        CameraLogic camLogic = Camera.main.GetComponent<CameraLogic>();
-        if (camLogic != null) camLogic.RemovePlayerFromCam(player.characterController.transform);
-
-        if (this.rules.teamSize == 1)
+        if (this.gameState == "match_active")
         {
-            if (players.Count == 1)
+            CameraLogic camLogic = Camera.main.GetComponent<CameraLogic>();
+            if (camLogic != null) camLogic.RemovePlayerFromCam(player.GetComponent<PlayerController>().characterController.transform);
+
+            if (this.rules.teamSize == 1)
             {
-                EndMatch(players);
+                if (players.Count == 1)
+                {
+                    EndMatch(players);
+                }
             }
         }
     }
 
-    public void EndMatch(List<PlayerController> winners)
+    public void EndMatch(List<PlayerInput> winners)
     {
         string endScreenText = "";
-        foreach(PlayerController p in winners)
+        foreach(PlayerInput p in winners)
         {
-            endScreenText += $"P{p.Id} ";
+            endScreenText += $"P{p.GetComponent<PlayerController>().Id} ";
         }
 
         endScreenText += "WINS!";
@@ -115,8 +123,9 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(waitSeconds);
         gameState = "match_active";
 
-        foreach (PlayerController player in players)
+        foreach (PlayerInput playerInput in players)
         {
+            PlayerController player = playerInput.GetComponent<PlayerController>();
             GameObject character = characterPrefabs.FirstOrDefault(p => p.name == player.character);
             if (character != null)
             {
@@ -176,11 +185,16 @@ public class GameController : MonoBehaviour
 
     public bool DoesEveryPlayerHaveCharacter()
     {
-        foreach (PlayerController player in players)
+        foreach (PlayerInput player in players)
         {
-            if (player.character == "") return false;
+            if (player.GetComponent<PlayerController>().character == "") return false;
         }
 
         return true;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MainMenu") this.gameState = "main_menu";
     }
 }

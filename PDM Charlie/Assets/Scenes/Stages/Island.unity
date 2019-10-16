@@ -3504,6 +3504,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Floor
       objectReference: {fileID: 0}
+    - target: {fileID: 1733025864891252, guid: 47879eb34ffebc04098b7a42599f5a1a, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 4324775340843092, guid: 47879eb34ffebc04098b7a42599f5a1a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.141312
@@ -4238,7 +4242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1733025864891252, guid: 47879eb34ffebc04098b7a42599f5a1a, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4324775340843092, guid: 47879eb34ffebc04098b7a42599f5a1a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18593,6 +18597,10 @@ PrefabInstance:
     - target: {fileID: 1733025864891252, guid: 47879eb34ffebc04098b7a42599f5a1a, type: 3}
       propertyPath: m_TagString
       value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 1733025864891252, guid: 47879eb34ffebc04098b7a42599f5a1a, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4324775340843092, guid: 47879eb34ffebc04098b7a42599f5a1a, type: 3}
       propertyPath: m_LocalPosition.x
