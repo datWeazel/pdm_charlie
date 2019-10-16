@@ -44,6 +44,9 @@ public class GameCharacterController : MonoBehaviour
 
         if (this.isMoving && this.hitStun == 0)
         {
+            // Pass trough platforms when pressing down
+            if (this.movementVector.y <= -0.5 && this.gameObject.layer != 8) this.gameObject.layer = 8;
+
             // Rotate the character in movement direction
             if (this.movementVector.x < 0)
             {
