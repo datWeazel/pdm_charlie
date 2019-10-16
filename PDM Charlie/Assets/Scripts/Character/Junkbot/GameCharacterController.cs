@@ -141,20 +141,20 @@ public class GameCharacterController : MonoBehaviour
     #region Callbacks
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Floor") 
+        if (collision.transform.tag == "Floor" || collision.transform.tag == "Character") 
         {
-            Debug.Log($"Points colliding: {collision.contactCount}");
-            foreach(ContactPoint c in collision.contacts)
-            {
-                Debug.Log($"Point: {c.normal}");
-            }
+            //Debug.Log($"Points colliding: {collision.contactCount}");
+            //foreach(ContactPoint c in collision.contacts)
+            //{
+                //Debug.Log($"Point: {c.normal}");
+            //}
             this.isGrounded = true;
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.transform.tag == "Floor")
+        if (collision.transform.tag == "Floor" || collision.transform.tag == "Character")
         {
             this.isGrounded = false;
         }
