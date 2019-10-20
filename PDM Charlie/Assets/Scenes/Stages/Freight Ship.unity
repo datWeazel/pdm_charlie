@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1997432116}
-  m_IndirectSpecularColor: {r: 0.040662073, g: 0.049106, b: 0.058780253, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3949,8 +3949,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.4636884, y: 2.4833798, z: 4.800001}
-  m_Center: {x: 0, y: 0.005358994, z: 0}
+  m_Size: {x: 2.4636884, y: 2.3655648, z: 4.800001}
+  m_Center: {x: 0, y: -0.053548574, z: 0}
 --- !u!114 &692652507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7692,8 +7692,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.4636884, y: 2.4833798, z: 4.800001}
-  m_Center: {x: -0.00000035762787, y: 0.005358994, z: 0}
+  m_Size: {x: 2.4636884, y: 2.1274047, z: 4.800001}
+  m_Center: {x: -0.00000035762787, y: 0.043271303, z: -1.6940643e-21}
 --- !u!1 &1407921742
 GameObject:
   m_ObjectHideFlags: 0
@@ -10037,7 +10037,7 @@ PrefabInstance:
     - target: {fileID: 5245752107100696865, guid: 6e22d25120c381545be4ce24dda10e4a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.8197503
+      value: -9.87
       objectReference: {fileID: 0}
     - target: {fileID: 5245752107100696865, guid: 6e22d25120c381545be4ce24dda10e4a,
         type: 3}
@@ -10072,7 +10072,7 @@ PrefabInstance:
     - target: {fileID: 5245752107100696865, guid: 6e22d25120c381545be4ce24dda10e4a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5245752107100696865, guid: 6e22d25120c381545be4ce24dda10e4a,
         type: 3}
