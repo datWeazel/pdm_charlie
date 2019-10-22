@@ -19,6 +19,7 @@ public class GameCharacterController : MonoBehaviour
     private bool isAttacking = false;
     private Vector2 movementVector;
     private float hitStun = 0.0f;
+    private int collisions = 0;
 
     public bool isGrounded;
 
@@ -149,6 +150,7 @@ public class GameCharacterController : MonoBehaviour
                 //Debug.Log($"Point: {c.normal}");
             //}
             this.isGrounded = true;
+            collisions++;
         }
     }
 
@@ -156,7 +158,8 @@ public class GameCharacterController : MonoBehaviour
     {
         if (collision.transform.tag == "Floor" || collision.transform.tag == "Character")
         {
-            this.isGrounded = false;
+            collisions--;
+            if(collisions==0) this.isGrounded = false;
         }
     }
     #endregion
