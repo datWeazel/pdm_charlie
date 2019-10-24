@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour
 
             if (this.rules.teamSize == 1)
             {
-                if (players.Count < 1)
+                if (players.Count == 1)
                 {
                     EndMatch(players);
                 }
