@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
             Button btn = rr.gameObject.GetComponent<Button>();
             if(btn != null)
             {
-                if (rr.gameObject.name == "btn_stage_select" && (this.gameControllerScript.players.Count < 2 || !this.gameControllerScript.DoesEveryPlayerHaveCharacter())) return;
+                if (rr.gameObject.name == "btn_stage_select" && (this.gameControllerScript.players.Count < 1 || !this.gameControllerScript.DoesEveryPlayerHaveCharacter())) return;
                 if (rr.gameObject.name == "btn_match_start" && this.gameControllerScript.stageName == "") return;
                 btn.onClick.Invoke();
                 return;
