@@ -14,7 +14,7 @@ public class PlayerMatchInfoController : MonoBehaviour
         this.playerName.text = newName;   
     }
 
-    public void UpdatePlayerPercentage(int newPercentage)
+    public void UpdatePlayerPercentage(float newPercentage)
     {
         this.playerPercentage.text = $"{newPercentage}%";
     }

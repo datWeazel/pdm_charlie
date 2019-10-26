@@ -17,7 +17,7 @@ namespace Junkbot
         void Update()
         {
             base.Update();
-
+            Debug.Log($"Update: {this.isAttacking}");
             if (this.animator != null)
             {
                 // Set animator variables
@@ -29,7 +29,6 @@ namespace Junkbot
             // Reset animator help variables for next frame
             this.isJumping = !this.isGrounded;
             this.isMoving = false;
-            this.isAttacking = false;
         }
     }
 }

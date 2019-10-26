@@ -9,6 +9,7 @@ public class AttackHitboxControllerBase : MonoBehaviour
     public float expansionSpeed = 1.0f;
     public float strength = 150.0f;
     public float hitStunDuration = 0.35f;
+    public float percentageDamage = 0.5f;
 
     public GameObject parent;
     public GameObject character;
@@ -55,6 +56,9 @@ public class AttackHitboxControllerBase : MonoBehaviour
         this.hitPlayers.Clear();
         this.isExpanding = false;
         this.parent.SetActive(false);
+        PlayerController player = this.parent.transform.GetComponentInParent<PlayerController>();
+        player.characterController.isAttacking = false;
+
     }
 
     private void OnTriggerEnter(Collider entity)
@@ -67,8 +71,10 @@ public class AttackHitboxControllerBase : MonoBehaviour
             {
                 this.hitPlayers.Add(player);
 
+                player.percentage += this.percentageDamage;
+
                 Vector3 direction = entity.transform.position - this.character.transform.position;
-                player.characterController.AddForce((direction * this.strength));
+                player.characterController.AddForce((direction * ((player.percentage/100.0f) * this.strength)));
                 player.characterController.SetHitStun(this.hitStunDuration);
             }
         }

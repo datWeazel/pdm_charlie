@@ -75,6 +75,7 @@ public class CharacterControllerBase : MonoBehaviour
             if (!this.lightAttackHitBox.GetComponentInChildren<AttackHitboxControllerBase>().isExpanding)
             {
                 this.lightAttackHitBox.GetComponentInChildren<AttackHitboxControllerBase>().StartAttackHitbox();
+                this.isAttacking = true;
             }
         }
     }
