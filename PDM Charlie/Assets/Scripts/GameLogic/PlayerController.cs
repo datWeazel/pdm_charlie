@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 {
     public int Id = -1;
     public int stocks = 1;
-    public int percentage = 0;
+    public float percentage = 0;
     public Vector3 spawnpoint = new Vector3();
 
     public GameObject selector = null;
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private GameController gameControllerScript = null;
 
     public string character = "";
-    public GameCharacterController characterController = null;
+    public CharacterControllerBase characterController = null;
 
     public PlayerMatchInfoController matchHUD = null;
 
@@ -76,8 +76,9 @@ public class PlayerController : MonoBehaviour
     public void HitDeathZone()
     {
         this.stocks--;
-
         this.matchHUD?.UpdatePlayerStockCount(this.stocks);
+
+        this.percentage = 0.0f;
 
         if(this.stocks == 0)
         {
@@ -94,7 +95,7 @@ public class PlayerController : MonoBehaviour
         GameObject character = Instantiate(characterPrefab, this.transform);
         character.transform.position = position;
 
-        this.characterController = character.GetComponent<GameCharacterController>();
+        this.characterController = character.GetComponent<CharacterControllerBase>();
         this.spawnpoint = position;
 
         return character;
