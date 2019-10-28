@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         string gameState = this.gameControllerScript.GetGameState();
-        Debug.Log($"State: {gameState} || Id: {this.Id}");
+        //Debug.Log($"State: {gameState} || Id: {this.Id}");
 
         if (gameState == "character_select" || gameState == "stage_select" || gameState == "match_end" || (gameState == "main_menu" && this.Id == 1))
         {
@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
         }
 
         this.characterController.SetPosition(this.spawnpoint);
+        this.characterController.OnCharacterDying();
     }
 
     public GameObject CreateCharacter(GameObject characterPrefab, Vector3 position)
@@ -123,15 +124,20 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputValue value)
     {
         string gameState = this.gameControllerScript.GetGameState();
-        Debug.Log($"OnJump - gameState: {gameState}");
+        //Debug.Log($"OnJump - gameState: {gameState}");
         if (gameState == "main_menu" || gameState == "character_select" || gameState == "stage_select")
         {
             Select();
         }
         else if (this.gameControllerScript.GetGameState() == "match_active")
         {
-            this.characterController?.Jump();
+            this.characterController?.JumpButtonPressed();
         }
+    }
+
+    public void OnJumpRelease(InputValue value)
+    {
+        this.characterController?.JumpButtonReleased();
     }
 
     public void Select()
@@ -177,7 +183,17 @@ public class PlayerController : MonoBehaviour
     {
         if (this.gameControllerScript.GetGameState() == "match_active")
         {
-            this.characterController?.Attack(false);
+            this.characterController?.LightAttackButtonPressed();
+            Debug.Log("light atk");
+        }
+    }
+
+    public void OnLightAttackRelease(InputValue value)
+    {
+        if (this.gameControllerScript.GetGameState() == "match_active")
+        {
+            this.characterController?.LightAttackButtonReleased();
+            Debug.Log("light atk release");
         }
     }
 
@@ -185,7 +201,15 @@ public class PlayerController : MonoBehaviour
     {
         if (this.gameControllerScript.GetGameState() == "match_active")
         {
-            this.characterController?.Attack(true);
+            this.characterController?.HeavyAttackButtonPressed();
+        }
+    }
+
+    public void OnHeavyAttackRelease(InputValue value)
+    {
+        if (this.gameControllerScript.GetGameState() == "match_active")
+        {
+            this.characterController?.HeavyAttackButtonReleased();
         }
     }
 

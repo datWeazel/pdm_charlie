@@ -19,7 +19,7 @@
                     "id": "3e35d37e-bcad-4bd8-84fe-05caa15d868a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "HeavyAttack",
@@ -27,7 +27,7 @@
                     "id": "8a53e462-bf95-4366-9f6a-048fbbd224e4",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "Jump",
@@ -68,6 +68,22 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "LightAttackRelease",
+                    "type": "Button",
+                    "id": "bdd6f2be-e413-4de3-b96e-9856cc46bd1e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)"
+                },
+                {
+                    "name": "HeavyAttackRelease",
+                    "type": "Button",
+                    "id": "c0b7905d-2b0e-4016-8ace-484e7c045c4b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)"
                 }
             ],
             "bindings": [
@@ -321,6 +337,50 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "05ede029-94d9-4358-b3af-d91b9f1412b8",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "LightAttackRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "183b2de7-656a-431b-af77-2cbf3ccbffca",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "LightAttackRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "03337104-4c26-432e-b3f3-2cecce5d3028",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "HeavyAttackRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "73a038e2-76a1-4637-b8cd-e7e7b2e320c3",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "HeavyAttackRelease",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

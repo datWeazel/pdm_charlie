@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,12 +7,21 @@ public class CharacterControllerBase : MonoBehaviour
 {
     private Rigidbody currentRigidbody;
 
-    public GameObject lightAttackHitBox;
+    
     public float groundSpeed = 2.0f;
     public float aerialSpeed = 1.0f;
     public float jumpHeight = 10.0f;
     public float jumpForce = 1.0f;
     public float downForce = 0.1f;
+
+    public float timeUntilButtonHold = 0.1f;
+    public float lightAttackButtonHeld = 0.0f;
+    public float heavyAttackButtonHeld = 0.0f;
+    public float jumpButtonHeld = 0.0f;
+
+    private bool isLightAttackButtonPressed = false;
+    private bool isHeavyAttackButtonPressed = false;
+    private bool isJumpButtonPressed = false;
 
     public bool isGrounded = false;
     public bool isMoving = false;
@@ -53,6 +63,36 @@ public class CharacterControllerBase : MonoBehaviour
             float moveSpeed = (this.isGrounded) ? this.groundSpeed : this.aerialSpeed;
             this.currentRigidbody.velocity = new Vector3(this.movementVector.x * moveSpeed, this.currentRigidbody.velocity.y, 0);
         }
+
+        //check if some button is held long enough to trigger ButtonHeld
+        if (isLightAttackButtonPressed)
+        {
+            lightAttackButtonHeld += Time.deltaTime;
+            if (lightAttackButtonHeld > timeUntilButtonHold) LightAttackHold();
+        } else
+        {
+            lightAttackButtonHeld = 0;
+        }
+
+        if (isHeavyAttackButtonPressed)
+        {
+            heavyAttackButtonHeld += Time.deltaTime;
+            if (heavyAttackButtonHeld > timeUntilButtonHold) HeavyAttackHold();
+        }
+        else
+        {
+            heavyAttackButtonHeld = 0;
+        }
+
+        if (isJumpButtonPressed)
+        {
+            jumpButtonHeld += Time.deltaTime;
+            if (jumpButtonHeld > timeUntilButtonHold) JumpHold();
+        }
+        else
+        {
+            jumpButtonHeld = 0;
+        }
     }
 
     public void FixedUpdate()
@@ -65,24 +105,69 @@ public class CharacterControllerBase : MonoBehaviour
     }
 
     #region Movement Functions
-    public void Attack(bool heavy)
+    /*
+     * These methods deal with the button presses, timing for triggering a button as held.
+     * They call abstract movement functions that should be overwritten by inheriting classes, while
+     * these methods themselves should not be overwritten by inheriting classes, see region Abstract Functions
+     */
+    public void LightAttackButtonPressed()
     {
+        isLightAttackButtonPressed = true;
         if (this.hitStun > 0) return;
-        if (!heavy)
-        {
-            this.lightAttackHitBox.SetActive(true);
-
-            if (!this.lightAttackHitBox.GetComponentInChildren<AttackHitboxControllerBase>().isExpanding)
-            {
-                this.lightAttackHitBox.GetComponentInChildren<AttackHitboxControllerBase>().StartAttackHitbox();
-                this.isAttacking = true;
-            }
-        }
+        LightAttack();   
     }
 
-    public void Jump()
+    public void HeavyAttackButtonPressed()
     {
+        isHeavyAttackButtonPressed = true;
         if (this.hitStun > 0) return;
+        HeavyAttack();
+    }
+
+    public void JumpButtonPressed()
+    {
+        isJumpButtonPressed = true;
+        if (this.hitStun > 0) return;
+        Jump();
+    }
+
+    public void LightAttackButtonReleased()
+    {
+        isLightAttackButtonPressed = false;
+        LightAttackRelease();
+    }
+
+    public void HeavyAttackButtonReleased()
+    {
+        isHeavyAttackButtonPressed = false;
+        HeavyAttackRelease();
+    }
+
+    public void JumpButtonReleased()
+    {
+        isJumpButtonPressed = false;
+        JumpRelease();
+    }
+    #endregion
+
+    #region Abstract Functions
+    /*
+     * These are mostly method stubs that are meant to be overwritten by inheriting methods
+     */
+
+    //Functions that trigger once on button press
+    public virtual void LightAttack()
+    {
+
+    }
+
+    public virtual void HeavyAttack()
+    {
+
+    }
+
+    public virtual void Jump()
+    {
         if (this.isGrounded)
         {
             if (!this.isMoving)
@@ -98,6 +183,42 @@ public class CharacterControllerBase : MonoBehaviour
         }
     }
 
+
+    // The hold functions are called every frame the button is held
+    public virtual void LightAttackHold()
+    {
+
+    }
+
+    public virtual void HeavyAttackHold()
+    {
+        Debug.Log("abstract heavy" + heavyAttackButtonHeld);
+    }
+
+    public virtual void JumpHold()
+    {
+
+    }
+
+
+    //Functioins trigger once on button release
+    public virtual void LightAttackRelease()
+    {
+
+    }
+
+    public virtual void HeavyAttackRelease()
+    {
+
+    }
+
+    public virtual void JumpRelease()
+    {
+
+    }
+
+
+    //Other movement functions
     public void Move(Vector2 movementVector)
     {
         Debug.Log($"MOVING: {movementVector.ToString()}");
@@ -124,6 +245,11 @@ public class CharacterControllerBase : MonoBehaviour
         this.transform.position = position;
         this.currentRigidbody.velocity = new Vector3();
     }
+
+    public Rigidbody GetRigidBody()
+    {
+        return currentRigidbody;
+    }
     #endregion
 
     #region Callbacks
@@ -133,7 +259,13 @@ public class CharacterControllerBase : MonoBehaviour
         {
             floorCollisions++;
             this.isGrounded = true;
+            OnGrounded();
         }
+    }
+    //This stub is meant to be implemented by inheriting classes
+    private void OnGrounded()
+    {
+        
     }
 
     private void OnCollisionExit(Collision collision)
@@ -141,8 +273,24 @@ public class CharacterControllerBase : MonoBehaviour
         if (collision.transform.tag == "Floor" || collision.transform.tag == "Character")
         {
             floorCollisions--;
-            if (floorCollisions == 0) this.isGrounded = false;
+            if (floorCollisions == 0)
+            {
+                this.isGrounded = false;
+                OnAirborne();
+            }
         }
+    }
+
+    //Called when character besomes ungrounded. This stub is meant to be implemented by inheriting classes
+    private void OnAirborne()
+    {
+        
+    }
+
+    //This is called by PlayerController after respawning char. This stub is meant to be implemented by inheriting classes 
+    public void OnCharacterDying()
+    {
+        
     }
     #endregion
 }

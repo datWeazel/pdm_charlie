@@ -7,6 +7,7 @@ namespace Junkbot
     public class GameCharacterController : CharacterControllerBase
     {
         private Animator animator;
+        //public GameObject lightAttackHitBox;
 
         // Start is called before the first frame update
         void Start()
@@ -30,5 +31,17 @@ namespace Junkbot
             this.isJumping = !this.isGrounded;
             this.isMoving = false;
         }
+        //@TODO: outdated
+        /*public new void LightAttack()
+        {
+            this.lightAttackHitBox.SetActive(true);
+
+            if (!this.lightAttackHitBox.GetComponentInChildren<AttackHitboxControllerBase>().isExpanding)
+            {
+                this.lightAttackHitBox.GetComponentInChildren<AttackHitboxControllerBase>().StartAttackHitbox();
+                this.isAttacking = true;
+            }
+        }*/
     }
+
 }
