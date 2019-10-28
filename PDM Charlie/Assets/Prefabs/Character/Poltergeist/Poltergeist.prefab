@@ -9551,7 +9551,7 @@ GameObject:
   - component: {fileID: 4104584684480914866}
   - component: {fileID: 7018981068773564560}
   - component: {fileID: 7486583747324793500}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: 3 - Smallest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9595,13 +9595,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2055827246720261126}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!145 &7486583747324793500
 SpringJoint:
@@ -9638,7 +9638,7 @@ GameObject:
   - component: {fileID: 7993545217479016643}
   - component: {fileID: 1279780056670283909}
   - component: {fileID: 668276882311103560}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9684,13 +9684,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2636264565521297943}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 8
   m_CollisionDetection: 0
 --- !u!145 &668276882311103560
 SpringJoint:
@@ -9913,7 +9913,7 @@ GameObject:
   - component: {fileID: 6096429608256883341}
   - component: {fileID: 6897121741311904696}
   - component: {fileID: 7603399165580644256}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9957,13 +9957,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3148210683042680142}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!145 &7603399165580644256
 SpringJoint:
@@ -10089,9 +10089,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2924443260468921885}
+  - component: {fileID: -8489323277618522370}
+  - component: {fileID: 2550519470597970776}
+  - component: {fileID: 6404135889814210733}
+  - component: {fileID: 7617062913854611875}
   m_Layer: 0
   m_Name: Poltergeist
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10112,6 +10116,73 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-8489323277618522370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6825791405690804920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be37677aab5fb54d94500a4fcbe4fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightAttackHitBox: {fileID: 0}
+  groundSpeed: 5
+  aerialSpeed: 1
+  jumpHeight: 10
+  jumpForce: 1
+  downForce: 0.1
+  isGrounded: 0
+--- !u!95 &2550519470597970776
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6825791405690804920}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!54 &6404135889814210733
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6825791405690804920}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
+--- !u!65 &7617062913854611875
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6825791405690804920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7361477936094723952
 GameObject:
   m_ObjectHideFlags: 0
@@ -14876,7 +14947,7 @@ GameObject:
   - component: {fileID: 5595055818084806161}
   - component: {fileID: 5251289716244926434}
   - component: {fileID: 9147897466919860672}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: 1 - Largest
   m_TagString: Character
   m_Icon: {fileID: 0}
