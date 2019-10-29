@@ -5288,18 +5288,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be37677aab5fb54d94500a4fcbe4fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightAttackHitBox: {fileID: 0}
   groundSpeed: 5
   aerialSpeed: 1
   jumpHeight: 10
   jumpForce: 1
   downForce: 0.1
+  timeUntilButtonHold: 0.1
+  lightAttackButtonHeld: 0
+  heavyAttackButtonHeld: 0
+  jumpButtonHeld: 0
   isGrounded: 0
   isMoving: 0
   isJumping: 0
   isAttacking: 0
-  parts: {fileID: 0}
-  joint: {fileID: 0}
+  jointsMinDistance: 0
+  jointsSpring: 0
 --- !u!95 &2550519470597970776
 Animator:
   serializedVersion: 3

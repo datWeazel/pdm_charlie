@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CharacterControllerBase : MonoBehaviour
 {
-    private Rigidbody currentRigidbody;
+    public Rigidbody currentRigidbody;
 
     
     public float groundSpeed = 2.0f;
@@ -28,9 +28,10 @@ public class CharacterControllerBase : MonoBehaviour
     public bool isJumping = false;
     public bool isAttacking = false;
 
-    private Vector2 movementVector = new Vector2();
+    public Vector2 movementVector = new Vector2();
     private int floorCollisions = 0;
     private float hitStun = 0.0f;
+    public bool movementStopped;
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +62,11 @@ public class CharacterControllerBase : MonoBehaviour
             }
 
             float moveSpeed = (this.isGrounded) ? this.groundSpeed : this.aerialSpeed;
-            this.currentRigidbody.velocity = new Vector3(this.movementVector.x * moveSpeed, this.currentRigidbody.velocity.y, 0);
+            if (!movementStopped)
+            {
+                this.currentRigidbody.velocity = new Vector3(this.movementVector.x * moveSpeed, this.currentRigidbody.velocity.y, 0);
+            }
+            
         }
 
         //check if some button is held long enough to trigger ButtonHeld
@@ -103,6 +108,19 @@ public class CharacterControllerBase : MonoBehaviour
         // Add a constant down force to the character if he is not grounded
         if (!this.isGrounded) this.currentRigidbody.AddForce(-Vector3.up * this.downForce);
     }
+
+    #region HitBox
+
+    public Collider CreateHitBoxOnSelf()
+    {
+        
+        Collider col = Instantiate(this.GetComponent<Collider>());
+        col.isTrigger
+
+        return col;
+    }
+
+    #endregion
 
     #region Movement Functions
     /*
@@ -192,7 +210,7 @@ public class CharacterControllerBase : MonoBehaviour
 
     public virtual void HeavyAttackHold()
     {
-        Debug.Log("abstract heavy" + heavyAttackButtonHeld);
+        
     }
 
     public virtual void JumpHold()
@@ -216,7 +234,6 @@ public class CharacterControllerBase : MonoBehaviour
     {
 
     }
-
 
     //Other movement functions
     public void Move(Vector2 movementVector)
