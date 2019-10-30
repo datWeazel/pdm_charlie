@@ -2606,16 +2606,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a69be6210097d4694cf80fca532fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightAttackHitBox: {fileID: 6622159969267337995}
-  groundSpeed: 4.5
-  aerialSpeed: 4.5
+  currentRigidbody: {fileID: 0}
+  groundSpeed: 6
+  aerialSpeed: 4
   jumpHeight: 15
-  jumpForce: 5
+  jumpForce: 10
   downForce: 15
+  timeUntilButtonHold: 0.1
+  lightAttackButtonHeld: 0
+  heavyAttackButtonHeld: 0
+  jumpButtonHeld: 0
   isGrounded: 0
   isMoving: 0
   isJumping: 0
   isAttacking: 0
+  movementVector: {x: 0, y: 0}
+  movementStopped: 0
+  lightAttackHitBox: {fileID: 6622159969267337995}
 --- !u!54 &9141484193265128546
 Rigidbody:
   m_ObjectHideFlags: 0

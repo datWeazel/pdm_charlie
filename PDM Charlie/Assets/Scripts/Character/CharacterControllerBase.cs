@@ -115,7 +115,7 @@ public class CharacterControllerBase : MonoBehaviour
     {
         
         Collider col = Instantiate(this.GetComponent<Collider>());
-        col.isTrigger
+        //col.isTrigger
 
         return col;
     }

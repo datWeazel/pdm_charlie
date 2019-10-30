@@ -5288,10 +5288,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be37677aab5fb54d94500a4fcbe4fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundSpeed: 5
-  aerialSpeed: 1
+  currentRigidbody: {fileID: 0}
+  groundSpeed: 6
+  aerialSpeed: 6
   jumpHeight: 10
-  jumpForce: 1
+  jumpForce: 10
   downForce: 0.1
   timeUntilButtonHold: 0.1
   lightAttackButtonHeld: 0
@@ -5301,8 +5302,14 @@ MonoBehaviour:
   isMoving: 0
   isJumping: 0
   isAttacking: 0
+  movementVector: {x: 0, y: 0}
+  movementStopped: 0
   jointsMinDistance: 0
   jointsSpring: 0
+  chargeUpTime: 0
+  minChargeUpTime: 0.5
+  maxChargeUpTime: 2.5
+  chargeFactor: 0
 --- !u!95 &2550519470597970776
 Animator:
   serializedVersion: 3

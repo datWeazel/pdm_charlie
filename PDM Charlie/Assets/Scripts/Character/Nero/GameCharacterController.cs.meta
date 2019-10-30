@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 33ed5e3ef7d11484e9c6de28619364f3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - lightAttackHitBox: {instanceID: 0}
+  - parts: {fileID: 6825791405690804920, guid: 69382a9f88fdf754e989506dec4e8b83, type: 3}
+  - joint: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
