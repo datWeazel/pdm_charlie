@@ -44,13 +44,17 @@ public class CharacterControllerBase : MonoBehaviour
         if (this.currentRigidbody.velocity.y <= 0 && this.gameObject.layer != 0)
         {
             this.gameObject.layer = 0;
+            OnLosingPassThroughPlatform();
         }
 
         if (this.isMoving && this.hitStun == 0)
         {
             // Pass trough platforms when pressing down
-            if (this.movementVector.y <= -0.5 && this.gameObject.layer != 8) this.gameObject.layer = 8;
-
+            if (this.movementVector.y <= -0.5 && this.gameObject.layer != 8)
+            {
+                this.gameObject.layer = 8;
+                OnBecomingPassThroughPlatform();
+            }
             // Rotate the character in movement direction
             if (this.movementVector.x < 0)
             {
@@ -198,9 +202,9 @@ public class CharacterControllerBase : MonoBehaviour
             }
             this.isJumping = true;
             this.gameObject.layer = 8; // Set layer to "PassThroughPlatforms"
+            OnBecomingPassThroughPlatform();
         }
     }
-
 
     // The hold functions are called every frame the button is held
     public virtual void LightAttackHold()
@@ -280,10 +284,21 @@ public class CharacterControllerBase : MonoBehaviour
         }
     }
     //This stub is meant to be implemented by inheriting classes
-    private void OnGrounded()
+    public virtual void OnGrounded()
     {
         
     }
+
+    public virtual void OnBecomingPassThroughPlatform()
+    {
+        
+    }
+
+    public virtual void OnLosingPassThroughPlatform()
+    {
+        
+    }
+
 
     private void OnCollisionExit(Collision collision)
     {
