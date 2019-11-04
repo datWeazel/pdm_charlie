@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveVector = new Vector2();
 
+    private bool lightAttackHold = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +52,9 @@ public class PlayerController : MonoBehaviour
 
             if (this.moveVector != new Vector2())
             {
-                this.selector.transform.position += new Vector3((this.moveVector.x * this.selectorSpeed), (this.moveVector.y * this.selectorSpeed), 0);
+                float cursorSpeed = this.selectorSpeed;
+                if (lightAttackHold) cursorSpeed *= 2;
+                this.selector.transform.position += new Vector3((this.moveVector.x * cursorSpeed), (this.moveVector.y * cursorSpeed), 0);
             }
         }
         else
@@ -181,6 +185,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnLightAttack(InputValue value)
     {
+        lightAttackHold = true;
         if (this.gameControllerScript.GetGameState() == "match_active")
         {
             this.characterController?.LightAttackButtonPressed();
@@ -190,6 +195,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnLightAttackRelease(InputValue value)
     {
+        lightAttackHold = false;
         if (this.gameControllerScript.GetGameState() == "match_active")
         {
             this.characterController?.LightAttackButtonReleased();

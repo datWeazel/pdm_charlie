@@ -50,7 +50,7 @@ MonoBehaviour:
   percentage: 0
   spawnpoint: {x: 0, y: 0, z: 0}
   selector: {fileID: 6030745132904710754}
-  selectorSpeed: 3
+  selectorSpeed: 4.5
   character: 
   characterController: {fileID: 0}
   matchHUD: {fileID: 0}
