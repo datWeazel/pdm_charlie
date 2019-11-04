@@ -2410,7 +2410,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2109418965}
+      - m_Target: {fileID: 572038335}
         m_MethodName: SetGameState
         m_Mode: 5
         m_Arguments:
@@ -2418,7 +2418,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: character_select
+          m_StringArgument: cradits
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &534801418
@@ -7645,7 +7645,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2109418965}
+      - m_Target: {fileID: 572038335}
         m_MethodName: SetGameState
         m_Mode: 5
         m_Arguments:
@@ -7979,7 +7979,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2109418965}
+      - m_Target: {fileID: 572038335}
         m_MethodName: SetGameState
         m_Mode: 5
         m_Arguments:
@@ -8603,7 +8603,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2109418965}
+      - m_Target: {fileID: 572038335}
         m_MethodName: SetGameState
         m_Mode: 5
         m_Arguments:
@@ -8872,7 +8872,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2109418965}
+      - m_Target: {fileID: 572038335}
         m_MethodName: SetGameState
         m_Mode: 5
         m_Arguments:
@@ -10168,7 +10168,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2109418965}
+      - m_Target: {fileID: 572038335}
         m_MethodName: SetGameState
         m_Mode: 5
         m_Arguments:
@@ -10227,7 +10227,7 @@ GameObject:
   - component: {fileID: 2109418965}
   m_Layer: 0
   m_Name: GameController
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

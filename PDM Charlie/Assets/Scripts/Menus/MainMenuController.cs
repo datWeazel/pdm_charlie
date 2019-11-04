@@ -9,13 +9,17 @@ public class MainMenuController : MonoBehaviour
     public GameObject characterSelect = null;
     public GameObject stageSelect = null;
 
-
     public void ShowMenu(GameObject menu){
-            menu?.SetActive(true);
+        menu?.SetActive(true);
     }
 
     public void HideMenu(GameObject menu){
-            menu?.SetActive(false);
+        menu?.SetActive(false);
+    }
+
+    public void SetGameState(string newGameState)
+    {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().SetGameState(newGameState);
     }
 
     public void ExitGame()
