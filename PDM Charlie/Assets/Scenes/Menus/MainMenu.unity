@@ -6685,7 +6685,7 @@ MonoBehaviour:
   m_margin: {x: -49.304016, y: 15.2, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1259027325}
-    characterCount: 10
+    characterCount: 11
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -8306,7 +8306,7 @@ MonoBehaviour:
   m_margin: {x: 32.7, y: 15.2, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1680927807}
-    characterCount: 7
+    characterCount: 4
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -8481,7 +8481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1755009243
 Transform:
   m_ObjectHideFlags: 0
@@ -9703,7 +9703,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 7
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -9727,12 +9727,12 @@ MonoBehaviour:
   m_margin: {x: 32.7, y: 15.2, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1977336614}
-    characterCount: 7
+    characterCount: 10
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 2
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
