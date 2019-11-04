@@ -46,9 +46,15 @@ public class PlayerController : MonoBehaviour
         string gameState = this.gameControllerScript.GetGameState();
         //Debug.Log($"State: {gameState} || Id: {this.Id}");
 
-        if (gameState == "character_select" || gameState == "stage_select" || gameState == "match_end" || (gameState == "main_menu" && this.Id == 1))
+        if(gameState.Contains("menu_"))
         {
-            if (!this.selector.activeSelf) this.selector.SetActive(true);
+            if (gameState == "menu_main" & this.Id != 1)
+            {
+                SetSelectorState(false);
+                return;
+            }
+
+            SetSelectorState(true);
 
             if (this.moveVector != new Vector2())
             {
@@ -59,9 +65,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (this.selector.activeSelf) this.selector.SetActive(false);
+            SetSelectorState(false);
 
-            if(this.matchHUD != null)
+            if (this.matchHUD != null)
             {
                 this.matchHUD.UpdatePlayerPercentage(this.percentage);
             }
@@ -118,8 +124,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnClick()
     {
-        string gameState = this.gameControllerScript.GetGameState();
-        if (gameState == "main_menu" || gameState == "character_select" || gameState == "stage_select")
+        if(this.gameControllerScript.GetGameState().Contains("menu_"))
         {
             Select();
         }
@@ -127,9 +132,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        string gameState = this.gameControllerScript.GetGameState();
-        //Debug.Log($"OnJump - gameState: {gameState}");
-        if (gameState == "main_menu" || gameState == "character_select" || gameState == "stage_select")
+
+        if (this.gameControllerScript.GetGameState().Contains("menu_"))
         {
             Select();
         }
@@ -175,7 +179,7 @@ public class PlayerController : MonoBehaviour
             Button btn = rr.gameObject.GetComponent<Button>();
             if(btn != null)
             {
-                if (rr.gameObject.name == "btn_stage_select" && (this.gameControllerScript.players.Count < 2 || !this.gameControllerScript.DoesEveryPlayerHaveCharacter())) return;
+                if (rr.gameObject.name == "btn_menu_stage_select" && (this.gameControllerScript.players.Count < 2 || !this.gameControllerScript.DoesEveryPlayerHaveCharacter())) return;
                 if (rr.gameObject.name == "btn_match_start" && this.gameControllerScript.stageName == "") return;
                 btn.onClick.Invoke();
                 return;
@@ -221,8 +225,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnStart(InputValue value)
     {
-        if(this.gameControllerScript.gameState == "match_end")
+        if(this.gameControllerScript.gameState == "menu_match_end")
         {
+            this.gameControllerScript.SetGameState("menu_main");
             this.gameControllerScript.LoadScene("MainMenu");
         }
     }
@@ -230,9 +235,14 @@ public class PlayerController : MonoBehaviour
     public void OnSelect()
     {
         string gameState = this.gameControllerScript.gameState;
-        if(gameState == "main_menu" || gameState == "character_select")
+        if(gameState == "menu_main" || gameState == "menu_character_select")
         {
             GameObject.Destroy(this.gameObject);
         }
+    }
+
+    public void SetSelectorState(bool isActive)
+    {
+        if (this.selector.activeSelf != isActive) this.selector.SetActive(isActive);
     }
 }

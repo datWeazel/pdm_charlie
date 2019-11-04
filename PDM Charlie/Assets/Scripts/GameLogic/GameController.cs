@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         DontDestroyOnLoad(this);
-        gameState = "main_menu"; 
+        gameState = "menu_main"; 
         Cursor.visible = false;
     }
 
@@ -74,7 +74,7 @@ public class GameController : MonoBehaviour
         MatchHUDController matchHUDController = GameObject.Find("MATCH_HUD").GetComponent<MatchHUDController>();
         matchHUDController.UpdateEndScreenText(endScreenText);
         matchHUDController.SetEndScreenVisible(true);
-        this.gameState = "match_end";
+        this.gameState = "menu_match_end";
     }
 
     public void LoadScene(string scene)
@@ -195,6 +195,6 @@ public class GameController : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MainMenu") this.gameState = "main_menu";
+        if (scene.name == "MainMenu") this.gameState = "menu_main";
     }
 }

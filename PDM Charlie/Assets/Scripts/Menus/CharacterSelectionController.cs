@@ -70,7 +70,7 @@ public class CharacterSelectionController : MonoBehaviour
             this.containerToPlayer.TryGetValue(player, out container);
             container.transform.Find("join_help").GetComponent<TextMeshProUGUI>().text = "Press Start!";
             this.containerToPlayer.Remove(player);
-            this.gameController.GetComponent<GameController>().RemovePlayer(player);
+            this.gameController?.GetComponent<GameController>()?.RemovePlayer(player);
             Debug.Log("Player left!");
         }
     }
