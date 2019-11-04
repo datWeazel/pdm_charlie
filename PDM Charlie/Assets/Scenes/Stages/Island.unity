@@ -23682,9 +23682,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c6a6df342b52d24092cf6bbb590c535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveHeight: 0.27
-  waveFrequency: 0.1
-  waveLength: 0.5
+  waveHeight: 0.1
+  waveFrequency: 0.06
+  waveLength: 0.2
   waveOriginPosition: {x: 0, y: 0, z: 0}
 --- !u!23 &2113563284
 MeshRenderer:
