@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
 
     private bool lightAttackHold = false;
 
+    private Button hoveredButton = null;
+    private Transform hoveredCharacterSelector = null;
+    private Transform hoveredStageSelector = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +65,30 @@ public class PlayerController : MonoBehaviour
                 float cursorSpeed = this.selectorSpeed;
                 if (lightAttackHold) cursorSpeed *= 2;
                 this.selector.transform.position += new Vector3((this.moveVector.x * cursorSpeed), (this.moveVector.y * cursorSpeed), 0);
+
+
+            }
+
+            hoveredButton = null;
+            hoveredCharacterSelector = null;
+            hoveredStageSelector = null;
+
+            PointerEventData cursor = new PointerEventData(EventSystem.current);
+            cursor.position = this.selector.transform.position;
+
+            List<RaycastResult> objectsHit = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(cursor, objectsHit);
+            foreach (RaycastResult rr in objectsHit)
+            {
+                if (rr.gameObject.name.Contains("btn_")) hoveredButton = rr.gameObject.GetComponentInChildren<Button>();
+
+                Transform CharacterNameTag = rr.gameObject.transform.Find("CharacterNameTag");
+                if (CharacterNameTag != null) hoveredCharacterSelector = CharacterNameTag;
+
+                Transform StageNameTag = rr.gameObject.transform.Find("StageNameTag");
+                if (StageNameTag != null) hoveredStageSelector = StageNameTag;
+
+                Debug.Log($"CharacterNameTag({(CharacterNameTag != null)}) || StageNameTag({(StageNameTag != null)})");
             }
         }
         else
@@ -150,40 +178,27 @@ public class PlayerController : MonoBehaviour
 
     public void Select()
     {
-        PointerEventData cursor = new PointerEventData(EventSystem.current);
-        cursor.position = this.selector.transform.position;
-
-        List<RaycastResult> objectsHit = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(cursor, objectsHit);
-
-        foreach (RaycastResult rr in objectsHit)
+        if(hoveredCharacterSelector != null)
         {
-            Transform CharacterNameTag = rr.gameObject.transform.Find("CharacterNameTag");
-            if (CharacterNameTag != null)
-            {
-                this.character = CharacterNameTag.GetComponent<TextMeshProUGUI>().text;
-                GameObject.Find("CharacterSelect").GetComponent<CharacterSelectionController>().UpdateSelectedCharacter(this.transform.GetComponent<PlayerInput>(), this.character);
-                Debug.Log($"Player selected character {CharacterNameTag.GetComponent<TextMeshProUGUI>().text} ");
+            this.character = hoveredCharacterSelector.GetComponent<TextMeshProUGUI>().text;
+            GameObject.Find("CharacterSelect").GetComponent<CharacterSelectionController>().UpdateSelectedCharacter(this.transform.GetComponent<PlayerInput>(), this.character);
+            return;
+        }
 
-                return;
-            }
+        if(hoveredStageSelector != null)
+        {
+            this.gameControllerScript.stageName = hoveredStageSelector.GetComponent<TextMeshProUGUI>().text;
+            GameObject.Find("SelectedStage").GetComponent<TextMeshProUGUI>().text = $"{this.gameControllerScript.stageName}";
+            return;
+        }
 
-            Transform StageNameTag = rr.gameObject.transform.Find("StageNameTag");
-            if(StageNameTag != null)
-            {
-                this.gameControllerScript.stageName = StageNameTag.GetComponent<TextMeshProUGUI>().text;
-                GameObject.Find("SelectedStage").GetComponent<TextMeshProUGUI>().text = $"{this.gameControllerScript.stageName}";
-                return;
-            }
+        if (hoveredButton != null)
+        {
+            if (hoveredButton.gameObject.name == "btn_stage_select" && (this.gameControllerScript.players.Count < 2 || !this.gameControllerScript.DoesEveryPlayerHaveCharacter())) return;
+            if (hoveredButton.gameObject.name == "btn_match_start" && this.gameControllerScript.stageName == "") return;
 
-            Button btn = rr.gameObject.GetComponent<Button>();
-            if(btn != null)
-            {
-                if (rr.gameObject.name == "btn_menu_stage_select" && (this.gameControllerScript.players.Count < 2 || !this.gameControllerScript.DoesEveryPlayerHaveCharacter())) return;
-                if (rr.gameObject.name == "btn_match_start" && this.gameControllerScript.stageName == "") return;
-                btn.onClick.Invoke();
-                return;
-            }
+            hoveredButton.onClick.Invoke();
+            return;
         }
     }
 

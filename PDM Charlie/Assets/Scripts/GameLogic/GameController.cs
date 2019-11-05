@@ -17,6 +17,9 @@ public class GameController : MonoBehaviour
     public MatchRules rules = null;
     public string stageName = "";
 
+    private Vector3 mainMenuCamPosition = new Vector3(348.04f, 0.66f, 583.15f);
+    private Quaternion mainMenuCamRotation = Quaternion.Euler(15.6f, -90.0f, 0.0f);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,16 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(gameState == "menu_main")
+        {
+            if(players.Count >= 1)
+            {
+                if (Camera.main.transform.position != mainMenuCamPosition)
+                {
+                    UI.GetComponent<MainMenuController>().MoveMainMenuCameraToPosition(mainMenuCamPosition, mainMenuCamRotation);
+                }
+            }
+        }
     }
 
     public void AddPlayer(PlayerInput player)
@@ -196,5 +209,10 @@ public class GameController : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "MainMenu") this.gameState = "menu_main";
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
