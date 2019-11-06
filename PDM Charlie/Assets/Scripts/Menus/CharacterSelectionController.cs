@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CharacterSelectionController : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class CharacterSelectionController : MonoBehaviour
             {
                 this.containerToPlayer.Add(player, emptyContainer);
                 player.GetComponentInParent<PlayerController>().Id = Convert.ToInt32(emptyContainer.name.Replace("PlayerContainer_", ""));
-                emptyContainer.transform.Find("join_help").GetComponent<TextMeshProUGUI>().text = $"P{player.GetComponentInParent<PlayerController>().Id} Select character";
+                emptyContainer.transform.Find("join_help").GetComponent<Text>().text = $"P{player.GetComponentInParent<PlayerController>().Id}\nChoose character by clicking on one of toys";
 
                 this.gameController.GetComponent<GameController>().AddPlayer(player);
                 Debug.Log("Player joined!");
@@ -48,7 +49,7 @@ public class CharacterSelectionController : MonoBehaviour
         {
             GameObject container = null;
             this.containerToPlayer.TryGetValue(player, out container);
-            container.transform.Find("join_help").GetComponent<TextMeshProUGUI>().text = character;
+            container.transform.Find("join_help").GetComponent<Text>().text = $"P{player.GetComponentInParent<PlayerController>().Id} \n{character}";
         }
     }
 

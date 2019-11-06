@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menus/MainMenu.unity
-    guid: c1d17d18d0c599e9a88641ee949ae12d
+    path: Assets/Scenes/Menus/MainMenu_Room.unity
+    guid: 3e7ea66d54cc8f84e99858f35fe32655
   - enabled: 1
     path: Assets/Scenes/Stages/Mayan Temple.unity
     guid: deb1a918bc6224c4980e12dab63cf61f

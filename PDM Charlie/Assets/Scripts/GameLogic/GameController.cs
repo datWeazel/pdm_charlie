@@ -17,36 +17,31 @@ public class GameController : MonoBehaviour
     public MatchRules rules = null;
     public string stageName = "";
 
-    private Vector3 mainMenuCamPosition = new Vector3(348.04f, 0.66f, 583.15f);
-    private Quaternion mainMenuCamRotation = Quaternion.Euler(15.6f, -90.0f, 0.0f);
+    private Vector3 mainMenuCamPosition = new Vector3(347.23f, 0.1f, 583.15f);
+    private Quaternion mainMenuCamRotation = Quaternion.Euler(10.3f, -90.0f, 0.0f);
+
+    private Vector3 mainMenuCharSelectCamPosition = new Vector3(347.2f, 0.8f, 589.2f);
+    private Quaternion mainMenuCharSelectCamRotation = Quaternion.Euler(26.8f, -90.0f, 0.0f);
 
     // Start is called before the first frame update
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         DontDestroyOnLoad(this);
-        gameState = "menu_main"; 
+        gameState = "start_screen"; 
         Cursor.visible = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(gameState == "menu_main")
-        {
-            if(players.Count >= 1)
-            {
-                if (Camera.main.transform.position != mainMenuCamPosition)
-                {
-                    UI.GetComponent<MainMenuController>().MoveMainMenuCameraToPosition(mainMenuCamPosition, mainMenuCamRotation);
-                }
-            }
-        }
+
     }
 
     public void AddPlayer(PlayerInput player)
     {
         Debug.Log("Joined!");
+        if (gameState == "start_screen") SetGameState("menu_main");
         if (!players.Contains(player))
         {
             players.Add(player);
@@ -158,6 +153,19 @@ public class GameController : MonoBehaviour
     public void SetGameState(string state)
     {
         gameState = state;
+
+        if (gameState == "menu_main")
+        {
+            UI.GetComponent<MainMenuController>().MoveMainMenuCameraToPosition(mainMenuCamPosition, mainMenuCamRotation);
+        }
+        else if (gameState == "menu_character_select")
+        {
+            UI.GetComponent<MainMenuController>().MoveMainMenuCameraToPosition(mainMenuCharSelectCamPosition, mainMenuCharSelectCamRotation);
+        }
+        else if (gameState == "menu_stage_select")
+        {
+            UI.GetComponent<MainMenuController>().MoveMainMenuCameraToPosition(mainMenuCamPosition, mainMenuCamRotation);
+        }
     }
 
     public string GetGameState()

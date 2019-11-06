@@ -54,6 +54,9 @@ MonoBehaviour:
   character: 
   characterController: {fileID: 0}
   matchHUD: {fileID: 0}
+  charSelectLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &2196793353848064697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6030745132904710767
 RectTransform:
   m_ObjectHideFlags: 0
@@ -220,12 +223,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.14509805, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d71adc0c4e8a6934aa0e084155a07145, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6c48ac99501d8144ba4003b631da635, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -397,10 +400,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: P 1
+  m_text: P1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 89067e33a39fd6bd9aea723fd385c1b6, type: 2}
-  m_sharedMaterial: {fileID: 8305955370188314793, guid: 89067e33a39fd6bd9aea723fd385c1b6,
+  m_fontAsset: {fileID: 11400000, guid: cc3760c6f212ac24a8e72a021e0c0ed0, type: 2}
+  m_sharedMaterial: {fileID: 160484855936336715, guid: cc3760c6f212ac24a8e72a021e0c0ed0,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -426,8 +429,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 41.97
-  m_fontSizeBase: 41.97
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -443,7 +446,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -467,10 +470,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 6030745134582733777}
-    characterCount: 3
+    characterCount: 2
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1

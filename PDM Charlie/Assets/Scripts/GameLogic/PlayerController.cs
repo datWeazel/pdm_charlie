@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     private Transform hoveredCharacterSelector = null;
     private Transform hoveredStageSelector = null;
 
+    public LayerMask charSelectLayerMask;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,13 +84,22 @@ public class PlayerController : MonoBehaviour
             {
                 if (rr.gameObject.name.Contains("btn_")) hoveredButton = rr.gameObject.GetComponentInChildren<Button>();
 
-                Transform CharacterNameTag = rr.gameObject.transform.Find("CharacterNameTag");
-                if (CharacterNameTag != null) hoveredCharacterSelector = CharacterNameTag;
-
                 Transform StageNameTag = rr.gameObject.transform.Find("StageNameTag");
                 if (StageNameTag != null) hoveredStageSelector = StageNameTag;
 
-                Debug.Log($"CharacterNameTag({(CharacterNameTag != null)}) || StageNameTag({(StageNameTag != null)})");
+                Debug.Log($"hoveredCharacterSelector({(hoveredCharacterSelector != null)}) || hoveredStageSelector({(hoveredStageSelector != null)})");
+            }
+
+            if(gameState == "menu_character_select")
+            {
+                RaycastHit[] hits;
+                Ray ray = Camera.main.ScreenPointToRay(cursor.position);
+                hits = Physics.RaycastAll(ray, 100.0f, charSelectLayerMask);
+
+                foreach (RaycastHit rr in hits)
+                {
+                    if (rr.transform.gameObject.transform.tag == "Character") hoveredCharacterSelector = rr.transform.gameObject.transform;
+                }
             }
         }
         else
@@ -180,7 +191,7 @@ public class PlayerController : MonoBehaviour
     {
         if(hoveredCharacterSelector != null)
         {
-            this.character = hoveredCharacterSelector.GetComponent<TextMeshProUGUI>().text;
+            this.character = hoveredCharacterSelector.name;
             GameObject.Find("CharacterSelect").GetComponent<CharacterSelectionController>().UpdateSelectedCharacter(this.transform.GetComponent<PlayerInput>(), this.character);
             return;
         }
@@ -243,7 +254,7 @@ public class PlayerController : MonoBehaviour
         if(this.gameControllerScript.gameState == "menu_match_end")
         {
             this.gameControllerScript.SetGameState("menu_main");
-            this.gameControllerScript.LoadScene("MainMenu");
+            this.gameControllerScript.LoadScene("MainMenu_Room");
         }
     }
 
