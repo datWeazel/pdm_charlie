@@ -71,6 +71,10 @@ public class PlayerController : MonoBehaviour
 
             }
 
+            if(hoveredButton != null)
+            {
+                hoveredButton.GetComponent<Animator>().SetBool("hovered", false);
+            }
             hoveredButton = null;
             hoveredCharacterSelector = null;
             hoveredStageSelector = null;
@@ -82,7 +86,11 @@ public class PlayerController : MonoBehaviour
             EventSystem.current.RaycastAll(cursor, objectsHit);
             foreach (RaycastResult rr in objectsHit)
             {
-                if (rr.gameObject.name.Contains("btn_")) hoveredButton = rr.gameObject.GetComponentInChildren<Button>();
+                if (rr.gameObject.name.Contains("btn_"))
+                {
+                    hoveredButton = rr.gameObject.GetComponentInChildren<Button>();
+                    hoveredButton.GetComponent<Animator>().SetBool("hovered", true);
+                }
 
                 Transform StageNameTag = rr.gameObject.transform.Find("StageNameTag");
                 if (StageNameTag != null) hoveredStageSelector = StageNameTag;
