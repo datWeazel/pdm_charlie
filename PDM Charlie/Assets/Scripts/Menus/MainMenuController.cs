@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
     public GameObject mainMenu = null;
     public GameObject characterSelect = null;
     public GameObject stageSelect = null;
+
+    public AudioClip buttonHoverSound;
+    public AudioClip buttonClickSound;
 
     private bool moveCamera = false;
     private Vector3 cameraEndPosition = new Vector3();
@@ -29,6 +33,29 @@ public class MainMenuController : MonoBehaviour
 
     public void HideMenu(GameObject menu){
         menu?.SetActive(false);
+    }
+
+    public void HoverButton(Button button)
+    {
+        if (!button.GetComponent<Animator>().GetBool("hovered"))
+        {
+            button.GetComponent<Animator>().SetBool("hovered", true);
+            button.GetComponent<AudioSource>().clip = this.buttonHoverSound;
+            button.GetComponent<AudioSource>().Play();
+        }
+    }
+
+    public void UnHoverButton(Button button)
+    {
+
+        button.GetComponent<Animator>().SetBool("hovered", false);
+    }
+
+    public void ClickButton(Button button)
+    {
+        button.onClick.Invoke();
+        this.gameObject.GetComponent<AudioSource>().clip = this.buttonClickSound;
+        this.gameObject.GetComponent<AudioSource>().Play();
     }
 
     public void SetGameState(string newGameState)

@@ -71,11 +71,7 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            if(hoveredButton != null)
-            {
-                hoveredButton.GetComponent<Animator>().SetBool("hovered", false);
-            }
-            hoveredButton = null;
+            Button oldHoveredButton = hoveredButton;
             hoveredCharacterSelector = null;
             hoveredStageSelector = null;
 
@@ -89,7 +85,11 @@ public class PlayerController : MonoBehaviour
                 if (rr.gameObject.name.Contains("btn_"))
                 {
                     hoveredButton = rr.gameObject.GetComponentInChildren<Button>();
-                    hoveredButton.GetComponent<Animator>().SetBool("hovered", true);
+                    gameControllerScript.UI.GetComponent<MainMenuController>().HoverButton(hoveredButton);
+                }
+                else
+                {
+                    hoveredButton = null;
                 }
 
                 Transform StageNameTag = rr.gameObject.transform.Find("StageNameTag");
@@ -98,7 +98,12 @@ public class PlayerController : MonoBehaviour
                 Debug.Log($"hoveredCharacterSelector({(hoveredCharacterSelector != null)}) || hoveredStageSelector({(hoveredStageSelector != null)})");
             }
 
-            if(gameState == "menu_character_select")
+            if (hoveredButton == null || hoveredButton != oldHoveredButton)
+            {
+                    gameControllerScript.UI.GetComponent<MainMenuController>().UnHoverButton(oldHoveredButton);
+            }
+
+            if (gameState == "menu_character_select")
             {
                 RaycastHit[] hits;
                 Ray ray = Camera.main.ScreenPointToRay(cursor.position);
@@ -216,7 +221,7 @@ public class PlayerController : MonoBehaviour
             if (hoveredButton.gameObject.name == "btn_stage_select" && (this.gameControllerScript.players.Count < 2 || !this.gameControllerScript.DoesEveryPlayerHaveCharacter())) return;
             if (hoveredButton.gameObject.name == "btn_match_start" && this.gameControllerScript.stageName == "") return;
 
-            hoveredButton.onClick.Invoke();
+            gameControllerScript.UI.GetComponent<MainMenuController>().ClickButton(hoveredButton);
             return;
         }
     }
