@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
             if (hoveredButton == null || hoveredButton != oldHoveredButton)
             {
-                    gameControllerScript.UI.GetComponent<MainMenuController>().UnHoverButton(oldHoveredButton);
+                if(hoveredButton != null)   gameControllerScript.UI.GetComponent<MainMenuController>().UnHoverButton(oldHoveredButton);
             }
 
             if (gameState == "menu_character_select")
