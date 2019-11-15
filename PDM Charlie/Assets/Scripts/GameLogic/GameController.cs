@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    public static GameController i; 
+
     public GameObject UI = null;
     public List<PlayerInput> players;
     public List<GameObject> characterPrefabs;
@@ -27,7 +29,6 @@ public class GameController : MonoBehaviour
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        DontDestroyOnLoad(this);
         gameState = "start_screen"; 
         Cursor.visible = false;
     }
@@ -60,6 +61,19 @@ public class GameController : MonoBehaviour
                     EndMatch(winners);
                 }
             }
+        }
+    }
+
+    private void Awake()
+    {
+        if (!i)
+        {
+            i = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -239,7 +253,7 @@ public class GameController : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MainMenu")
+        if (scene.name == "MainMenu_Room")
         {
             UI = GameObject.Find("UI");
             if (this.players.Count <= 0)
@@ -250,6 +264,7 @@ public class GameController : MonoBehaviour
             else
             {
                 this.gameState = "menu_main";
+                UI.GetComponent<MainMenuController>().MoveMainMenuCameraToPosition(mainMenuCamPosition, mainMenuCamRotation);
             }
         }
     }

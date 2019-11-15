@@ -18,6 +18,7 @@ public class CharacterSelectionController : MonoBehaviour
     void Start()
     {
         MatchRules rules = new MatchRules();
+        this.gameController = GameObject.Find("GameController");
         this.gameController.GetComponent<GameController>().UpdateMatchRules(rules);
     }
 
