@@ -48,9 +48,13 @@ public class MainMenuController : MonoBehaviour
 
     public void HoverButton(Button button)
     {
-        if (!button.GetComponent<Animator>().GetBool("hovered"))
+        if (button.GetComponent<Animator>() != null)
         {
             button.GetComponent<Animator>().SetBool("hovered", true);
+        }
+
+        if (button.GetComponent<AudioSource>() != null)
+        {
             button.GetComponent<AudioSource>().clip = this.buttonHoverSound;
             button.GetComponent<AudioSource>().Play();
         }
@@ -58,14 +62,20 @@ public class MainMenuController : MonoBehaviour
 
     public void UnHoverButton(Button button)
     {
-        button.GetComponent<Animator>().SetBool("hovered", false);
+        if (button.GetComponent<Animator>() != null)
+        {
+            button.GetComponent<Animator>().SetBool("hovered", false);
+        }
     }
 
     public void ClickButton(Button button)
     {
         button.onClick.Invoke();
-        this.gameObject.GetComponent<AudioSource>().clip = this.buttonClickSound;
-        this.gameObject.GetComponent<AudioSource>().Play();
+        if (button.GetComponent<AudioSource>() != null)
+        {
+            this.gameObject.GetComponent<AudioSource>().clip = this.buttonClickSound;
+            this.gameObject.GetComponent<AudioSource>().Play();
+        }
     }
 
     public void SetGameState(string newGameState)

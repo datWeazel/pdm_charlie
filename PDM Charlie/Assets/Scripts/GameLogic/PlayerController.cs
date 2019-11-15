@@ -147,7 +147,9 @@ public class PlayerController : MonoBehaviour
 
         if(this.stocks == 0)
         {
+            Camera.main.GetComponent<CameraLogic>()?.RemovePlayerFromCam(this.characterController.transform);
             GameObject.Destroy(this.characterController.gameObject);
+            this.characterController = null;
             return;
         }
 
@@ -267,9 +269,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnStart(InputValue value)
     {
-        if(this.gameControllerScript.gameState == "menu_match_end")
+        if(this.gameControllerScript?.gameState == "menu_match_end")
         {
-            this.gameControllerScript.SetGameState("menu_main");
             this.gameControllerScript.LoadScene("MainMenu_Room");
         }
     }

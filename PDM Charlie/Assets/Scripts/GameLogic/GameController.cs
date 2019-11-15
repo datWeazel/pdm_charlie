@@ -35,7 +35,32 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameState == "match_active")
+        {
+            int playersInGame = 0;
+            List<PlayerInput> winners = new List<PlayerInput>();
+            foreach (PlayerInput player in players)
+            {
+                PlayerController pController = player.GetComponent<PlayerController>();
+                if (pController != null)
+                {
+                    if (pController.characterController != null)
+                    {
+                        winners.Add(player);
+                        playersInGame++;
+                    }
+                }
+            }
 
+            if (rules.teamSize == 1)
+            {
+                //End Game for singles
+                if (playersInGame == 1)
+                {
+                    EndMatch(winners);
+                }
+            }
+        }
     }
 
     public void AddPlayer(PlayerInput player)
@@ -61,20 +86,6 @@ public class GameController : MonoBehaviour
     {
         PlayerInput p = players.FirstOrDefault(pInput => pInput.playerIndex == playerId);
         if (p != null) players.Remove(p);
-
-        if (this.gameState == "match_active")
-        {
-            CameraLogic camLogic = Camera.main.GetComponent<CameraLogic>();
-            if (camLogic != null) camLogic.RemovePlayerFromCam(p?.GetComponent<PlayerController>().characterController.transform);
-
-            if (this.rules.teamSize == 1)
-            {
-                if (players.Count == 1)
-                {
-                    EndMatch(players);
-                }
-            }
-        }
 
         if(players.Count <= 0)
         {
@@ -230,6 +241,7 @@ public class GameController : MonoBehaviour
     {
         if (scene.name == "MainMenu")
         {
+            UI = GameObject.Find("UI");
             if (this.players.Count <= 0)
             {
                 UI.GetComponent<MainMenuController>().ShowStartGameScreen();
