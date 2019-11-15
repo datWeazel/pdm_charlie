@@ -41,24 +41,31 @@ public class GameController : MonoBehaviour
     public void AddPlayer(PlayerInput player)
     {
         Debug.Log("Joined!");
-        if (gameState == "start_screen") SetGameState("menu_main");
+        if (gameState == "start_screen")
+        {
+            SetGameState("menu_main");
+        }
+
+        if (players.Count <= 0)
+        {
+            UI.GetComponent<MainMenuController>().HideStartGameScreen();
+        }
+
         if (!players.Contains(player))
         {
             players.Add(player);
         }
     }
 
-    public void RemovePlayer(PlayerInput player)
+    public void RemovePlayer(int playerId)
     {
-        if (players.Contains(player))
-        {
-            players.Remove(player);
-        }
+        PlayerInput p = players.FirstOrDefault(pInput => pInput.playerIndex == playerId);
+        if (p != null) players.Remove(p);
 
         if (this.gameState == "match_active")
         {
             CameraLogic camLogic = Camera.main.GetComponent<CameraLogic>();
-            if (camLogic != null) camLogic.RemovePlayerFromCam(player.GetComponent<PlayerController>().characterController.transform);
+            if (camLogic != null) camLogic.RemovePlayerFromCam(p?.GetComponent<PlayerController>().characterController.transform);
 
             if (this.rules.teamSize == 1)
             {
@@ -67,6 +74,11 @@ public class GameController : MonoBehaviour
                     EndMatch(players);
                 }
             }
+        }
+
+        if(players.Count <= 0)
+        {
+            UI.GetComponent<MainMenuController>().ShowStartGameScreen();
         }
     }
 
@@ -216,7 +228,18 @@ public class GameController : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MainMenu") this.gameState = "menu_main";
+        if (scene.name == "MainMenu")
+        {
+            if (this.players.Count <= 0)
+            {
+                UI.GetComponent<MainMenuController>().ShowStartGameScreen();
+                this.gameState = "start_screen";
+            }
+            else
+            {
+                this.gameState = "menu_main";
+            }
+        }
     }
 
     public void QuitGame()

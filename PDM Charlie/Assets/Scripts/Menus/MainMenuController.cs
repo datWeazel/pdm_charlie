@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
+    public GameObject startGameScreen = null;
     public GameObject mainMenu = null;
     public GameObject characterSelect = null;
     public GameObject stageSelect = null;
@@ -25,6 +26,16 @@ public class MainMenuController : MonoBehaviour
             Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, cameraEndRotation, Time.deltaTime);
             if (Camera.main.transform.position == cameraEndPosition && Camera.main.transform.rotation == cameraEndRotation) moveCamera = false;
         }
+    }
+
+    public void ShowStartGameScreen()
+    {
+        startGameScreen.SetActive(true);
+    }
+
+    public void HideStartGameScreen()
+    {
+        startGameScreen.SetActive(false);
     }
 
     public void ShowMenu(GameObject menu){
@@ -47,7 +58,6 @@ public class MainMenuController : MonoBehaviour
 
     public void UnHoverButton(Button button)
     {
-
         button.GetComponent<Animator>().SetBool("hovered", false);
     }
 

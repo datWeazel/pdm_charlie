@@ -98,9 +98,12 @@ public class PlayerController : MonoBehaviour
                 Debug.Log($"hoveredCharacterSelector({(hoveredCharacterSelector != null)}) || hoveredStageSelector({(hoveredStageSelector != null)})");
             }
 
-            if (hoveredButton == null || hoveredButton != oldHoveredButton)
+            if(hoveredButton == null)
             {
-                if(hoveredButton != null)   gameControllerScript.UI.GetComponent<MainMenuController>().UnHoverButton(oldHoveredButton);
+                if(oldHoveredButton != null)
+                {
+                    gameControllerScript.UI.GetComponent<MainMenuController>().UnHoverButton(oldHoveredButton);
+                }
             }
 
             if (gameState == "menu_character_select")
@@ -144,7 +147,6 @@ public class PlayerController : MonoBehaviour
 
         if(this.stocks == 0)
         {
-            this.gameControllerScript.RemovePlayer(this.GetComponent<PlayerInput>());
             GameObject.Destroy(this.characterController.gameObject);
             return;
         }
@@ -176,6 +178,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnClick()
     {
+        if (this.gameControllerScript == null) return;
         if(this.gameControllerScript.GetGameState().Contains("menu_"))
         {
             Select();
@@ -184,7 +187,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-
+        if (this.gameControllerScript == null) return;
         if (this.gameControllerScript.GetGameState().Contains("menu_"))
         {
             Select();
@@ -229,7 +232,7 @@ public class PlayerController : MonoBehaviour
     public void OnLightAttack(InputValue value)
     {
         lightAttackHold = true;
-        if (this.gameControllerScript.GetGameState() == "match_active")
+        if (this.gameControllerScript?.GetGameState() == "match_active")
         {
             this.characterController?.LightAttackButtonPressed();
             Debug.Log("light atk");
@@ -239,7 +242,7 @@ public class PlayerController : MonoBehaviour
     public void OnLightAttackRelease(InputValue value)
     {
         lightAttackHold = false;
-        if (this.gameControllerScript.GetGameState() == "match_active")
+        if (this.gameControllerScript?.GetGameState() == "match_active")
         {
             this.characterController?.LightAttackButtonReleased();
             Debug.Log("light atk release");

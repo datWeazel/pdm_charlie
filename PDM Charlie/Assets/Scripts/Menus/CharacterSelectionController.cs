@@ -67,11 +67,12 @@ public class CharacterSelectionController : MonoBehaviour
     {
         if (this.containerToPlayer.ContainsKey(player))
         {
+            int id = player.playerIndex;
             GameObject container = null;
             this.containerToPlayer.TryGetValue(player, out container);
             container.transform.Find("join_help").GetComponent<Text>().text = "Press Start!";
             this.containerToPlayer.Remove(player);
-            this.gameController?.GetComponent<GameController>()?.RemovePlayer(player);
+            this.gameController?.GetComponent<GameController>()?.RemovePlayer(id);
             Debug.Log("Player left!");
         }
     }
