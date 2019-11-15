@@ -157,17 +157,22 @@ public class GameController : MonoBehaviour
         if (this.stageName == "") return;
 
         gameState = "match_prepare";
-        SceneManager.LoadScene(this.stageName);
+        Debug.Log($"Scene before: {SceneManager.GetActiveScene().name}");
 
-        
-        StartCoroutine(StartMatch(3));
+        LoadScene(this.stageName);
+
+        StartCoroutine(WaitForSceneToBeLoaded());
     }
 
-    IEnumerator StartMatch(int waitSeconds)
+    /// <summary>
+    /// Hacky workaround. 
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator WaitForSceneToBeLoaded()
     {
-        yield return new WaitForSeconds(waitSeconds);
-        gameState = "match_active";
-
+        Debug.Log("TEST");
+        yield return new WaitForSeconds(3);
+        Debug.Log($"Scene after : {SceneManager.GetActiveScene().name}");
         foreach (PlayerInput playerInput in players)
         {
             PlayerController player = playerInput.GetComponent<PlayerController>();
@@ -177,12 +182,21 @@ public class GameController : MonoBehaviour
                 GameObject c = player.CreateCharacter(character, GetPlayerStageSpawn(player.Id));
                 player.stocks = this.rules.stocks;
                 player.matchHUD = GetPlayerMatchInfoController(player.Id);
+                Debug.Log($"matchHUD null? {(player.matchHUD == null)}");
                 player.matchHUD.ActivateParent();
                 player.matchHUD.UpdatePlayerName($"P{player.Id}");
                 player.matchHUD.UpdatePlayerStockCount(player.stocks);
                 Camera.main.GetComponent<CameraLogic>()?.AddPlayerToCam(c.transform);
             }
         }
+
+        GameObject.Find("MATCH_HUD").GetComponent<MatchHUDController>().StartCountdown();
+
+    }
+
+    public void StartMatch()
+    {
+        gameState = "match_active";
 
         Debug.Log("Match started!");
     }
@@ -212,15 +226,10 @@ public class GameController : MonoBehaviour
 
     public PlayerMatchInfoController GetPlayerMatchInfoController(int id)
     {
-        GameObject[] matchHUDs = GameObject.FindGameObjectsWithTag("PlayerMatchHUD");
-        Debug.Log($"matchHUDs Count: {matchHUDs.Length}");
-        foreach(GameObject matchHUD in matchHUDs)
+        GameObject pHUD = GameObject.Find("MATCH_HUD").GetComponent<MatchHUDController>().GetPlayerMatchHUD(id);
+        if(pHUD != null)
         {
-            if (matchHUD.name == $"PlayerMatchHUD_{id}")
-            {
-                //return matchHUD.GetComponent<PlayerMatchInfoController>();
-                return matchHUD.GetComponentInChildren<PlayerMatchInfoController>(true);
-            }
+            return pHUD.GetComponent<PlayerMatchInfoController>();
         }
 
         return null;
