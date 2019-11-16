@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class PlayerMatchInfoController : MonoBehaviour
 
     public void UpdatePlayerPercentage(float newPercentage)
     {
-        this.playerPercentage.text = $"{newPercentage}%";
+        this.playerPercentage.text = $"{(Math.Round(newPercentage, 1))}%";
     }
 
     public void UpdatePlayerStockCount(int newStockCount)

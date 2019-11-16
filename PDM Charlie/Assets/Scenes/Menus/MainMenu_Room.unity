@@ -4119,8 +4119,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2109418965}
-        m_MethodName: PrepareMatch
+      - m_Target: {fileID: 572038335}
+        m_MethodName: TryStartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -83,6 +83,11 @@ public class MainMenuController : MonoBehaviour
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().SetGameState(newGameState);
     }
 
+    public void TryStartGame()
+    {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().PrepareMatch();
+    }
+
     public void MoveMainMenuCameraToPosition(Vector3 newPosition, Quaternion newRotation)
     {
         cameraEndPosition = newPosition;
