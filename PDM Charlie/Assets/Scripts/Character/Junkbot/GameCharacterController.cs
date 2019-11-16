@@ -15,9 +15,15 @@ namespace Junkbot
             this.animator = GetComponent<Animator>();
         }
 
-        void Update()
+        new void Update()
         {
             base.Update();
+        }
+
+        new void FixedUpdate()
+        {
+            base.FixedUpdate();
+
             Debug.Log($"Update: {this.isAttacking}");
             if (this.animator != null)
             {
@@ -31,9 +37,15 @@ namespace Junkbot
             this.isJumping = !this.isGrounded;
             this.isMoving = false;
         }
+
         //@TODO: outdated
         public override void LightAttack()
         {
+            if (this.lightAttackHitBox.activeInHierarchy) return;
+
+            Debug.Log("=============");
+            Debug.Log("ATTACK!!!");
+            Debug.Log("=============");
             this.lightAttackHitBox.SetActive(true);
 
             if (!this.lightAttackHitBox.GetComponentInChildren<AttackHitboxControllerBase>().isExpanding)

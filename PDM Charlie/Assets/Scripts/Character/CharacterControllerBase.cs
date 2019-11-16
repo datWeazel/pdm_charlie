@@ -41,7 +41,18 @@ public class CharacterControllerBase : MonoBehaviour
 
     public void Update()
     {
-        if (this.currentRigidbody.velocity.y <= 0 && this.gameObject.layer != 0)
+
+    }
+
+    public void FixedUpdate()
+    {
+        //Debug.Log("FIXED UPDATE");
+        if (this.currentRigidbody == null) this.currentRigidbody = GetComponent<Rigidbody>();
+
+        // Add a constant down force to the character if he is not grounded
+        if (!this.isGrounded) this.currentRigidbody.AddForce(-Vector3.up * this.downForce);
+
+        if (this.movementVector.y > -0.5 && this.currentRigidbody.velocity.y <= 0 && this.gameObject.layer != 0)
         {
             this.gameObject.layer = 0;
             OnLosingPassThroughPlatform();
@@ -70,7 +81,7 @@ public class CharacterControllerBase : MonoBehaviour
             {
                 this.currentRigidbody.velocity = new Vector3(this.movementVector.x * moveSpeed, this.currentRigidbody.velocity.y, 0);
             }
-            
+
         }
 
         //check if some button is held long enough to trigger ButtonHeld
@@ -78,7 +89,8 @@ public class CharacterControllerBase : MonoBehaviour
         {
             lightAttackButtonHeld += Time.deltaTime;
             if (lightAttackButtonHeld > timeUntilButtonHold) LightAttackHold();
-        } else
+        }
+        else
         {
             lightAttackButtonHeld = 0;
         }
@@ -102,15 +114,6 @@ public class CharacterControllerBase : MonoBehaviour
         {
             jumpButtonHeld = 0;
         }
-    }
-
-    public void FixedUpdate()
-    {
-        Debug.Log("FIXED UPDATE");
-        if (this.currentRigidbody == null) this.currentRigidbody = GetComponent<Rigidbody>();
-
-        // Add a constant down force to the character if he is not grounded
-        if (!this.isGrounded) this.currentRigidbody.AddForce(-Vector3.up * this.downForce);
     }
 
     #region HitBox
@@ -291,12 +294,12 @@ public class CharacterControllerBase : MonoBehaviour
 
     public virtual void OnBecomingPassThroughPlatform()
     {
-        
+        Debug.Log("Became pass through");
     }
 
     public virtual void OnLosingPassThroughPlatform()
     {
-        
+        Debug.Log("No longer pass through");
     }
 
 

@@ -109,6 +109,8 @@ public class GameController : MonoBehaviour
 
     public void EndMatch(List<PlayerInput> winners)
     {
+
+        Time.timeScale = 1.0f;
         string endScreenText = "";
         foreach(PlayerInput p in winners)
         {
@@ -197,7 +199,7 @@ public class GameController : MonoBehaviour
     public void StartMatch()
     {
         gameState = "match_active";
-
+        Time.timeScale = 1.75f;
         Debug.Log("Match started!");
     }
 
