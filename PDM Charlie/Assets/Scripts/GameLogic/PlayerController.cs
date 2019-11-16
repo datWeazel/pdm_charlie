@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
             }
 
             Button oldHoveredButton = hoveredButton;
+            hoveredButton = null;
             hoveredCharacterSelector = null;
             hoveredStageSelector = null;
 
@@ -86,10 +87,6 @@ public class PlayerController : MonoBehaviour
                 {
                     hoveredButton = rr.gameObject.GetComponentInChildren<Button>();
                     gameControllerScript.UI.GetComponent<MainMenuController>().HoverButton(hoveredButton);
-                }
-                else
-                {
-                    hoveredButton = null;
                 }
 
                 Transform StageNameTag = rr.gameObject.transform.Find("StageNameTag");
