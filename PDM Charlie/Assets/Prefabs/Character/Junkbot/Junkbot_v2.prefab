@@ -3042,12 +3042,12 @@ PrefabInstance:
     - target: {fileID: 6399758099409105279, guid: b4aa5f19c67a9824f8256edc515510a9,
         type: 3}
       propertyPath: percentageDamage
-      value: 0.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6399758099409105279, guid: b4aa5f19c67a9824f8256edc515510a9,
         type: 3}
       propertyPath: strength
-      value: 1250
+      value: 1750
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4aa5f19c67a9824f8256edc515510a9, type: 3}
