@@ -18137,8 +18137,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52647391f4b6ae44ebdedfe498e75d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderAudioMain: {fileID: 1876039207}
-  sliderAudioSFX: {fileID: 1894070766}
+  audioMainInit: 0
+  sliderAudioMain: {fileID: 1894070766}
+  audioSFXInit: 0
+  sliderAudioSFX: {fileID: 1876039207}
+  audioBGMInit: 0
   sliderAudioBGM: {fileID: 1336400133}
   audioMixer: {fileID: 24100000, guid: 2bc176eb593cd0442821f6de03beb987, type: 2}
   volumeButtonAmount: 0.1
