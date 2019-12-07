@@ -39,7 +39,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mayan_Temple
+  m_Name: BackgroundMusic
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: b6479c8481c0c3a458341b9f4a3d33dc
   m_Children: []
@@ -86,14 +86,23 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 30d077b5687384143a34292ffe3b1076
+    name: BackgroundMusic
+  - guid: 1f201bacc33511046b66ab0eeddf15ac
+    name: Environment
+  - guid: 4797490f23d20dd4fbc4c037b2a6f969
+    name: MainMenu
+  - guid: a6a248ad9dbda9547b5f0f40c092a7cf
+    name: Master
+  - guid: 24e601ea5a1d1cc418e6e06f988b1481
+    name: Title_Screen
   m_AudioMixerGroupViews:
   - guids:
     - 19729c2c7fa967748b39bc6d87ad011e
     - e6a9018848bfe0c4ea7d1bf9a64a0c44
     - a1451267931854d4c8852d9802727352
     - a5acb40b6f3383441be7d9c061dbe3f4
-    - 03b32da5416918343b7d25c7df16d808
     - b6479c8481c0c3a458341b9f4a3d33dc
     name: View
   m_CurrentViewIndex: 0
@@ -111,7 +120,6 @@ AudioMixerGroupController:
   - {fileID: -7281418159000488157}
   - {fileID: 6981305867998782010}
   - {fileID: -1429133594249009285}
-  - {fileID: 3592388701426146024}
   - {fileID: -2118096394344983238}
   m_Volume: a6a248ad9dbda9547b5f0f40c092a7cf
   m_Pitch: cf6f857b042cd5e4c91178feb644f5dd
@@ -147,8 +155,12 @@ AudioMixerSnapshotController:
   m_SnapshotID: 0781a36c0cf0f4945be6f9afa7d43dbf
   m_FloatValues:
     5a731ad42a7f40d47941358dc1c25922: -20.782825
-    30d077b5687384143a34292ffe3b1076: -14.816613
-    24e601ea5a1d1cc418e6e06f988b1481: -13.0627575
+    30d077b5687384143a34292ffe3b1076: -56.5
+    b6882e6adfc49994891d24ca5e7a530d: 1
+    24e601ea5a1d1cc418e6e06f988b1481: -10.345207
+    1f201bacc33511046b66ab0eeddf15ac: -0.27209902
+    a6a248ad9dbda9547b5f0f40c092a7cf: 20
+    4797490f23d20dd4fbc4c037b2a6f969: -3.1841109
   m_TransitionOverrides: {}
 --- !u!244 &2164464038145760759
 AudioMixerEffectController:
@@ -164,25 +176,6 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
---- !u!243 &3592388701426146024
-AudioMixerGroupController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Menu
-  m_AudioMixer: {fileID: 24100000}
-  m_GroupID: 03b32da5416918343b7d25c7df16d808
-  m_Children: []
-  m_Volume: 5a731ad42a7f40d47941358dc1c25922
-  m_Pitch: 875cfe21b5d6555409014b9cdf830d28
-  m_Send: 00000000000000000000000000000000
-  m_Effects:
-  - {fileID: 8483535576175173728}
-  m_UserColorIndex: 0
-  m_Mute: 0
-  m_Solo: 0
-  m_BypassEffects: 0
 --- !u!244 &4859936832130417058
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -230,17 +223,3 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
---- !u!244 &8483535576175173728
-AudioMixerEffectController:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_EffectID: bb42d9d6e229a81459d4bf6ea58b25bd
-  m_EffectName: Attenuation
-  m_MixLevel: b7749eb717b446e498c1928929417476
-  m_Parameters: []
-  m_SendTarget: {fileID: 0}
-  m_EnableWetMix: 0
-  m_Bypass: 0

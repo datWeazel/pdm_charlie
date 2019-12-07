@@ -73,8 +73,8 @@ public class MainMenuController : MonoBehaviour
         button.onClick.Invoke();
         if (button.GetComponent<AudioSource>() != null)
         {
-            this.gameObject.GetComponent<AudioSource>().clip = this.buttonClickSound;
-            this.gameObject.GetComponent<AudioSource>().Play();
+            button.GetComponent<AudioSource>().clip = this.buttonClickSound;
+            button.GetComponent<AudioSource>().Play();
         }
     }
 

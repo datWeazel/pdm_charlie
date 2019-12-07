@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
     public PlayerInputManager playerInputManager;
     public string gameState = "";
 
+    public Settings settings;
+
     public MatchRules rules = null;
     public string stageName = "";
 
@@ -218,6 +220,10 @@ public class GameController : MonoBehaviour
         else if (gameState == "menu_stage_select")
         {
             UI.GetComponent<MainMenuController>().MoveMainMenuCameraToPosition(mainMenuCamPosition, mainMenuCamRotation);
+        }
+        else if (gameState == "menu_options")
+        {
+            UI.GetComponent<MainMenuController>().MoveMainMenuCameraToPosition(mainMenuCharSelectCamPosition, mainMenuCharSelectCamRotation);
         }
     }
 
