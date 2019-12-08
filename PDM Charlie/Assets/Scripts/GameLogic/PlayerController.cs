@@ -86,7 +86,10 @@ public class PlayerController : MonoBehaviour
                 if (rr.gameObject.name.Contains("btn_"))
                 {
                     hoveredButton = rr.gameObject.GetComponentInChildren<Button>();
-                    gameControllerScript.UI.GetComponent<MainMenuController>().HoverButton(hoveredButton);
+                    if (oldHoveredButton != hoveredButton)
+                    {
+                        gameControllerScript.UI.GetComponent<MainMenuController>().HoverButton(hoveredButton);
+                    }
                 }
 
                 Transform StageNameTag = rr.gameObject.transform.Find("StageNameTag");

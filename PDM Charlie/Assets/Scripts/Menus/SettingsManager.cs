@@ -41,19 +41,19 @@ public class SettingsManager : MonoBehaviour
         if (slider == sliderAudioMain)
         {
             gc.settings.audioMain = sliderAudioMain.value;
-            audioMixer.SetFloat("Master", audioMainInit * gc.settings.audioMain);
+            audioMixer.SetFloat("Master", Mathf.Log10(gc.settings.audioMain) * 10);
             Debug.Log($"Updated main volume to {sliderAudioMain.value}!");
         }
         else if (slider == sliderAudioSFX)
         {
             gc.settings.audioSFX = sliderAudioSFX.value;
-            audioMixer.SetFloat("Environment", audioSFXInit * gc.settings.audioSFX);
+            audioMixer.SetFloat("Environment", Mathf.Log10(gc.settings.audioSFX) * 10);
             Debug.Log($"Updated sfx volume to {sliderAudioMain.value}!");
         }
         else if (slider == sliderAudioBGM)
         {
             gc.settings.audioBGM = sliderAudioBGM.value;
-            audioMixer.SetFloat("BackgroundMusic", audioBGMInit * gc.settings.audioBGM);
+            audioMixer.SetFloat("BackgroundMusic", Mathf.Log10(gc.settings.audioBGM) * 10);
             Debug.Log($"Updated bgm volume to {sliderAudioMain.value}!");
         }
     }
@@ -94,11 +94,11 @@ public class SettingsManager : MonoBehaviour
         gc.settings = settings;
 
         sliderAudioMain.value = settings.audioMain;
-        audioMixer.SetFloat("MainMenu", audioMainInit * settings.audioMain);
+        audioMixer.SetFloat("MainMenu", Mathf.Log10(settings.audioMain)*10);
         sliderAudioSFX.value = settings.audioSFX;
-        audioMixer.SetFloat("Environment", audioSFXInit * settings.audioSFX);
+        audioMixer.SetFloat("Environment", Mathf.Log10(settings.audioSFX) * 10);
         sliderAudioBGM.value = settings.audioBGM;
-        audioMixer.SetFloat("BackgroundMusic", audioBGMInit * settings.audioBGM);
+        audioMixer.SetFloat("BackgroundMusic", Mathf.Log10(settings.audioBGM) * 10);
 
         Debug.Log("Loaded audio settings from file!");
         return;
