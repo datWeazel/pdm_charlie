@@ -19,6 +19,8 @@ public class AttackHitboxControllerBase : MonoBehaviour
     private SphereCollider sphereCollider;
     private List<PlayerController> hitPlayers = new List<PlayerController>();
 
+    public AudioClip hitSound;
+
     private void Start()
     {
         sphereCollider = GetComponent<SphereCollider>();
@@ -66,6 +68,8 @@ public class AttackHitboxControllerBase : MonoBehaviour
         // Check if entity that entered the hitbox collider is a Character and is not the player that attacked
         if (entity.transform.tag == "Character" && entity.gameObject != this.character)
         {
+            //Play hitSound
+            
             PlayerController player = entity.transform.GetComponentInParent<PlayerController>();
             if (!this.hitPlayers.Contains(player))
             {
