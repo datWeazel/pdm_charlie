@@ -8,6 +8,12 @@ namespace Junkbot
     {
         private Animator animator;
         public GameObject lightAttackHitBox;
+	
+	public AudioSource audioOutput;
+	public AudioClip idleSound;
+	public AudioClip moveSound;
+	public AudioClip jumpSound;
+	public AudioClip gotHitSound;
 
         // Start is called before the first frame update
         void Start()
@@ -31,6 +37,22 @@ namespace Junkbot
                 this.animator.SetBool("moving", this.isMoving);
                 this.animator.SetBool("jumping", this.isJumping);
                 this.animator.SetBool("attacking", this.isAttacking);
+		
+		if(this.isJumping){
+			//Play Jump Sound Once
+		}
+		else{
+			if(this.isMoving){
+				// Start Moving Sound Loop
+			}
+			else{
+				if(this.isAttacking){
+				}
+				else{
+					// Start Idle Sound Loop
+				}
+			}
+		}
             }
 
             // Reset animator help variables for next frame
