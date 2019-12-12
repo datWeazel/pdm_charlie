@@ -23,13 +23,20 @@ namespace Geist
 
         //Store settings from Prefab parts
         public float jointsMaxDistance;
-        
+
+        //Attack
+        private List<PlayerController> hitPlayers = new List<PlayerController>();
+
 
         //Variables for Heavy attack
         public float chargeUpTime = 0.0f;
         public float minChargeUpTime = 0.5f;
         public float maxChargeUpTime = 2.5f;
         public float chargeFactor = 5.0f;
+        public float heavyPercentageDamage = 0.3f;
+        public bool heavyAttackColliderActive = false;
+        public float heavyAttackStrength = 250.0f;
+        public float heavyAttackHitStunDuration = 0.35f;
 
         // Start is called before the first frame update
         void Start()
@@ -59,9 +66,14 @@ namespace Geist
             particles[2] = small.GetComponentInChildren<ParticleSystem>();
         }
 
-        void Update()
+        new void Update()
         {
             base.Update();
+        }
+
+        new void FixedUpdate()
+        {
+            base.FixedUpdate();
             Debug.Log($"Update: {this.isAttacking}");
             if (this.animator != null)
             {
@@ -86,7 +98,7 @@ namespace Geist
             movementStopped = true;
             
             chargeUpTime = 0;
-            bottle.GetComponent<Rigidbody>().isKinematic = true;
+            //bottle.GetComponent<Rigidbody>().isKinematic = true;
         }
 
         public override void HeavyAttackHold()
@@ -98,11 +110,9 @@ namespace Geist
 
         public override void HeavyAttackRelease()
         {
-            
-
             movementStopped = false;
 
-            bottle.GetComponent<Rigidbody>().isKinematic = false;
+            //bottle.GetComponent<Rigidbody>().isKinematic = false;
 
 
             //Cancel attack when minChargeupTime not reached
@@ -112,6 +122,8 @@ namespace Geist
             if (chargeUpTime > maxChargeUpTime) chargeUpTime = maxChargeUpTime;
 
             this.currentRigidbody.AddForce(this.movementVector.x * chargeUpTime * chargeFactor, this.movementVector.y * chargeUpTime * chargeFactor, 0, ForceMode.Impulse);
+
+            heavyAttackColliderActive=true;
 
             /*foreach (ParticleSystem particle in particles)
             {
@@ -123,6 +135,43 @@ namespace Geist
             Debug.Log("chargeUp " + chargeUpTime);
             Debug.Log("mvVec.x " + this.movementVector.x);
             Debug.Log("mvVec.y " + this.movementVector.y);
+
+            StartCoroutine(Wait(1));
+
+            
+        }
+
+        IEnumerator Wait(float t)
+        {
+            print(Time.time);
+            yield return new WaitForSecondsRealtime(t);
+            print(Time.time);
+
+            heavyAttackColliderActive = false;
+            hitPlayers.Clear();
+        }
+
+        private void OnCollisionEnter(Collision col)
+        {
+            Collider entity = col.collider;
+            if (heavyAttackColliderActive)
+            {
+                // Check if entity that entered the hitbox collider is a Character and is not the player that attacked
+                if (entity.transform.tag == "Character")
+                {
+                    PlayerController player = entity.transform.GetComponentInParent<PlayerController>();
+                    if (!this.hitPlayers.Contains(player))
+                    {
+                        this.hitPlayers.Add(player);
+
+                        player.percentage += heavyPercentageDamage;
+
+                        Vector3 direction = entity.transform.position - this.transform.position;
+                        player.characterController.AddForce((direction * (((player.percentage + 1.0f) / 100.0f) * heavyAttackStrength)));
+                        player.characterController.SetHitStun(heavyAttackHitStunDuration);
+                    }
+                }
+            }
         }
 
         #endregion
