@@ -74,7 +74,7 @@ namespace Geist
         new void FixedUpdate()
         {
             base.FixedUpdate();
-            Debug.Log($"Update: {this.isAttacking}");
+            //Debug.Log($"Update: {this.isAttacking}");
             if (this.animator != null)
             {
                 // Set animator variables
@@ -128,48 +128,53 @@ namespace Geist
             /*foreach (ParticleSystem particle in particles)
             {
                 particle.Play();
-            }*/
+            }
 
             //createHitBoxOnSelf();
 
             Debug.Log("chargeUp " + chargeUpTime);
             Debug.Log("mvVec.x " + this.movementVector.x);
-            Debug.Log("mvVec.y " + this.movementVector.y);
+            Debug.Log("mvVec.y " + this.movementVector.y);*/
 
-            StartCoroutine(Wait(1));
+            StartCoroutine(Wait(0.4f));
 
             
         }
 
         IEnumerator Wait(float t)
         {
-            print(Time.time);
             yield return new WaitForSecondsRealtime(t);
-            print(Time.time);
 
             heavyAttackColliderActive = false;
             hitPlayers.Clear();
         }
 
-        private void OnCollisionEnter(Collision col)
+        private new void OnCollisionEnter(Collision col)
         {
+            base.OnCollisionEnter(col);
+            Debug.Log("Geist Col detect");
             Collider entity = col.collider;
             if (heavyAttackColliderActive)
             {
+                Debug.Log("Geist Col detect heavy active");
                 // Check if entity that entered the hitbox collider is a Character and is not the player that attacked
                 if (entity.transform.tag == "Character")
                 {
-                    PlayerController player = entity.transform.GetComponentInParent<PlayerController>();
+                    Debug.Log("Geist Col detect char col");
+                    //@todo: player is null
+                    PlayerController player = col.gameObject.transform.GetComponentInParent<PlayerController>();
+                    Debug.Log(player);
                     if (!this.hitPlayers.Contains(player))
                     {
                         this.hitPlayers.Add(player);
-
+                        Debug.Log("Geist Col detect players: " + hitPlayers);
                         player.percentage += heavyPercentageDamage;
 
                         Vector3 direction = entity.transform.position - this.transform.position;
                         player.characterController.AddForce((direction * (((player.percentage + 1.0f) / 100.0f) * heavyAttackStrength)));
                         player.characterController.SetHitStun(heavyAttackHitStunDuration);
                     }
+
                 }
             }
         }
@@ -186,6 +191,11 @@ namespace Geist
         public override void OnLosingPassThroughPlatform()
         {
             bottle.gameObject.layer = 0;
+        }
+
+        public override void OnCharacterDying()
+        {
+            bottle.transform.position = this.transform.position;
         }
 
         #endregion
