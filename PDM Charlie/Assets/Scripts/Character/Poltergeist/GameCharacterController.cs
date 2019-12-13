@@ -25,18 +25,25 @@ namespace Geist
         public float jointsMaxDistance;
 
         //Attack
-        private List<PlayerController> hitPlayers = new List<PlayerController>();
 
+        //Light Attack
+        public float lightAttackCooldown = 0.0f;
+        public float LightAttackChargeFactor = 50.0f;
+        public float lightAttackStrength = 40.0f;
+        public float lightAttackHitStunDuration = 0.1f;
+        public float lightPercentageDamage = 0.9f;
+        public List<PlayerController> hitPlayersLight = new List<PlayerController>();
 
         //Variables for Heavy attack
-        public float chargeUpTime = 0.0f;
-        public float minChargeUpTime = 0.5f;
+        public float chargeUpTime = 0.5f;
+        public float minChargeUpTime = 0.6f;
         public float maxChargeUpTime = 2.5f;
-        public float chargeFactor = 5.0f;
+        public float chargeFactor = 10.0f;
         public float heavyPercentageDamage = 0.3f;
         public bool heavyAttackColliderActive = false;
         public float heavyAttackStrength = 250.0f;
         public float heavyAttackHitStunDuration = 0.35f;
+        private List<PlayerController> hitPlayersHeavy = new List<PlayerController>();
 
         // Start is called before the first frame update
         void Start()
@@ -45,6 +52,8 @@ namespace Geist
             big = Instantiate(big, this.transform.position, new Quaternion());
             small = Instantiate(small, this.transform.position, new Quaternion());
             bottle = Instantiate(bottle, this.transform.position, new Quaternion());
+            bottle.AddComponent<BottleComponent>();
+            bottle.GetComponent<BottleComponent>().init(this);
             thisJoint = this.GetComponent<SpringJoint>();
             bigJoint = big.GetComponent<SpringJoint>();
             smallJoint = small.GetComponent<SpringJoint>();
@@ -69,6 +78,7 @@ namespace Geist
         new void Update()
         {
             base.Update();
+            lightAttackCooldown -= Time.deltaTime;
         }
 
         new void FixedUpdate()
@@ -88,6 +98,25 @@ namespace Geist
             this.isMoving = false;
         }
 
+        #region Light Attack
+
+        public override void LightAttack()
+        {
+            if (lightAttackCooldown > 0.0f) return;
+            lightAttackCooldown = 0.25f;
+            bottle.GetComponent<BottleComponent>().isColliding = true;
+            bottle.GetComponent<Rigidbody>().AddForce(this.movementVector.x * LightAttackChargeFactor, this.movementVector.y * LightAttackChargeFactor, 0, ForceMode.VelocityChange);
+            StartCoroutine(WaitLight(0.1f));
+        }
+
+        IEnumerator WaitLight(float t)
+        {
+            yield return new WaitForSecondsRealtime(t);
+            hitPlayersLight.Clear();
+            bottle.GetComponent<BottleComponent>().isColliding = false;
+        }
+        #endregion
+
         #region Heavy Attack
         public override void HeavyAttack()
         {
@@ -97,7 +126,7 @@ namespace Geist
             }*/
             movementStopped = true;
             
-            chargeUpTime = 0;
+            chargeUpTime = 0.5f;
             //bottle.GetComponent<Rigidbody>().isKinematic = true;
         }
 
@@ -136,17 +165,17 @@ namespace Geist
             Debug.Log("mvVec.x " + this.movementVector.x);
             Debug.Log("mvVec.y " + this.movementVector.y);*/
 
-            StartCoroutine(Wait(0.4f));
+            StartCoroutine(WaitHeavy(0.4f));
 
             
         }
 
-        IEnumerator Wait(float t)
+        IEnumerator WaitHeavy(float t)
         {
             yield return new WaitForSecondsRealtime(t);
 
             heavyAttackColliderActive = false;
-            hitPlayers.Clear();
+            hitPlayersHeavy.Clear();
         }
 
         private new void OnCollisionEnter(Collision col)
@@ -162,13 +191,11 @@ namespace Geist
                 {
                     Debug.Log("Geist Col detect char col");
                     //@todo: player is null
-                    PlayerController player = col.gameObject.transform.GetComponentInParent<PlayerController>();
-                    Debug.Log(player);
-                    if (!this.hitPlayers.Contains(player))
+                    PlayerController player = col.gameObject.GetComponentInParent<PlayerController>();
+                    if (!this.hitPlayersHeavy.Contains(player))
                     {
-                        this.hitPlayers.Add(player);
-                        Debug.Log("Geist Col detect players: " + hitPlayers);
-                        player.percentage += heavyPercentageDamage;
+                        this.hitPlayersHeavy.Add(player);
+                        player.percentage += heavyPercentageDamage * chargeFactor;
 
                         Vector3 direction = entity.transform.position - this.transform.position;
                         player.characterController.AddForce((direction * (((player.percentage + 1.0f) / 100.0f) * heavyAttackStrength)));
