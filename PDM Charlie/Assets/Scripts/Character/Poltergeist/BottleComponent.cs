@@ -23,6 +23,7 @@ public class BottleComponent : MonoBehaviour
             if (!owner.hitPlayersLight.Contains(player))
             {
                 owner.hitPlayersLight.Add(player);
+                if (player = null) return;
                 player.percentage += owner.lightPercentageDamage;
                 Debug.Log("damage bottle");
                 Vector3 direction = entity.transform.position - this.transform.position;

@@ -245,7 +245,7 @@ public class CharacterControllerBase : MonoBehaviour
     //Other movement functions
     public void Move(Vector2 movementVector)
     {
-        Debug.Log($"MOVING: {movementVector.ToString()}");
+        //Debug.Log($"MOVING: {movementVector.ToString()}");
         if (this.hitStun > 0) return;
         if (movementVector == new Vector2()) return;
         this.isMoving = true;
@@ -277,7 +277,7 @@ public class CharacterControllerBase : MonoBehaviour
     #endregion
 
     #region Callbacks
-    private void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Floor" || collision.transform.tag == "Character")
         {
@@ -317,13 +317,13 @@ public class CharacterControllerBase : MonoBehaviour
     }
 
     //Called when character besomes ungrounded. This stub is meant to be implemented by inheriting classes
-    private void OnAirborne()
+    public virtual void OnAirborne()
     {
         
     }
 
     //This is called by PlayerController after respawning char. This stub is meant to be implemented by inheriting classes 
-    public void OnCharacterDying()
+    public virtual void OnCharacterDying() 
     {
         
     }
