@@ -27,6 +27,8 @@ public class GameController : MonoBehaviour
     private Vector3 mainMenuCharSelectCamPosition = new Vector3(347.2f, 0.8f, 589.2f);
     private Quaternion mainMenuCharSelectCamRotation = Quaternion.Euler(26.8f, -90.0f, 0.0f);
 
+    private int playerID;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -183,7 +185,7 @@ public class GameController : MonoBehaviour
             GameObject character = characterPrefabs.FirstOrDefault(p => p.name == player.character);
             if (character != null)
             {
-                GameObject c = player.CreateCharacter(character, GetPlayerStageSpawn(player.Id));
+                GameObject c = player.CreateCharacter(character, GetPlayerStageSpawn(player.Id));               
                 player.stocks = this.rules.stocks;
                 player.matchHUD = GetPlayerMatchInfoController(player.Id);
                 Debug.Log($"matchHUD null? {(player.matchHUD == null)}");

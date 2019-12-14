@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        this.characterController.SetPosition(this.spawnpoint);
+        this.characterController.SetPosition(gameControllerScript.GetPlayerStageSpawn(Id));
         this.characterController.OnCharacterDying();
     }
 
