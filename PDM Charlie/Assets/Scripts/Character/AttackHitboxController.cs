@@ -19,8 +19,16 @@ public class AttackHitboxControllerBase : MonoBehaviour
     private SphereCollider sphereCollider;
     private List<PlayerController> hitPlayers = new List<PlayerController>();
 
+    public AudioSource audioSource;
+
+    public AudioClip[] attackSounds;
+    public AudioClip[] hitSounds;
+
+    private Random rng;
+
     private void Start()
     {
+        rng = new Random();
         sphereCollider = GetComponent<SphereCollider>();
     }
 
@@ -45,6 +53,7 @@ public class AttackHitboxControllerBase : MonoBehaviour
     public void StartAttackHitbox()
     {
         this.isExpanding = true;
+        PlaySound(attackSounds[Random.Range(0, attackSounds.Length-1)], false);
     }
 
     /// <summary>
@@ -78,5 +87,15 @@ public class AttackHitboxControllerBase : MonoBehaviour
                 player.characterController.SetHitStun(this.hitStunDuration);
             }
         }
+    }
+
+    public void PlaySound(AudioClip clip, bool loop)
+    {
+        if (audioSource.clip == clip && audioSource.loop == loop && audioSource.isPlaying) return; // Don't restart clip if it's still active and looping
+        if (audioSource.clip != clip && !audioSource.loop && audioSource.isPlaying) return; //Don't override currently playing clip if it's is set to play once
+
+        audioSource.loop = loop;
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 }
