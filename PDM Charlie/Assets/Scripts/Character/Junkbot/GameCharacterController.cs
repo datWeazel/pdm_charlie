@@ -18,6 +18,11 @@ namespace Junkbot
 
         public AudioClip[] deathSounds;
 
+        public bool wasAttacking;
+        public bool wasJumping;
+        public bool wasMoving;
+
+
         // Start is called before the first frame update
         void Start()
         {
@@ -46,28 +51,40 @@ namespace Junkbot
             if (this.isJumping)
             {
                 //Play Jump Sound Once
-                PlaySound(jumpSound, false);
+                if (this.isJumping != this.wasJumping)
+                    PlaySound(jumpSound, false);
             }
             else
             {
                 if (this.isMoving)
                 {
                     // Start Moving Sound Loop
-                    PlaySound(moveSound, true);
+                    if (this.isMoving != this.wasMoving)
+                        PlaySound(moveSound, true);
                 }
                 else
                 {
-                    if (!this.isAttacking)
+                    if (this.isAttacking) 
+                    {
+                        // Is handled in AttackHitboxController :D
+                    }
+                    else 
                     {
                         // Start Idle Sound Loop
-                        PlaySound(idleSound, true);
+                        if(this.isAttacking != this.wasAttacking)
+                            PlaySound(idleSound, true);
                     }
                 }
             }
 
+            this.wasAttacking = this.isAttacking;
+            this.wasMoving = this.isMoving;
+            this.wasJumping = this.isJumping;
+
             // Reset animator help variables for next frame
             this.isJumping = !this.isGrounded;
             this.isMoving = false;
+
         }
 
         public override void LightAttack()

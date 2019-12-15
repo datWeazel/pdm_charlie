@@ -19,16 +19,14 @@ public class AttackHitboxControllerBase : MonoBehaviour
     private SphereCollider sphereCollider;
     private List<PlayerController> hitPlayers = new List<PlayerController>();
 
-    public AudioSource audioSource;
+    private AudioSource audioSource;
 
     public AudioClip[] attackSounds;
     public AudioClip[] hitSounds;
 
-    private Random rng;
-
     private void Start()
     {
-        rng = new Random();
+        audioSource = GetComponent<AudioSource>();
         sphereCollider = GetComponent<SphereCollider>();
     }
 
