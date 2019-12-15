@@ -85,7 +85,7 @@ namespace Junkbot
 
         public void PlaySound(AudioClip clip, bool loop)
         {
-            if (audioSource.clip == clip && audioSource.loop == loop && audioSource.isPlaying) return; // Don't restart clip if it's still active and looping
+            if (audioSource.clip == clip && audioSource.loop == loop && loop && audioSource.isPlaying) return; // Don't restart clip if it's still active and looping
             if (audioSource.clip != clip && !audioSource.loop && loop && audioSource.isPlaying) return; //Don't override currently playing clip if it's is set to play once
 
             audioSource.loop = loop;
