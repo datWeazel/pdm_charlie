@@ -16084,7 +16084,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8e1d6f8d209ad0042bac26011d0bbe5f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5e38a1d701d392246b9f41976855d46e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -18136,6 +18136,10 @@ MonoBehaviour:
   - {fileID: 7558485630395252815, guid: 0f1acf8b58da834488fde5b938c35431, type: 3}
   playerInputManager: {fileID: 0}
   gameState: 
+  settings:
+    audioMain: 0.5
+    audioSFX: 0.5
+    audioBGM: 0.5
   stageName: 
 --- !u!114 &2109418966
 MonoBehaviour:
