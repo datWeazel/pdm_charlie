@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -35,6 +36,15 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask charSelectLayerMask;
 
+    public int respawnDelayMS = 5000;
+    public GameObject deathEffectPrefab;
+
+    public bool isDead = false;
+    private float respawnTimer = 0;
+    private float respawnTimerWas = 0;
+
+    private GameObject deathEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,11 +56,20 @@ public class PlayerController : MonoBehaviour
         this.selector.GetComponentInChildren<TextMeshProUGUI>().text = $"P {this.Id}";
     }
 
+    private void FixedUpdate()
+    {
+        if (isDead && this.gameControllerScript.GetGameState() == "match_active")
+        {
+            respawnTimerWas = respawnTimer;
+            matchHUD.UpdatePlayerPercentage($"{Math.Round(respawnTimer, 2)}");
+            respawnTimer -= Time.deltaTime;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         string gameState = this.gameControllerScript.GetGameState();
-        //Debug.Log($"State: {gameState} || Id: {this.Id}");
 
         if(gameState.Contains("menu_"))
         {
@@ -67,8 +86,6 @@ public class PlayerController : MonoBehaviour
                 float cursorSpeed = this.selectorSpeed;
                 if (lightAttackHold) cursorSpeed *= 2;
                 this.selector.transform.position += new Vector3((this.moveVector.x * cursorSpeed), (this.moveVector.y * cursorSpeed), 0);
-
-
             }
 
             Button oldHoveredButton = hoveredButton;
@@ -124,7 +141,6 @@ public class PlayerController : MonoBehaviour
 
             if (this.matchHUD != null)
             {
-                this.matchHUD.UpdatePlayerPercentage(this.percentage);
             }
 
 
@@ -138,21 +154,52 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void UpdatePlayerPercentage()
+    {
+        this.matchHUD.UpdatePlayerPercentage(this.percentage);
+    }
+
     public void HitDeathZone()
     {
         this.stocks--;
         this.matchHUD?.UpdatePlayerStockCount(this.stocks);
 
         this.percentage = 0.0f;
+        UpdatePlayerPercentage();
 
-        if(this.stocks == 0)
+        deathEffect = Instantiate(deathEffectPrefab, this.characterController.transform.TransformPoint(new Vector3(0.0f, 0.0f, 0.5f)), Quaternion.identity); ;
+
+        Camera.main.GetComponent<CameraLogic>()?.RemovePlayerFromCam(this.characterController.transform);
+
+        if (this.stocks == 0)
         {
-            Camera.main.GetComponent<CameraLogic>()?.RemovePlayerFromCam(this.characterController.transform);
             GameObject.Destroy(this.characterController.gameObject);
             this.characterController = null;
             return;
         }
 
+        StartCoroutine(RemoveDeathEffect());
+        StartCoroutine(RespawnPlayer(respawnDelayMS));
+    }
+
+    IEnumerator RemoveDeathEffect()
+    {
+        yield return new WaitForSeconds(1.5f);
+        GameObject.Destroy(deathEffect);
+    }
+
+    IEnumerator RespawnPlayer(int delayMS)
+    {
+        Debug.Log("Respawn incoming. :)");
+        this.isDead = true;
+        this.respawnTimer = (respawnDelayMS/1000);
+
+        yield return new WaitForSeconds(delayMS / 1000);
+
+        Camera.main.GetComponent<CameraLogic>()?.AddPlayerToCam(this.characterController.transform);
+
+        UpdatePlayerPercentage();
+        this.isDead = false;
         this.characterController.SetPosition(gameControllerScript.GetPlayerStageSpawn(Id));
         this.characterController.OnCharacterDying();
     }

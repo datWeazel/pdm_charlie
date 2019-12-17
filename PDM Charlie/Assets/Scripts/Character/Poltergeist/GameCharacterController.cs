@@ -196,6 +196,7 @@ namespace Geist
                     {
                         this.hitPlayersHeavy.Add(player);
                         player.percentage += heavyPercentageDamage * chargeFactor;
+                        player.UpdatePlayerPercentage();
 
                         Vector3 direction = entity.transform.position - this.transform.position;
                         player.characterController.AddForce((direction * (((player.percentage + 1.0f) / 100.0f) * heavyAttackStrength)));

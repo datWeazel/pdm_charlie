@@ -25,6 +25,8 @@ public class BottleComponent : MonoBehaviour
                 owner.hitPlayersLight.Add(player);
                 if (player = null) return;
                 player.percentage += owner.lightPercentageDamage;
+                player.UpdatePlayerPercentage();
+
                 Debug.Log("damage bottle");
                 Vector3 direction = entity.transform.position - this.transform.position;
                 player.characterController.AddForce((direction * (((player.percentage + 1.0f) / 100.0f) * owner.lightAttackStrength)));

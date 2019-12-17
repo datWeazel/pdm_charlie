@@ -57,6 +57,12 @@ MonoBehaviour:
   charSelectLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  respawnDelayMS: 2500
+  deathEffectPrefab: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c,
+    type: 3}
+  isDead: 0
+  respawnTimer: 0
+  respawnTimerWas: 0
 --- !u!114 &2196793353848064697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +167,7 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceSelect
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
-  m_DefaultActionMap: be85aa84-1fa5-4b90-8ca3-97c484ef9876
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &6030745132904710754

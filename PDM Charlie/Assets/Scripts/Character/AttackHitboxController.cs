@@ -79,6 +79,7 @@ public class AttackHitboxControllerBase : MonoBehaviour
                 this.hitPlayers.Add(player);
 
                 player.percentage += this.percentageDamage;
+                player.UpdatePlayerPercentage();
 
                 Vector3 direction = entity.transform.position - this.character.transform.position;
                 player.characterController.AddForce((direction * (((player.percentage+1.0f)/100.0f) * this.strength)));

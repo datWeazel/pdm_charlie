@@ -20,6 +20,11 @@ public class PlayerMatchInfoController : MonoBehaviour
         this.playerPercentage.text = $"{(Math.Round(newPercentage, 1))}%";
     }
 
+    public void UpdatePlayerPercentage(string newText)
+    {
+        this.playerPercentage.text = newText;
+    }
+
     public void UpdatePlayerStockCount(int newStockCount)
     {
         this.playerStocks.text = $"{newStockCount}";
