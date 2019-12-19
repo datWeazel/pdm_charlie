@@ -30,7 +30,7 @@ public class CharacterControllerBase : MonoBehaviour
 
     public Vector2 movementVector = new Vector2();
     private int floorCollisions = 0;
-    private float hitStun = 0.0f;
+    public float hitStun = 0.0f;
     public bool movementStopped;
 
     // Start is called before the first frame update
@@ -46,6 +46,11 @@ public class CharacterControllerBase : MonoBehaviour
 
     public void FixedUpdate()
     {
+        if(this.hitStun > 0.0f){
+            this.hitStun -= Time.deltaTime;
+            if(this.hitStun < 0.0f) this.hitStun = 0.0f;
+        }
+
         //Debug.Log("FIXED UPDATE");
         if (this.currentRigidbody == null) this.currentRigidbody = GetComponent<Rigidbody>();
 

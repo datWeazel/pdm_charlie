@@ -66,6 +66,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    /*
+        if(Timo_Peters){
+            lead_programmer = true;
+            menu_design = true;
+            audio_design = true;
+        }
+    */
+
     // Update is called once per frame
     void Update()
     {

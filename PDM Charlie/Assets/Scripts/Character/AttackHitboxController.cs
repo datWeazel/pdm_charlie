@@ -19,14 +19,13 @@ public class AttackHitboxControllerBase : MonoBehaviour
     private SphereCollider sphereCollider;
     private List<PlayerController> hitPlayers = new List<PlayerController>();
 
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
     public AudioClip[] attackSounds;
     public AudioClip[] hitSounds;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         sphereCollider = GetComponent<SphereCollider>();
     }
 
@@ -90,6 +89,8 @@ public class AttackHitboxControllerBase : MonoBehaviour
 
     public void PlaySound(AudioClip clip, bool loop)
     {
+        if(audioSource == null || clip == null) return;
+        
         if (audioSource.clip == clip && audioSource.loop == loop && audioSource.isPlaying) return; // Don't restart clip if it's still active and looping
         if (audioSource.clip != clip && !audioSource.loop && audioSource.isPlaying) return; //Don't override currently playing clip if it's is set to play once
 
