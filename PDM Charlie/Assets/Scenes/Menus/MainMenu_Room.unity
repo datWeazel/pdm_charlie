@@ -18135,6 +18135,8 @@ MonoBehaviour:
   - {fileID: 6825791405690804920, guid: e13802c0ffd3a8e44b2495bdb5ba21fa, type: 3}
   - {fileID: 7558485630395252815, guid: 0f1acf8b58da834488fde5b938c35431, type: 3}
   playerInputManager: {fileID: 0}
+  PracticeTargetPrefab: {fileID: 8735841594903556901, guid: 43c29923e0a7c684a9f342edb7f9f56b,
+    type: 3}
   gameState: 
   settings:
     audioMain: 0.5

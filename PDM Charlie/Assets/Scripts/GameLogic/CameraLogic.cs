@@ -34,7 +34,11 @@ public class CameraLogic : MonoBehaviour {
 
 	void Update()
 	{
-		if (players.Count <= 1) return;
+		if (players.Count < 1) return;
+		if(this.players.Count == 1)
+		{
+			this.transform.LookAt(this.players.ElementAt(0));
+		}
 
 		var hSort = this.players.OrderByDescending(p => p.position.y);
 		var wSort = this.players.OrderByDescending(p => p.position.x);

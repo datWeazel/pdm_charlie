@@ -282,7 +282,16 @@ public class PlayerController : MonoBehaviour
 
         if (hoveredButton != null)
         {
-            if (hoveredButton.gameObject.name == "btn_stage_select" && (this.gameControllerScript.players.Count < 2 || !this.gameControllerScript.DoesEveryPlayerHaveCharacter())) return;
+
+            if (hoveredButton.gameObject.name == "btn_stage_select") {
+                if (!this.gameControllerScript.DoesEveryPlayerHaveCharacter()) return;
+
+
+                if(this.gameControllerScript.players.Count < 2)
+                {
+                    this.gameControllerScript.rules.gameMode = 1;
+                }
+            }
             if (hoveredButton.gameObject.name == "btn_match_start" && this.gameControllerScript.stageName == "") return;
 
             gameControllerScript.UI.GetComponent<MainMenuController>().ClickButton(hoveredButton);

@@ -10,6 +10,8 @@ TagManager:
   - PlayerMatchHUD
   - StageSpawn
   - Floor
+  - TargetSpawns
+  - PracticeTarget
   layers:
   - Default
   - TransparentFX

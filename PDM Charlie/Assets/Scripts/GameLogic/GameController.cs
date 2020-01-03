@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     public List<PlayerInput> players;
     public List<GameObject> characterPrefabs;
     public PlayerInputManager playerInputManager;
+    public GameObject PracticeTargetPrefab;
     public string gameState = "";
 
     public Settings settings;
@@ -42,27 +43,50 @@ public class GameController : MonoBehaviour
     {
         if (gameState == "match_active")
         {
-            int playersInGame = 0;
-            List<PlayerInput> winners = new List<PlayerInput>();
-            foreach (PlayerInput player in players)
+            if (this.rules.gameMode == 0)
             {
-                PlayerController pController = player.GetComponent<PlayerController>();
-                if (pController != null)
+                int playersInGame = 0;
+                List<PlayerInput> winners = new List<PlayerInput>();
+                foreach (PlayerInput player in players)
                 {
-                    if (pController.characterController != null)
+                    PlayerController pController = player.GetComponent<PlayerController>();
+                    if (pController != null)
                     {
-                        winners.Add(player);
-                        playersInGame++;
+                        if (pController.characterController != null)
+                        {
+                            winners.Add(player);
+                            playersInGame++;
+                        }
+                    }
+                }
+
+                if (rules.teamSize == 1)
+                {
+                    //End Game for singles
+                    if (playersInGame == 1)
+                    {
+                        EndMatch(winners);
                     }
                 }
             }
-
-            if (rules.teamSize == 1)
+            else
             {
-                //End Game for singles
-                if (playersInGame == 1)
+                int playersInGame = 0;
+                foreach (PlayerInput player in players)
                 {
-                    EndMatch(winners);
+                    PlayerController pController = player.GetComponent<PlayerController>();
+                    if (pController != null)
+                    {
+                        if (pController.characterController != null)
+                        {
+                            playersInGame++;
+                        }
+                    }
+                }
+
+                if(playersInGame == 0)
+                {
+                    EndMatch();
                 }
             }
         }
@@ -126,6 +150,20 @@ public class GameController : MonoBehaviour
         matchHUDController.UpdateEndScreenText(endScreenText);
         matchHUDController.SetEndScreenVisible(true);
         this.gameState = "menu_match_end";
+    }
+
+    public void EndMatch()
+    {
+        if(this.rules.gameMode == 1)
+        {
+            Time.timeScale = 1.0f;
+            string endScreenText = $"Score: {GameObject.FindGameObjectWithTag("PracticeTarget").GetComponent<PracticeTarget>().hitCount}";
+
+            MatchHUDController matchHUDController = GameObject.Find("MATCH_HUD").GetComponent<MatchHUDController>();
+            matchHUDController.UpdateEndScreenText(endScreenText);
+            matchHUDController.SetEndScreenVisible(true);
+            this.gameState = "menu_match_end";
+        }
     }
 
     public void LoadScene(string scene)
@@ -192,6 +230,11 @@ public class GameController : MonoBehaviour
                 player.matchHUD.UpdatePlayerStockCount(player.stocks);
                 Camera.main.GetComponent<CameraLogic>()?.AddPlayerToCam(c.transform);
             }
+        }
+
+        if(this.rules.gameMode == 1)
+        {
+            GameObject PracticeTarget = Instantiate(PracticeTargetPrefab, new Vector3(), new Quaternion());
         }
 
         GameObject.Find("MATCH_HUD").GetComponent<MatchHUDController>().StartCountdown();
