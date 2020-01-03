@@ -42,19 +42,19 @@ public class SettingsManager : MonoBehaviour
         {
             gc.settings.audioMain = sliderAudioMain.value;
             audioMixer.SetFloat("Master", Mathf.Log10(gc.settings.audioMain) * 10);
-            Debug.Log($"Updated main volume to {sliderAudioMain.value}!");
+            //Debug.Log($"Updated main volume to {sliderAudioMain.value}!");
         }
         else if (slider == sliderAudioSFX)
         {
             gc.settings.audioSFX = sliderAudioSFX.value;
             audioMixer.SetFloat("Environment", Mathf.Log10(gc.settings.audioSFX) * 10);
-            Debug.Log($"Updated sfx volume to {sliderAudioMain.value}!");
+            //Debug.Log($"Updated sfx volume to {sliderAudioMain.value}!");
         }
         else if (slider == sliderAudioBGM)
         {
             gc.settings.audioBGM = sliderAudioBGM.value;
             audioMixer.SetFloat("BackgroundMusic", Mathf.Log10(gc.settings.audioBGM) * 10);
-            Debug.Log($"Updated bgm volume to {sliderAudioMain.value}!");
+            //Debug.Log($"Updated bgm volume to {sliderAudioMain.value}!");
         }
     }
 
@@ -87,7 +87,7 @@ public class SettingsManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("File not found");
+            //Debug.LogError("File not found");
         }
 
 
@@ -100,7 +100,7 @@ public class SettingsManager : MonoBehaviour
         sliderAudioBGM.value = settings.audioBGM;
         audioMixer.SetFloat("BackgroundMusic", Mathf.Log10(settings.audioBGM) * 10);
 
-        Debug.Log("Loaded audio settings from file!");
+        //Debug.Log("Loaded audio settings from file!");
         return;
     }
 
@@ -121,7 +121,7 @@ public class SettingsManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"{e.Message}");
+            //Debug.LogError($"{e.Message}");
         }
     }
 }

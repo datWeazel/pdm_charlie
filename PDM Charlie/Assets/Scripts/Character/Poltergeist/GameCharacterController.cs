@@ -181,15 +181,15 @@ namespace Geist
         private new void OnCollisionEnter(Collision col)
         {
             base.OnCollisionEnter(col);
-            Debug.Log("Geist Col detect");
+            //Debug.Log("Geist Col detect");
             Collider entity = col.collider;
             if (heavyAttackColliderActive)
             {
-                Debug.Log("Geist Col detect heavy active");
+                //Debug.Log("Geist Col detect heavy active");
                 // Check if entity that entered the hitbox collider is a Character and is not the player that attacked
                 if (entity.transform.tag == "Character")
                 {
-                    Debug.Log("Geist Col detect char col");
+                    //Debug.Log("Geist Col detect char col");
                     //@todo: player is null
                     PlayerController player = col.gameObject.GetComponentInParent<PlayerController>();
                     if (!this.hitPlayersHeavy.Contains(player))

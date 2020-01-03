@@ -39,7 +39,7 @@ public class CharacterSelectionController : MonoBehaviour
                 emptyContainer.transform.Find("join_help").GetComponent<Text>().text = $"P{player.GetComponentInParent<PlayerController>().Id}\nChoose character by clicking on one of toys";
 
                 this.gameController.GetComponent<GameController>().AddPlayer(player);
-                Debug.Log("Player joined!");
+                //Debug.Log("Player joined!");
             }
         }
     }
@@ -74,7 +74,7 @@ public class CharacterSelectionController : MonoBehaviour
             container.transform.Find("join_help").GetComponent<Text>().text = "Press Start!";
             this.containerToPlayer.Remove(player);
             this.gameController?.GetComponent<GameController>()?.RemovePlayer(id);
-            Debug.Log("Player left!");
+            //Debug.Log("Player left!");
         }
     }
 }

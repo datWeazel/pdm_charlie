@@ -24,7 +24,7 @@ namespace Nero
         void Update()
         {
             base.Update();
-            Debug.Log($"Update: {this.isAttacking}");
+            //Debug.Log($"Update: {this.isAttacking}");
             if (this.animator != null)
             {
                 // Set animator variables

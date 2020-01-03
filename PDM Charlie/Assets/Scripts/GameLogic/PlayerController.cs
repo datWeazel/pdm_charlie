@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
                 Transform StageNameTag = rr.gameObject.transform.Find("StageNameTag");
                 if (StageNameTag != null) hoveredStageSelector = StageNameTag;
 
-                Debug.Log($"hoveredCharacterSelector({(hoveredCharacterSelector != null)}) || hoveredStageSelector({(hoveredStageSelector != null)})");
+                //Debug.Log($"hoveredCharacterSelector({(hoveredCharacterSelector != null)}) || hoveredStageSelector({(hoveredStageSelector != null)})");
             }
 
             if(hoveredButton == null)
@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator RespawnPlayer(int delayMS)
     {
-        Debug.Log("Respawn incoming. :)");
+        //Debug.Log("Respawn incoming. :)");
         this.isDead = true;
         this.respawnTimer = (respawnDelayMS/1000);
 
@@ -296,7 +296,7 @@ public class PlayerController : MonoBehaviour
         if (this.gameControllerScript?.GetGameState() == "match_active")
         {
             this.characterController?.LightAttackButtonPressed();
-            Debug.Log("light atk");
+            //Debug.Log("light atk");
         }
     }
 
@@ -306,7 +306,7 @@ public class PlayerController : MonoBehaviour
         if (this.gameControllerScript?.GetGameState() == "match_active")
         {
             this.characterController?.LightAttackButtonReleased();
-            Debug.Log("light atk release");
+            //Debug.Log("light atk release");
         }
     }
 

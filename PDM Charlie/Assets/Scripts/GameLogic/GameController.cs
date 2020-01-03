@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour
 
     public void AddPlayer(PlayerInput player)
     {
-        Debug.Log("Joined!");
+        //Debug.Log("Joined!");
         if (gameState == "start_screen")
         {
             SetGameState("menu_main");
@@ -163,7 +163,7 @@ public class GameController : MonoBehaviour
         if (this.stageName == "") return;
 
         gameState = "match_prepare";
-        Debug.Log($"Scene before: {SceneManager.GetActiveScene().name}");
+        //Debug.Log($"Scene before: {SceneManager.GetActiveScene().name}");
 
         LoadScene(this.stageName);
 

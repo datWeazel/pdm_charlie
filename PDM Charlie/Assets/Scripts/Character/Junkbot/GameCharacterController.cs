@@ -45,7 +45,7 @@ namespace Junkbot
         {
             base.FixedUpdate();
 
-            Debug.Log($"Update: {this.isAttacking}");
+            //Debug.Log($"Update: {this.isAttacking}");
             if (this.gameControllerScript.gameState != "match_active") return;
 
             if (this.animator != null)

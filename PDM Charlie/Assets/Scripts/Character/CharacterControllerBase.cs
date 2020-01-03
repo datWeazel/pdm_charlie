@@ -305,12 +305,12 @@ public class CharacterControllerBase : MonoBehaviour
 
     public virtual void OnBecomingPassThroughPlatform()
     {
-        Debug.Log("Became pass through");
+        //Debug.Log("Became pass through");
     }
 
     public virtual void OnLosingPassThroughPlatform()
     {
-        Debug.Log("No longer pass through");
+        //Debug.Log("No longer pass through");
     }
 
 

@@ -17,7 +17,7 @@ public class DisableInvisibleTerrain : MonoBehaviour
         {
             ter.enabled = false;
         }
-        Debug.Log(terrains);
+        //Debug.Log(terrains);
     }
 
     // Update is called once per frame
@@ -25,11 +25,11 @@ public class DisableInvisibleTerrain : MonoBehaviour
     {
         if (other is TerrainCollider)
         {
-            Debug.Log("Is TerrainCol true");
+            //Debug.Log("Is TerrainCol true");
             other.GetComponentInParent<Terrain>().enabled = true;
         } else
         {
-            Debug.Log("Is TerrainCol false");
+            //Debug.Log("Is TerrainCol false");
         }
     }
 

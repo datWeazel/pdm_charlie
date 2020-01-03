@@ -14,7 +14,7 @@ public class BottleComponent : MonoBehaviour
 
     public void OnCollisionEnter(Collision col)
     {
-        Debug.Log("col bottle");
+        //Debug.Log("col bottle");
         if (!isColliding) return;
         Collider entity = col.collider;
         if (entity.transform.tag == "Character")
@@ -27,7 +27,7 @@ public class BottleComponent : MonoBehaviour
                 player.percentage += owner.lightPercentageDamage;
                 player.UpdatePlayerPercentage();
 
-                Debug.Log("damage bottle");
+                //Debug.Log("damage bottle");
                 Vector3 direction = entity.transform.position - this.transform.position;
                 player.characterController.AddForce((direction * (((player.percentage + 1.0f) / 100.0f) * owner.lightAttackStrength)));
                 player.characterController.SetHitStun(owner.lightAttackHitStunDuration);
