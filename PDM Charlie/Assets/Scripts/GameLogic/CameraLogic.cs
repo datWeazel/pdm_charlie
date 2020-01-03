@@ -34,10 +34,12 @@ public class CameraLogic : MonoBehaviour {
 
 	void Update()
 	{
+		float distanceZ = distanceConstZ;
+
 		if (players.Count < 1) return;
 		if(this.players.Count == 1)
 		{
-			this.transform.LookAt(this.players.ElementAt(0));
+			distanceZ -= 4;
 		}
 
 		var hSort = this.players.OrderByDescending(p => p.position.y);
@@ -56,13 +58,13 @@ public class CameraLogic : MonoBehaviour {
 
 		if (distance > -10f) distance = -10f;
         this.desiredPos /= this.players.Count;
-        this.desiredPos.z = distance + this.distanceConstZ;
+        this.desiredPos.z = distance + distanceZ;
         this.desiredPos.y += this.distanceConst;
 	}
 
 	void LateUpdate()
 	{
-		if (this.players.Count <= 1) {
+		if (this.players.Count < 1) {
 			return;
 		}
         this.transform.position = Vector3.MoveTowards(transform.position, this.desiredPos, this.camSpeed);
