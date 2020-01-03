@@ -176,9 +176,7 @@ public class GameController : MonoBehaviour
     /// <returns></returns>
     IEnumerator WaitForSceneToBeLoaded()
     {
-        Debug.Log("TEST");
         yield return new WaitForSeconds(3);
-        Debug.Log($"Scene after : {SceneManager.GetActiveScene().name}");
         foreach (PlayerInput playerInput in players)
         {
             PlayerController player = playerInput.GetComponent<PlayerController>();
@@ -188,7 +186,6 @@ public class GameController : MonoBehaviour
                 GameObject c = player.CreateCharacter(character, GetPlayerStageSpawn(player.Id));               
                 player.stocks = this.rules.stocks;
                 player.matchHUD = GetPlayerMatchInfoController(player.Id);
-                Debug.Log($"matchHUD null? {(player.matchHUD == null)}");
                 player.matchHUD.ActivateParent();
                 player.matchHUD.UpdatePlayerName($"P{player.Id}");
                 player.matchHUD.UpdatePlayerStockCount(player.stocks);

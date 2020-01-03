@@ -22,12 +22,18 @@ namespace Junkbot
         public bool wasJumping;
         public bool wasMoving;
 
+        private GameObject gameController = null;
+        private GameController gameControllerScript = null;
+
 
         // Start is called before the first frame update
         void Start()
         {
             this.animator = GetComponent<Animator>();
             this.audioSource = GetComponent<AudioSource>();
+
+            this.gameController = GameObject.Find("GameController");
+            this.gameControllerScript = gameController.GetComponent<GameController>();
         }
 
         new void Update()
@@ -40,6 +46,8 @@ namespace Junkbot
             base.FixedUpdate();
 
             Debug.Log($"Update: {this.isAttacking}");
+            if (this.gameControllerScript.gameState != "match_active") return;
+
             if (this.animator != null)
             {
                 // Set animator variables
