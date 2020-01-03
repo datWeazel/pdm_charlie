@@ -9,7 +9,7 @@ public class DeathZonesController : MonoBehaviour
 
     AudioSource audioSource = null;
 
-    private void OnStart()
+    private void Start()
     {
         audioSource = this.transform.GetComponent<AudioSource>();
     }
@@ -20,14 +20,10 @@ public class DeathZonesController : MonoBehaviour
         {
             entity.GetComponentInParent<PlayerController>()?.HitDeathZone();
             Camera.main.transform.DOShakePosition(cameraShakeDuration, cameraShakeStrength);
-
-            // Try again to find death zone audio source
-            if(audioSource == null) audioSource = this.transform.GetComponent<AudioSource>();
-
+            
             if (audioSource != null)
             {
                 audioSource.Play();
-                Debug.Log("Playing death zone sound.");
             }
         }
     }
