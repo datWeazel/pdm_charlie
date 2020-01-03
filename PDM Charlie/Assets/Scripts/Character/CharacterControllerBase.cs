@@ -275,6 +275,12 @@ public class CharacterControllerBase : MonoBehaviour
         this.currentRigidbody.velocity = new Vector3();
     }
 
+    public void SetRotation(Quaternion rotation)
+    {
+        this.transform.rotation = rotation;
+        this.currentRigidbody.velocity = new Vector3();
+    }
+
     public Rigidbody GetRigidBody()
     {
         return currentRigidbody;

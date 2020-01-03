@@ -14173,6 +14173,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.29
       objectReference: {fileID: 0}
+    - target: {fileID: 9049428918853596257, guid: a65410a643099394bbc10ad527237380,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049428918853596257, guid: a65410a643099394bbc10ad527237380,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049428918853596257, guid: a65410a643099394bbc10ad527237380,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -180
+      objectReference: {fileID: 0}
     - target: {fileID: 9049428918867627182, guid: a65410a643099394bbc10ad527237380,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -14202,6 +14217,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 6.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049428918529108461, guid: a65410a643099394bbc10ad527237380,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049428918529108461, guid: a65410a643099394bbc10ad527237380,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049428918529108461, guid: a65410a643099394bbc10ad527237380,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049428918529108461, guid: a65410a643099394bbc10ad527237380,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049428918529108461, guid: a65410a643099394bbc10ad527237380,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -180
       objectReference: {fileID: 0}
     - target: {fileID: 9049428918478930976, guid: a65410a643099394bbc10ad527237380,
         type: 3}

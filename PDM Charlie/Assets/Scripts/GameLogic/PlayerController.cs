@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public int Id = -1;
     public int stocks = 1;
     public float percentage = 0;
-    public Vector3 spawnpoint = new Vector3();
+    public (Vector3 position, Quaternion rotation) spawn = (new Vector3(), new Quaternion());
 
     public GameObject selector = null;
     public float selectorSpeed = 1.0f;
@@ -209,17 +209,20 @@ public class PlayerController : MonoBehaviour
 
         UpdatePlayerPercentage();
         this.isDead = false;
-        this.characterController.SetPosition(gameControllerScript.GetPlayerStageSpawn(Id));
+        this.characterController.SetPosition(this.spawn.position);
+        this.characterController.SetRotation(this.spawn.rotation);
         this.characterController.OnCharacterDying();
     }
 
-    public GameObject CreateCharacter(GameObject characterPrefab, Vector3 position)
+    public GameObject CreateCharacter(GameObject characterPrefab, (Vector3 position, Quaternion rotation) spawnLocation)
     {
         GameObject character = Instantiate(characterPrefab, this.transform);
-        character.transform.position = position;
+        this.spawn = spawnLocation;
+
+        character.transform.position = this.spawn.position;
+        character.transform.rotation = this.spawn.rotation;
 
         this.characterController = character.GetComponent<CharacterControllerBase>();
-        this.spawnpoint = position;
 
         return character;
     }
