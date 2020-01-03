@@ -100,6 +100,8 @@ public class SettingsManager : MonoBehaviour
         sliderAudioBGM.value = settings.audioBGM;
         audioMixer.SetFloat("BackgroundMusic", Mathf.Log10(settings.audioBGM) * 10);
 
+        GameObject.Find("MainMenu").GetComponent<AudioSource>().Play();
+
         //Debug.Log("Loaded audio settings from file!");
         return;
     }
