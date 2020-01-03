@@ -2719,6 +2719,7 @@ MonoBehaviour:
   isJumping: 0
   isAttacking: 0
   movementVector: {x: 0, y: 0}
+  hitStun: 0
   movementStopped: 0
   lightAttackHitBox: {fileID: 6622159969267337995}
   idleSound: {fileID: 8300000, guid: c3f7916d39ae9f24686d11928b85f779, type: 3}
@@ -2772,7 +2773,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 6981305867998782010, guid: 2bc176eb593cd0442821f6de03beb987,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

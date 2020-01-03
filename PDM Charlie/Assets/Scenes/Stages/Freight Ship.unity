@@ -6019,7 +6019,7 @@ GameObject:
   - component: {fileID: 924935985}
   - component: {fileID: 924935984}
   m_Layer: 0
-  m_Name: DeathZoneLeft (1)
+  m_Name: DeathZoneRight
   m_TagString: DeathZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
