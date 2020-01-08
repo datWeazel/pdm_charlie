@@ -202,10 +202,12 @@ public class CharacterControllerBase : MonoBehaviour
         {
             if (!this.isMoving)
             {
+                Debug.Log("Jump without stick moved");
                 this.currentRigidbody.velocity = new Vector3(0, this.jumpHeight, 0);
             }
             else
             {
+                Debug.Log($"Jump with stick moved. Stick: {this.movementVector.x}");
                 this.currentRigidbody.AddForce(new Vector3(this.jumpForce * this.movementVector.x, this.jumpHeight, 0));
             }
             this.isJumping = true;
