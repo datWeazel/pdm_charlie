@@ -66,13 +66,13 @@ namespace Geist
             //Make Parts not collide with another
             Physics.IgnoreCollision(this.GetComponent<Collider>(), bottle.GetComponent<Collider>());
 
-            //Get SpringJoint default configuration
-            joints[0] = thisJoint;
+            /*Get SpringJoint default configuration
+            //joints[0] = thisJoint;
             joints[1] = bigJoint;
             joints[2] = smallJoint;
             particles[0] = this.GetComponentInChildren<ParticleSystem>();
             particles[1] = big.GetComponentInChildren<ParticleSystem>();
-            particles[2] = small.GetComponentInChildren<ParticleSystem>();
+            particles[2] = small.GetComponentInChildren<ParticleSystem>();*/
         }
 
         new void Update()
