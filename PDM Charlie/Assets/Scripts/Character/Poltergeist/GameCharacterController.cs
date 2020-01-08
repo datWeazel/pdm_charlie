@@ -49,9 +49,9 @@ namespace Geist
         void Start()
         {
             //Instantiate
-            big = Instantiate(big, this.transform.position, new Quaternion());
-            small = Instantiate(small, this.transform.position, new Quaternion());
-            bottle = Instantiate(bottle, this.transform.position, new Quaternion());
+            big = Instantiate(big, this.transform.position, new Quaternion(), this.transform);
+            small = Instantiate(small, this.transform.position, new Quaternion(), this.transform);
+            bottle = Instantiate(bottle, this.transform.position, new Quaternion(), this.transform);
             bottle.AddComponent<BottleComponent>();
             bottle.GetComponent<BottleComponent>().init(this);
             thisJoint = this.GetComponent<SpringJoint>();
