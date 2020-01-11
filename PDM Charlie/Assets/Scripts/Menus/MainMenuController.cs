@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -17,6 +18,9 @@ public class MainMenuController : MonoBehaviour
     private bool moveCamera = false;
     private Vector3 cameraEndPosition = new Vector3();
     private Quaternion cameraEndRotation;
+
+    public float camMoveSpeed = 2.0f;
+    public float camRotateSpeed = 1.0f;
 
     private void FixedUpdate()
     {
@@ -90,9 +94,11 @@ public class MainMenuController : MonoBehaviour
 
     public void MoveMainMenuCameraToPosition(Vector3 newPosition, Quaternion newRotation)
     {
-        cameraEndPosition = newPosition;
-        cameraEndRotation = newRotation;
-        moveCamera = true;
+        //cameraEndPosition = newPosition;
+        //cameraEndRotation = newRotation;
+        //moveCamera = true;
+        Camera.main.transform.DOMove(newPosition, camMoveSpeed);
+        Camera.main.transform.DORotateQuaternion(newRotation, camRotateSpeed);
     }
 
     public void ExitGame()

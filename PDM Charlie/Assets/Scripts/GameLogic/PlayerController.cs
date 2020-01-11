@@ -345,7 +345,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnSelect()
     {
-        string gameState = this.gameControllerScript.gameState;
+        string gameState = this.gameControllerScript?.gameState;
         if(gameState == "menu_main" || gameState == "menu_character_select")
         {
             GameObject.Destroy(this.gameObject);
