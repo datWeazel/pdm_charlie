@@ -291,6 +291,10 @@ public class PlayerController : MonoBehaviour
                 {
                     this.gameControllerScript.rules.gameMode = 1;
                 }
+                else
+                {
+                    this.gameControllerScript.rules.gameMode = 0;
+                }
             }
             if (hoveredButton.gameObject.name == "btn_match_start" && this.gameControllerScript.stageName == "") return;
 
