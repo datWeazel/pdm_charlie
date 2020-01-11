@@ -84,6 +84,9 @@ public class AttackHitboxControllerBase : MonoBehaviour
                 Vector3 direction = entity.transform.position - this.character.transform.position;
                 player.characterController.AddForce((direction * (((player.percentage+1.0f)/100.0f) * this.strength)));
                 player.characterController.SetHitStun(this.hitStunDuration);
+
+                player.characterController.gameObject.layer = 8; // Set layer to "PassThroughPlatforms"
+                player.characterController.OnBecomingPassThroughPlatform();
             }
         }
         else if(entity.transform.tag == "PracticeTarget")
