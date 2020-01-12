@@ -106,22 +106,29 @@ public class PlayerController : MonoBehaviour
             cursor.position = this.selector.transform.position;
 
             List<RaycastResult> objectsHit = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(cursor, objectsHit);
-            foreach (RaycastResult rr in objectsHit)
+            try
             {
-                if (rr.gameObject.name.Contains("btn_"))
+                EventSystem.current.RaycastAll(cursor, objectsHit);
+                foreach (RaycastResult rr in objectsHit)
                 {
-                    hoveredButton = rr.gameObject.GetComponentInChildren<Button>();
-                    if (oldHoveredButton != hoveredButton)
+                    if (rr.gameObject.name.Contains("btn_"))
                     {
-                        gameControllerScript.UI.GetComponent<MainMenuController>().HoverButton(hoveredButton);
+                        hoveredButton = rr.gameObject.GetComponentInChildren<Button>();
+                        if (oldHoveredButton != hoveredButton)
+                        {
+                            gameControllerScript.UI.GetComponent<MainMenuController>().HoverButton(hoveredButton);
+                        }
                     }
+
+                    Transform StageNameTag = rr.gameObject.transform.Find("StageNameTag");
+                    if (StageNameTag != null) hoveredStageSelector = StageNameTag;
+
+                    //Debug.Log($"hoveredCharacterSelector({(hoveredCharacterSelector != null)}) || hoveredStageSelector({(hoveredStageSelector != null)})");
                 }
-
-                Transform StageNameTag = rr.gameObject.transform.Find("StageNameTag");
-                if (StageNameTag != null) hoveredStageSelector = StageNameTag;
-
-                //Debug.Log($"hoveredCharacterSelector({(hoveredCharacterSelector != null)}) || hoveredStageSelector({(hoveredStageSelector != null)})");
+            }
+            catch(Exception e)
+            {
+                Debug.Log($"Couldn't raycast. Reason: {e.Message} {e.StackTrace}");
             }
 
             if(hoveredButton == null)
