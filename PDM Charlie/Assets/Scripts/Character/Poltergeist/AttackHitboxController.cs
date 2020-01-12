@@ -62,6 +62,7 @@ namespace Geist
 
         private void OnTriggerEnter(Collider entity)
         {
+            Debug.Log($"Hit: {entity.transform.tag}");
             // Check if entity that entered the hitbox collider is a Character and is not the player that attacked
             if (entity.transform.tag == "Character" && entity.gameObject != this.character)
             {
@@ -74,6 +75,11 @@ namespace Geist
                     player.characterController.AddForce((direction * this.strength));
                     player.characterController.SetHitStun(this.hitStunDuration);
                 }
+            }
+            else if (entity.transform.tag == "PracticeTarget")
+            {
+                entity.transform.GetComponent<PracticeTarget>().OnHit();
+                this.transform.GetComponentInParent<PlayerController>().matchHUD.UpdatePlayerPercentage($"{entity.transform.GetComponent<PracticeTarget>().hitCount}");
             }
         }
     }

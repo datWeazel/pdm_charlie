@@ -33,7 +33,11 @@ public class BottleComponent : MonoBehaviour
                 player.GetComponentInChildren<Rigidbody>().AddForce((direction * (((player.percentage + 1.0f) / 100.0f) * owner.lightAttackStrength)), ForceMode.Impulse);
                 player.characterController.SetHitStun(owner.lightAttackHitStunDuration);
             }
-
+        }
+        else if (entity.transform.tag == "PracticeTarget")
+        {
+            entity.transform.GetComponent<PracticeTarget>().OnHit();
+            this.transform.GetComponentInParent<PlayerController>().matchHUD.UpdatePlayerPercentage($"{entity.transform.GetComponent<PracticeTarget>().hitCount}");
         }
     }
 }
