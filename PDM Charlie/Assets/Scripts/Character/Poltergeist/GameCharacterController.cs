@@ -15,6 +15,8 @@ namespace Geist
         public GameObject big;
         public GameObject small;
         public GameObject bottle;
+        public Light eyesLight;
+        public BoxCollider eyeCollider;
 
         private SpringJoint thisJoint;
         private SpringJoint bigJoint;
@@ -34,7 +36,7 @@ namespace Geist
         public float lightPercentageDamage = 0.9f;
         public List<PlayerController> hitPlayersLight = new List<PlayerController>();
 
-        //Variables for Heavy attack
+        /* Old Variables for Heavy attack
         public float chargeUpTime = 0.5f;
         public float minChargeUpTime = 0.6f;
         public float maxChargeUpTime = 2.5f;
@@ -43,7 +45,11 @@ namespace Geist
         public bool heavyAttackColliderActive = false;
         public float heavyAttackStrength = 250.0f;
         public float heavyAttackHitStunDuration = 0.35f;
-        private List<PlayerController> hitPlayersHeavy = new List<PlayerController>();
+        private List<PlayerController> hitPlayersHeavy = new List<PlayerController>();*/
+
+        //Vars for Heavy
+        public float heavyCooldown = 0.0f;
+        public LayerMask m_LayerMask;
 
         // Start is called before the first frame update
         void Start()
@@ -57,6 +63,9 @@ namespace Geist
             thisJoint = this.GetComponent<SpringJoint>();
             bigJoint = big.GetComponent<SpringJoint>();
             smallJoint = small.GetComponent<SpringJoint>();
+            eyesLight = GetComponentInChildren<Light>();
+            eyeCollider = GameObject.Find("EyesLight").GetComponent<BoxCollider>();
+            
 
             //Attach GameObjects to another (this - big - small - bottle)
             thisJoint.connectedBody = big.GetComponent<Rigidbody>();
@@ -117,31 +126,33 @@ namespace Geist
         }
         #endregion
 
+        /* Outdated heavy Attack
         #region Heavy Attack
         public override void HeavyAttack()
         {
-            /*foreach (ParticleSystem particle in particles)
+            foreach (ParticleSystem particle in particles)
             {
                 particle.Stop();
-            }*/
+            }
             movementStopped = true;
             
             chargeUpTime = 0.5f;
-            //bottle.GetComponent<Rigidbody>().isKinematic = true;
+            bottle.GetComponent<Rigidbody>().isKinematic = true;
         }
 
         public override void HeavyAttackHold()
         {
             chargeUpTime += Time.deltaTime;
+            Debug.Log(movementVector.x + " " + movementVector.y);
             
-            bottle.GetComponent<Rigidbody>().rotation = Quaternion.Euler(movementVector.x, movementVector.y, 0);
+            bottle.GetComponent<Rigidbody>().rotation = new Quaternion(movementVector.x, movementVector.y, 0, 0);
         }
 
         public override void HeavyAttackRelease()
         {
             movementStopped = false;
 
-            //bottle.GetComponent<Rigidbody>().isKinematic = false;
+            bottle.GetComponent<Rigidbody>().isKinematic = false;
 
 
             //Cancel attack when minChargeupTime not reached
@@ -163,7 +174,7 @@ namespace Geist
 
             Debug.Log("chargeUp " + chargeUpTime);
             Debug.Log("mvVec.x " + this.movementVector.x);
-            Debug.Log("mvVec.y " + this.movementVector.y);*/
+            Debug.Log("mvVec.y " + this.movementVector.y);
 
             StartCoroutine(WaitHeavy(0.4f));
 
@@ -208,6 +219,33 @@ namespace Geist
         }
 
         #endregion
+
+        */
+
+        #region Heavy Attack
+
+        /*public override void HeavyAttack()
+        {
+            if(heavyCooldown <= 0.0f)
+            {
+                eyesLight.intensity = 8.0f;
+
+                Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale * 2, Quaternion.identity, m_LayerMask);
+                int i = 0;
+                //Check when there is a new collider coming into contact with the box
+                while (i < hitColliders.Length)
+                {
+                    //Output all of the collider names
+                    Debug.Log("Hit : " + hitColliders[i].name + i);
+                    //Increase the number of Colliders in the array
+                    i++;
+                }
+
+            }
+        }*/
+        #endregion
+
+
 
         #region Callbacks
 
