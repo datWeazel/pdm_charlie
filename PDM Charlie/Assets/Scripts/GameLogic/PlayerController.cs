@@ -214,7 +214,14 @@ public class PlayerController : MonoBehaviour
 
         Camera.main.GetComponent<CameraLogic>()?.AddPlayerToCam(this.characterController.transform);
 
-        UpdatePlayerPercentage();
+        if (this.gameControllerScript.rules.gameMode == 0)
+        {
+            UpdatePlayerPercentage();
+        }
+        else
+        {
+            this.matchHUD.UpdatePlayerPercentage($"{GameObject.FindGameObjectWithTag("PracticeTarget").GetComponent<PracticeTarget>().hitCount}");
+        }
         this.isDead = false;
         this.characterController.SetPosition(this.spawn.position);
         this.characterController.SetRotation(this.spawn.rotation);
