@@ -301,7 +301,7 @@ public class PlayerController : MonoBehaviour
                 if (!this.gameControllerScript.DoesEveryPlayerHaveCharacter()) return;
 
 
-                if(this.gameControllerScript.players.Count < 2)
+                if (this.gameControllerScript.players.Count < 2)
                 {
                     this.gameControllerScript.rules.gameMode = 1;
                 }

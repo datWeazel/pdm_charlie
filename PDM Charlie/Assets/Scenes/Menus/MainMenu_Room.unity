@@ -1843,8 +1843,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2109418965}
-        m_MethodName: RaiseStockCount
+      - m_Target: {fileID: 572038335}
+        m_MethodName: RaiseGameStocks
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5151,6 +5151,8 @@ MonoBehaviour:
   stageSelect: {fileID: 1347068841}
   buttonHoverSound: {fileID: 8300000, guid: c98d1455a5f1aea4991ee70686aa66dc, type: 3}
   buttonClickSound: {fileID: 8300000, guid: 19f9b7c843fb98a42869f7323f036976, type: 3}
+  camMoveSpeed: 2
+  camRotateSpeed: 1
 --- !u!1 &573339916
 GameObject:
   m_ObjectHideFlags: 0
@@ -14509,8 +14511,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2109418965}
-        m_MethodName: LowerStockCount
+      - m_Target: {fileID: 572038335}
+        m_MethodName: LowerGameStocks
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

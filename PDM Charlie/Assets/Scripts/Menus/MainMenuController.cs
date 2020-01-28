@@ -92,6 +92,15 @@ public class MainMenuController : MonoBehaviour
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().PrepareMatch();
     }
 
+    public void RaiseGameStocks()
+    {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().RaiseStockCount();
+    }
+    public void LowerGameStocks()
+    {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().LowerStockCount();
+    }
+
     public void MoveMainMenuCameraToPosition(Vector3 newPosition, Quaternion newRotation)
     {
         //cameraEndPosition = newPosition;
