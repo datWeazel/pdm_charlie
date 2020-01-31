@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "7de7a2ca-7e27-49ce-8f64-f6ffbaf0dc26",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -217,6 +217,116 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "DInput DPad",
+                    "id": "563d2b9d-4ebd-4842-99dc-8f58d4a1ced8",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "61f6d866-a9c1-4506-b227-6c7f00d97c0e",
+                    "path": "<Joystick>/stick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "5b509977-2dac-4b45-a8ec-7a1531810d7c",
+                    "path": "<Joystick>/stick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "c284ee16-c8c3-4487-a18b-e3041d614c39",
+                    "path": "<Joystick>/stick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "c68cb94e-84e8-40d3-a238-098a2b2cbb69",
+                    "path": "<Joystick>/stick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "898cf890-cbe8-4576-a9d5-e5384d26d309",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "235ab96a-3fd9-4be3-b9eb-b14257e7dc39",
+                    "path": "<Joystick>/hat/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "b31bcdc9-374d-4e44-9295-bc6de8c2305c",
+                    "path": "<Joystick>/hat/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "e7a490b5-f72d-4aec-bfed-34d09eb20453",
+                    "path": "<Joystick>/hat/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "56ef6487-570f-4f0d-941f-daed0d5d1169",
+                    "path": "<Joystick>/hat/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
                     "path": "<Gamepad>/buttonWest",
@@ -234,6 +344,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "LightAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad112a1f-c964-4067-b31d-2ac053c7f731",
+                    "path": "<joystick>/button4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "LightAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -262,6 +383,17 @@
                 },
                 {
                     "name": "",
+                    "id": "8403eb87-52c0-4e62-bcd6-dde36c2d8f80",
+                    "path": "<Joystick>/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HeavyAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "24451f71-ca34-47e0-a605-adb4b5bbbb0d",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -278,6 +410,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "acecfc89-0715-494c-b97b-60d53a9e1d0f",
+                    "path": "<Joystick>/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -306,6 +449,17 @@
                 },
                 {
                     "name": "",
+                    "id": "3577858f-86fd-4e36-870c-d11f1e7aeb58",
+                    "path": "<Joystick>/button10",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "92dc80ff-9432-4e5a-97fb-9c22f4b9ce8f",
                     "path": "<Gamepad>/select",
                     "interactions": "",
@@ -322,6 +476,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7537546b-0328-4cb1-8aff-d7b23a090d87",
+                    "path": "<Joystick>/button9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -372,6 +537,17 @@
                 },
                 {
                     "name": "",
+                    "id": "89d0bcac-21ad-4c97-8751-0be45a4db975",
+                    "path": "<Joystick>/button4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LightAttackRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "03337104-4c26-432e-b3f3-2cecce5d3028",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
@@ -394,6 +570,17 @@
                 },
                 {
                     "name": "",
+                    "id": "d23a3d46-982e-4cf4-8192-e61010887dec",
+                    "path": "<Joystick>/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HeavyAttackRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d57ac5a7-9abb-45f8-95dc-e865da8d76b1",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -410,6 +597,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "JumpRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0d9da10-c1e0-42ce-aba4-0926e41b39fb",
+                    "path": "<Joystick>/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "JumpRelease",
                     "isComposite": false,
                     "isPartOfComposite": false
